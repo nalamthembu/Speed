@@ -1,0 +1,73 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c68fc1241f0b09b46a46c82d81cf8cd7, type: 3}
+  m_Name: SoundLibrary
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: WheelFX_Skid
+    sounds:
+    - {fileID: 8300000, guid: 7cee3a79815610349a91e646c3a23ead, type: 3}
+    - {fileID: 8300000, guid: 3aa0fff50c0f84643b6cd22d81c0efd9, type: 3}
+    - {fileID: 8300000, guid: 7817dc4ae97be7e4dbc12ce004cb8157, type: 3}
+    - {fileID: 8300000, guid: 48b1b83848fa4cd42b548122c54cd613, type: 3}
+    soundType: 0
+  - name: WheelFX_RoadNoise
+    sounds:
+    - {fileID: 8300000, guid: 2526999fa79dfbb4482359f971c5bbe0, type: 3}
+    - {fileID: 8300000, guid: 459ee4fe818ed704db509b7607657533, type: 3}
+    soundType: 0
+  - name: PlayerFX_Whoosh
+    sounds:
+    - {fileID: 8300000, guid: e2d6eec490c2cfd40a6add97ab6d62bb, type: 3}
+    - {fileID: 8300000, guid: cf78d14c9560a864ebc2f9972366a0d1, type: 3}
+    - {fileID: 8300000, guid: bb7ca463e2066664688f7e721bb8bba9, type: 3}
+    - {fileID: 8300000, guid: 8c177895c27fbfd439e816d06175d81c, type: 3}
+    - {fileID: 8300000, guid: b63f974bc9103c24aa4ddc3905a76e91, type: 3}
+    - {fileID: 8300000, guid: cba0c7cd29508e1448956f91cc632c84, type: 3}
+    - {fileID: 8300000, guid: bb63c29f139d2024e9e594ee14b573c0, type: 3}
+    - {fileID: 8300000, guid: 1498df1e569caa94fbae2ec780e19fcd, type: 3}
+    - {fileID: 8300000, guid: dc5d291c5fa49f74db73b5da2fac55cf, type: 3}
+    - {fileID: 8300000, guid: c7d3516eb23a3f74396650f23307e565, type: 3}
+    - {fileID: 8300000, guid: d5362df1e0906b5489388e7eef8b05fa, type: 3}
+    - {fileID: 8300000, guid: 59bf12f232da1c841be5b31af3b166ad, type: 3}
+    - {fileID: 8300000, guid: d1c63b1272a9aae40a4a314e140cc8f2, type: 3}
+    - {fileID: 8300000, guid: b3f25076c39e732409f83ac827127139, type: 3}
+    - {fileID: 8300000, guid: ea46e50791a1b494f81771eb8862aed7, type: 3}
+    - {fileID: 8300000, guid: 473e55106cf79ae4ea274e2049da41ba, type: 3}
+    - {fileID: 8300000, guid: 787f43bdaf846b14cb276fc0dfcca94d, type: 3}
+    - {fileID: 8300000, guid: 235247e78483cb64aaf293217df18435, type: 3}
+    - {fileID: 8300000, guid: aed7118f4fc7e064499364313d54191f, type: 3}
+    soundType: 0
+  - name: PlayerFX_BigWhoosh
+    sounds:
+    - {fileID: 8300000, guid: 287990da782320a4c9e5189691023ebf, type: 3}
+    - {fileID: 8300000, guid: ecbfb5610ba77a946a1b009f99980fe3, type: 3}
+    - {fileID: 8300000, guid: 03b3b1b62a6f6d84f9652005a356ebc4, type: 3}
+    soundType: 0
+  - name: VehicleFX_Shifting
+    sounds:
+    - {fileID: 8300000, guid: 560ded4b74fa028419e95b8486e425fc, type: 3}
+    - {fileID: 8300000, guid: ab3299ce6d232114087a3cdf02ef2818, type: 3}
+    soundType: 0
+  mixers:
+  - name: Frontend
+    group: {fileID: -8639346490034665312, guid: b1428a4646c72b54fa3a04d915d11afa, type: 2}
+    mixerType: 2
+  - name: Music
+    group: {fileID: -3861914693824272410, guid: b1428a4646c72b54fa3a04d915d11afa, type: 2}
+    mixerType: 1
+  - name: SFX
+    group: {fileID: 7777686326632690598, guid: b1428a4646c72b54fa3a04d915d11afa, type: 2}
+    mixerType: 0
+  - name: Vehicle Sounds
+    group: {fileID: -4490982569798276675, guid: b1428a4646c72b54fa3a04d915d11afa, type: 2}
+    mixerType: 3

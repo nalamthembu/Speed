@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 892dd30a47147f64184c2b51073d9bdb, type: 3}
+  m_Name: Vehicle_Library
+  m_EditorClassIdentifier: 
+  vehicles:
+  - name: Sedan
+    vehicle: {fileID: 6683457880748772358, guid: 470e6302692f99f469912d8e5fa0b3b8, type: 3}
+  - name: Sport
+    vehicle: {fileID: 6393720303507002595, guid: b573db7ff0a68d44a9c1f481d2f5300e, type: 3}
+  - name: UTE
+    vehicle: {fileID: 3380098927805381053, guid: 636add73eed80ff4fb2f159517264d27, type: 3}
+  - name: Muscle
+    vehicle: {fileID: 8329520125519355698, guid: 7495be38bae9dbf4ba72be5c57073423, type: 3}
+  - name: Exotic
+    vehicle: {fileID: 9095938218801826892, guid: 84c803e8fcc9a2d46bd46e1dcbe17562, type: 3}

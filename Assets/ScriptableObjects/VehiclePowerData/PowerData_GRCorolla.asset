@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73003838b8332014da47ebf05c2b3214, type: 3}
+  m_Name: PowerData_GRCorolla
+  m_EditorClassIdentifier: 
+  torqueCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 21.346466
+      value: 80
+      inSlope: 0.36150143
+      outSlope: 0.36150143
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.030013613
+    - serializedVersion: 3
+      time: 3000
+      value: 400
+      inSlope: 0.0016539753
+      outSlope: 0.0016539753
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.19456354
+      outWeight: 0.20237109
+    - serializedVersion: 3
+      time: 6500
+      value: 50.46646
+      inSlope: -0.16464992
+      outSlope: -0.16464992
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.07654506
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverseGearRatio: 3.9
+  gearRatios:
+  - 3.538
+  - 2.238
+  - 1.535
+  - 1.162
+  - 1.081
+  - 0.902
+  speedAtGear:
+  - 50
+  - 90
+  - 120
+  - 144
+  - 200
+  - 270
+  differentialRatio: 3.55
+  timeToChangeGears: 0.25
+  brakeForce: 20
+  idleRPM: 850
+  maxRPM: 6500
+  minRPM: 4000

@@ -1,0 +1,79 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73003838b8332014da47ebf05c2b3214, type: 3}
+  m_Name: PowerData_LamboAventador
+  m_EditorClassIdentifier: 
+  torqueCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 21.346466
+      value: 80
+      inSlope: 0.046080444
+      outSlope: 0.046080444
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.08760795
+    - serializedVersion: 3
+      time: 3000
+      value: 300
+      inSlope: 0.009433246
+      outSlope: 0.009433246
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.07532077
+    - serializedVersion: 3
+      time: 7020.6294
+      value: 400
+      inSlope: -0.0168208
+      outSlope: -0.0168208
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.09553512
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 8000
+      value: 50.46646
+      inSlope: -0.023854213
+      outSlope: -0.023854213
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.20364523
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverseGearRatio: 4
+  gearRatios:
+  - 3.909
+  - 2.438
+  - 1.81
+  - 1.458
+  - 1.081
+  - 1.185
+  - 0.967
+  - 0.844
+  speedAtGear:
+  - 50
+  - 90
+  - 120
+  - 144
+  - 200
+  - 270
+  differentialRatio: 3.55
+  timeToChangeGears: 0.25
+  brakeForce: 50
+  idleRPM: 850
+  maxRPM: 7000
+  minRPM: 4600

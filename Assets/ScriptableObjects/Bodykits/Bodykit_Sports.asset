@@ -1,0 +1,119 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20a0b2d286b47ec43ad105f3150599f7, type: 3}
+  m_Name: Bodykit_Sports
+  m_EditorClassIdentifier: 
+  vehicleName: Sport
+  bonnets:
+  - name: Stock
+    mesh: {fileID: 1429872399762236, guid: d60e1159b848d5442961ab951aca073e, type: 3}
+  - name: Maddog
+    mesh: {fileID: 1869735568665666, guid: 1e49b18369d0b2b40ba94b7e8d6fdd06, type: 3}
+  - name: Charger
+    mesh: {fileID: 1357879928422364, guid: b7d2643e083fb614fa26c59c1a9caead, type: 3}
+  - name: Vacuum
+    mesh: {fileID: 1382870912825058, guid: 6ee160125aaae664dac42d47cbaf8394, type: 3}
+  fenders:
+  - name: Stock
+    mesh: {fileID: 5047498207994504203, guid: a95d61fbaee7f82438f46119c671cb17, type: 3}
+    additionalMeshes: []
+  - name: Weldneir
+    mesh: {fileID: 1798600576029030, guid: 99fbe7eb8c18bb44e93eadac09f7902d, type: 3}
+    additionalMeshes: []
+  - name: Ruffian
+    mesh: {fileID: 1154991917234800, guid: f1e8e182acf64d8479f3864d12293cdd, type: 3}
+    additionalMeshes: []
+  - name: Maddog
+    mesh: {fileID: 1545364784827808, guid: f0f7423f3139fd64c87f4704ecc67a69, type: 3}
+    additionalMeshes: []
+  frontBumpers:
+  - name: Stock
+    mesh: {fileID: 1888969180758694, guid: 0092c77d88794774980d6893d483d27a, type: 3}
+  - name: Vacuum
+    mesh: {fileID: 1475554021459880, guid: 7174be01a072e3043899dd8a73c089dd, type: 3}
+  - name: Bugeyes
+    mesh: {fileID: 1151992281229340, guid: 757ed0fbfcad11145b99ac6b569ae295, type: 3}
+  - name: Cyberpunk
+    mesh: {fileID: 1845093642249586, guid: 2f07485097b5ff34c99a57735f006261, type: 3}
+  rearBumpers:
+  - name: Stock
+    mesh: {fileID: 1573086892410196, guid: 728defce666e2474e9f391cf4f7132f0, type: 3}
+  - name: Vacuum
+    mesh: {fileID: 1382063161868576, guid: 0cdbcae8afa2b874d8ce72031235c41b, type: 3}
+  - name: Bugeyes
+    mesh: {fileID: 1913504639656990, guid: a2d6538133430b4428bac1828c255ec3, type: 3}
+  - name: Cyberpunk
+    mesh: {fileID: 1813106300254688, guid: 38b469dac28a76048afa0dda9a768c4e, type: 3}
+  rollCages:
+  - name: Stock
+    mesh: {fileID: 5047498207994504203, guid: a95d61fbaee7f82438f46119c671cb17, type: 3}
+  - name: Generic Rollcage
+    mesh: {fileID: 1570958773905052, guid: 075abb2c92e6c524bb0ac4461c418689, type: 3}
+  roofScoops:
+  - name: Stock
+    mesh: {fileID: 5047498207994504203, guid: a95d61fbaee7f82438f46119c671cb17, type: 3}
+  - name: Generic Roof Scoop
+    mesh: {fileID: 1152048656638044, guid: 7e68ad381997a43499122b3d8964b956, type: 3}
+  sideSkirts:
+  - name: Stock
+    mesh: {fileID: 5047498207994504203, guid: a95d61fbaee7f82438f46119c671cb17, type: 3}
+  - name: Beta
+    mesh: {fileID: 1513439707555586, guid: 9474069af8cfb1f41bdfaab481bf462e, type: 3}
+  - name: Alpha
+    mesh: {fileID: 1398784858015196, guid: 77c01ed4543ac2b4ca9cf62c2f90177c, type: 3}
+  - name: Delta
+    mesh: {fileID: 1011122294471144, guid: 5c212821cdf196a448c2a230a9bf54c0, type: 3}
+  - name: Yako
+    mesh: {fileID: 1843742544774290, guid: 8b8442756afe2494e96a81d937330981, type: 3}
+  spoilers:
+  - name: Stock
+    mesh: {fileID: 3192475607088930018, guid: 8e3e0497545871642b2d00dc709f185b, type: 3}
+    location: {x: 0, y: 0.98839027, z: -1.5527445}
+  - name: Velocity
+    mesh: {fileID: 1779748309983366, guid: 846d302fbcc355c4eb0eea3a09f50533, type: 3}
+    location: {x: 0, y: 0.98839027, z: -1.5527445}
+  - name: Fishline
+    mesh: {fileID: 1431969345984222, guid: f7213a8f59a6519408504f565299db5c, type: 3}
+    location: {x: 0, y: 0.98839027, z: -1.5527445}
+  - name: Slimline
+    mesh: {fileID: 1689475727991346, guid: 1256182d06993ef44b166cc9be25eb5a, type: 3}
+    location: {x: 0, y: 0.98839027, z: -1.5527445}
+  rims:
+  - {fileID: 11400000, guid: 1f7eaa6f33a06cd46baae4f6ff238c36, type: 2}
+  - {fileID: 11400000, guid: 07aa5a3fd48924e48ac22ae091c54271, type: 2}
+  - {fileID: 11400000, guid: 7073728df91afc14b8a0df9addd61f93, type: 2}
+  - {fileID: 11400000, guid: da6ada43387789146bb7f1aa84420652, type: 2}
+  - {fileID: 11400000, guid: 758d3aef5ee08b241b549681bf217787, type: 2}
+  - {fileID: 11400000, guid: 4417611fd84c0ea40835e6c6f28a2171, type: 2}
+  - {fileID: 11400000, guid: f8b9f1ed2c44ff44a91e22c22724c18f, type: 2}
+  - {fileID: 11400000, guid: e5354cbb50d56db4f9902455e862e812, type: 2}
+  - {fileID: 11400000, guid: 504ed54495651534780e6c7a723c6691, type: 2}
+  - {fileID: 11400000, guid: fb7343cd1d2e70746a8278725a249994, type: 2}
+  - {fileID: 11400000, guid: dd12fadf041c82441a14840088a77a18, type: 2}
+  - {fileID: 11400000, guid: 253f93d82db12fd45af9ce1f8ab13706, type: 2}
+  - {fileID: 11400000, guid: 1f6a1061c1e055b4caafc271463f1e94, type: 2}
+  - {fileID: 11400000, guid: 7451cc4e04cc1044db1b565d1bc1688d, type: 2}
+  - {fileID: 11400000, guid: 49fe1859fa90aae4880b0d7557ba6808, type: 2}
+  - {fileID: 11400000, guid: 1450716da33aee24fb5188c3c689faa8, type: 2}
+  - {fileID: 11400000, guid: 1a81ad302c413b94faf5511c61e418ac, type: 2}
+  - {fileID: 11400000, guid: 9bc1fb4beaa95874cad068db755f75b1, type: 2}
+  - {fileID: 11400000, guid: 87af7ff41ac04794fa401fab66d0c722, type: 2}
+  - {fileID: 11400000, guid: 484e86ef939a6ff4c8e132d2d93f7850, type: 2}
+  - {fileID: 11400000, guid: 5ec67bbb387e61a4399187e84eb865cd, type: 2}
+  - {fileID: 11400000, guid: fc4289539335edc4da04f2a7914c879a, type: 2}
+  - {fileID: 11400000, guid: 9237cdffba02e704088a21314de1a43e, type: 2}
+  - {fileID: 11400000, guid: a73bd21a185b4fc44bd39c314f0dcb4d, type: 2}
+  - {fileID: 11400000, guid: 1906097170d01b1408ee70ea571167c1, type: 2}
+  - {fileID: 11400000, guid: 3e3e0887994b77a48b667bfa275fce95, type: 2}
+  - {fileID: 11400000, guid: c2397f82e9a5cd7498fe7af6dda80868, type: 2}
+  - {fileID: 11400000, guid: cc565ca761139094e955b86b7937e9db, type: 2}
+  - {fileID: 11400000, guid: 189b652803bbb91488c6dc795e520725, type: 2}

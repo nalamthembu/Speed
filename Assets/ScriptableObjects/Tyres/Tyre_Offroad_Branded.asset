@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b67f782c06ffc6e469ff12503f1fa601, type: 3}
+  m_Name: Tyre_Offroad_Branded
+  m_EditorClassIdentifier: 
+  name: Basic Tyre
+  mesh: {fileID: 1393355675000742, guid: 03a31eec3195e074cb9a1e0a659922e7, type: 3}

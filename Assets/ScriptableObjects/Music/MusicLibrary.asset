@@ -1,0 +1,141 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19a59ca7a3e40b84cb2a6d7aaa013577, type: 3}
+  m_Name: MusicLibrary
+  m_EditorClassIdentifier: 
+  music:
+  - title: Top Down
+    artist: Channel Tres
+    clip: {fileID: 8300000, guid: 8cf49a20374c3a14cb1496c8ccf8f812, type: 3}
+    startTimeDuringRace: 36
+    type: 1
+  - title: Shook Ones Pt. II
+    artist: Mobb Deep
+    clip: {fileID: 8300000, guid: 6a728d48acc210a46981cfabb20f46e4, type: 3}
+    startTimeDuringRace: 0
+    type: 0
+  - title: MONACO
+    artist: Bad Bunny
+    clip: {fileID: 8300000, guid: f5a5db7f4212bf442a2b56dc4c906e74, type: 3}
+    startTimeDuringRace: 0
+    type: 1
+  - title: First Person Shooter (ft. J. Cole)
+    artist: Drake
+    clip: {fileID: 8300000, guid: 05027f9e6678b374992ed577c2f13613, type: 3}
+    startTimeDuringRace: 0
+    type: 0
+  - title: Just Doin' Me
+    artist: MOONBOY
+    clip: {fileID: 8300000, guid: e436ea6901c20c94b9357b786523f320, type: 3}
+    startTimeDuringRace: 0
+    type: 1
+  - title: run run run
+    artist: rebug
+    clip: {fileID: 8300000, guid: ff2dd8d7bca63c143b65190755b2ddb7, type: 3}
+    startTimeDuringRace: 0
+    type: 0
+  - title: Fresh Outta Japan
+    artist: Yasko
+    clip: {fileID: 8300000, guid: 4d04b78285f481f42beb0d10093d94bf, type: 3}
+    startTimeDuringRace: 0
+    type: 1
+  - title: BASS GLIDE
+    artist: AYYBO
+    clip: {fileID: 8300000, guid: 7df04d466ba8daa40821dd80f86e9230, type: 3}
+    startTimeDuringRace: 0
+    type: 1
+  - title: RN
+    artist: Joey Valence & Brae
+    clip: {fileID: 8300000, guid: 8c198ef9c99b01649bb3d394e9ff94dd, type: 3}
+    startTimeDuringRace: 0
+    type: 0
+  - title: Rock Your Body
+    artist: Justin Timberlake
+    clip: {fileID: 8300000, guid: 2e38aa23e453f9440b37274199965d00, type: 3}
+    startTimeDuringRace: 0
+    type: 0
+  - title: Keep Your Distance
+    artist: enta
+    clip: {fileID: 8300000, guid: 6668ceec53a012c4da02794b2008250a, type: 3}
+    startTimeDuringRace: 0
+    type: 1
+  - title: dashstar*
+    artist: Knock2
+    clip: {fileID: 8300000, guid: cf5b565e77911a84588af45205496a39, type: 3}
+    startTimeDuringRace: 0
+    type: 1
+  - title: Iniesta Flow (ft. scruz)
+    artist: namebliss
+    clip: {fileID: 8300000, guid: 9344d4ef51a6df84999ba9af90201724, type: 3}
+    startTimeDuringRace: 0
+    type: 0
+  - title: NY State of Mind
+    artist: Nas
+    clip: {fileID: 8300000, guid: 30b59bbe760294b498f69f9a572efa4a, type: 3}
+    startTimeDuringRace: 0
+    type: 0
+  - title: Next Level (Nyte Time Mix)
+    artist: Showbiz & A.G.
+    clip: {fileID: 8300000, guid: fede5b6348c0f61489e8eada7316cbd4, type: 3}
+    startTimeDuringRace: 0
+    type: 0
+  - title: SexyBack
+    artist: Justin Timberlake
+    clip: {fileID: 8300000, guid: a36236708e824ad4db523d22e52d43e9, type: 3}
+    startTimeDuringRace: 0
+    type: 0
+  - title: Rumble (ft. Fred again.. & Flowdan)
+    artist: 'Skrillex '
+    clip: {fileID: 8300000, guid: 4d0658fae644d794290e81ebde8c14b2, type: 3}
+    startTimeDuringRace: 0
+    type: 1
+  - title: RATATA (ft. Missy Elliott & Mr. Oizo)
+    artist: 'Skrillex '
+    clip: {fileID: 8300000, guid: f2ec18cd85f396c4d96228732bb3d7d9, type: 3}
+    startTimeDuringRace: 0
+    type: 1
+  - title: Kick in the Door
+    artist: The Notorious B.I.G
+    clip: {fileID: 8300000, guid: 2b556e165978cb3499e64ac8abda9268, type: 3}
+    startTimeDuringRace: 0
+    type: 0
+  - title: The Ten Crack Commandments
+    artist: The Notorious B.I.G
+    clip: {fileID: 8300000, guid: a3a6d56282439c749ba8d20bc0978270, type: 3}
+    startTimeDuringRace: 0
+    type: 0
+  - title: Hustle's Revenge
+    artist: DTAILR
+    clip: {fileID: 8300000, guid: 860a1b6b348efd54b9d5d405971322cd, type: 3}
+    startTimeDuringRace: 0
+    type: 1
+  - title: Through Glass
+    artist: Taiki Nulight
+    clip: {fileID: 8300000, guid: 507520df1e87db742a5402049c9e47ed, type: 3}
+    startTimeDuringRace: 0
+    type: 1
+  - title: Pilsplat
+    artist: Bonkers
+    clip: {fileID: 8300000, guid: 463eb6f16c987de419e8337ee1b4765c, type: 3}
+    startTimeDuringRace: 0
+    type: 1
+  - title: Pump It Up
+    artist: Joe Budden
+    clip: {fileID: 8300000, guid: 1297c4c495220ed4bb5faeb25f2addf1, type: 3}
+    startTimeDuringRace: 0
+    type: 1
+  - title: Satisfaction
+    artist: Eve
+    clip: {fileID: 8300000, guid: 1705693d4c1c5504492aa68c1dbad102, type: 3}
+    startTimeDuringRace: 0
+    type: 0
+  musicMixerGroup: {fileID: -3861914693824272410, guid: b1428a4646c72b54fa3a04d915d11afa, type: 2}
