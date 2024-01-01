@@ -48,9 +48,6 @@ public class PlayerSounds : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == layerToIgnore)
-            return;
-
         if (other.bounds.extents.sqrMagnitude <= minObjectSize * minObjectSize)
             return;
 

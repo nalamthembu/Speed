@@ -11,6 +11,8 @@ public class CameraController : MonoBehaviour
 
     [SerializeField] float handHeldIntensity;
 
+    [SerializeField] LayerMask obstructionLayer;
+
     private int camIndex;
 
     private float idleTimer = 0;
@@ -59,7 +61,17 @@ public class CameraController : MonoBehaviour
 
         Vector3 highSpeedPosition = (targetPos - transform.forward * -camSettings[camIndex].maxedFOVPosition.z + transform.up * camSettings[camIndex].maxedFOVPosition.y);
 
-        transform.position = Vector3.Lerp(normalPosition, highSpeedPosition, t);
+        Vector3 desiredCamPos = Vector3.Lerp(normalPosition, highSpeedPosition, t);
+
+        // Check for camera collision
+        float obstacleOffset = 0.1f; // Adjust this offset value as needed
+        if (Physics.Raycast(target.position, -transform.forward, out RaycastHit hit, camSettings[camIndex].cameraPosition.z + obstacleOffset, obstructionLayer))
+        {
+            // If there is an obstacle, pull the camera in closer with an offset
+            desiredCamPos = hit.point + transform.forward * obstacleOffset;
+        }
+
+        transform.position = desiredCamPos;
 
         transform.forward = Vector3.SmoothDamp(transform.forward, target.forward, ref velocity, rotationTime);
     }
