@@ -17,15 +17,28 @@ public class Player : Racer
         }
     }
 
-    private void InitialisePlayer()
+    public void InitialisePlayer()
     {
         Vehicle vehicle;
 
         if (SaveSystem.TryLoad(out PlayerData data))
         {
-            if (data is null)
-                goto INIT;
-            else
+            if (data is null) //Could not Load Game
+            {
+                vehicle =
+                    VehicleManager.instance.SpawnVehicle
+                    (
+                        VehicleManager.instance.vehicleLib.vehicles[0].name,
+                        new Vector3[]
+                        {
+                            transform.localPosition,
+                            transform.localEulerAngles
+                        }
+                    );
+
+                Initialise(vehicle);
+            }
+            else //Loading was successful.
             {
                 vehicle =
                     VehicleManager.instance.SpawnVehicle
@@ -61,24 +74,10 @@ public class Player : Racer
 
                 kit.InitialiseBodyKit();
             }
-
-            return;
         }
 
-    INIT:
-
-        vehicle =
-            VehicleManager.instance.SpawnVehicle
-                    (
-                        VehicleManager.instance.vehicleLib.vehicles[0].name,
-                        new Vector3[]
-                        {
-                            transform.localPosition,
-                            transform.localEulerAngles
-                        }
-                    );
-
-        Initialise(vehicle);
+        CameraController.Instance.SetCameraFocus(this.vehicle.GetComponent<PlayerVehicleInput>().camera_Focus);
+        GameManager.Instance.InitPlayer();
     }
 
     public void Initialise(Vehicle vehicle)
@@ -87,13 +86,5 @@ public class Player : Racer
         this.vehicle.transform.parent = transform;
         this.vehicle.transform.SetLocalPositionAndRotation(transform.localPosition, transform.localRotation);
         this.vehicle.GetComponent<PlayerVehicleInput>().playerControlEnabled = true;
-        
-    }
-
-    private void Start()
-    {
-        InitialisePlayer();
-        CameraController.instance.SetCameraFocus(vehicle.GetComponent<PlayerVehicleInput>().camera_Focus);
-        GameManager.instance.InitPlayer();
     }
 }

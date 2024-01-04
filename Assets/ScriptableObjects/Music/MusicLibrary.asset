@@ -13,6 +13,16 @@ MonoBehaviour:
   m_Name: MusicLibrary
   m_EditorClassIdentifier: 
   music:
+  - title: Guess Who's Back
+    artist: Rakim
+    clip: {fileID: 8300000, guid: 60dfb2a5ad21bd5458d1d625e5f962d6, type: 3}
+    startTimeDuringRace: 0
+    type: 0
+  - title: Satisfaction
+    artist: Eve
+    clip: {fileID: 8300000, guid: 1705693d4c1c5504492aa68c1dbad102, type: 3}
+    startTimeDuringRace: 0
+    type: 0
   - title: Top Down
     artist: Channel Tres
     clip: {fileID: 8300000, guid: 8cf49a20374c3a14cb1496c8ccf8f812, type: 3}
@@ -133,9 +143,4 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 1297c4c495220ed4bb5faeb25f2addf1, type: 3}
     startTimeDuringRace: 0
     type: 1
-  - title: Satisfaction
-    artist: Eve
-    clip: {fileID: 8300000, guid: 1705693d4c1c5504492aa68c1dbad102, type: 3}
-    startTimeDuringRace: 0
-    type: 0
   musicMixerGroup: {fileID: -3861914693824272410, guid: b1428a4646c72b54fa3a04d915d11afa, type: 2}

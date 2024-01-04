@@ -19,7 +19,10 @@ public class VehicleManager : MonoBehaviour
     private void Awake()
     {
         if (instance is null)
+        {
             instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
         else
         {
             Destroy(gameObject);
@@ -97,47 +100,38 @@ public class VehicleManager : MonoBehaviour
         return null;
     }
 
-    //LEFT RIGHT OPTIONS IN VEHICLE SELECT IN GARAGE.
-    public void SpawnNextVehicleInGarage_LEFT()
+    public int GetVehicleCount() => vehicleCount;
+
+    public void SetSelectedVehicle(int selectedVehicle)
     {
-        selectedVehicle--;
+        if (selectedVehicle > vehicleCount - 1)
+            selectedVehicle = 0;
+
         if (selectedVehicle < 0)
             selectedVehicle = vehicleCount - 1;
 
-        string vehicleName;
-
-        for (int i = 0; i < vehicleCount; i++)
-        {
-            if (i == selectedVehicle)
-            {
-                vehicleName = vehicleLib.vehicles[i].name;
-
-                GarageManager.instance.SetDisplayVehicle(vehicleName);
-
-                break;
-            }
-        }
+        this.selectedVehicle = selectedVehicle;
     }
 
-    public void SpawnNextVehicleInGarage_RIGHT()
+    public int GetSelectedVehicle() => selectedVehicle;
+
+    public bool TryGetSelectedVehicleName(int index, out string vehicleName)
     {
-        selectedVehicle++;
-        if (selectedVehicle >= vehicleCount)
-            selectedVehicle = 0;
-
-        string vehicleName;
-
         for (int i = 0; i < vehicleCount; i++)
         {
             if (i == selectedVehicle)
             {
                 vehicleName = vehicleLib.vehicles[i].name;
 
-                GarageManager.instance.SetDisplayVehicle(vehicleName);
-
-                break;
+                return true;
             }
         }
+
+        Debug.LogError("Could not find vehicle index : " + index);
+
+        vehicleName = string.Empty;
+
+        return false;
     }
 
     public void SpawnVehicleWithDriverType(string name, DriverType driverType, Vector3 position, Vector3 rotation)

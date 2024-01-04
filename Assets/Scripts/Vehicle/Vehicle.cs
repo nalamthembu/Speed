@@ -54,6 +54,8 @@ public class Vehicle : MonoBehaviour
     private const float TIME_BEFORE_AUTORESET = 3;
     private float currentResetTimer = 0;
 
+    public void SetSimulatePhysics(bool value) => rigidBody.isKinematic = !value; //this is flipped because IsKinematic false means that it isKinematic (respects physics).
+
     private void Awake()
     {
         input = GetComponent<VehicleInput>();

@@ -24,7 +24,7 @@ public class CarAudio : MonoBehaviour
 
     private void Update()
     {
-        if (GameManager.instance.IsInGarage)
+        if (GameManager.Instance.IsInMenu)
             simulated = false;
         else
             simulated = true;

@@ -1,0 +1,83 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f242caec41b0c1a409ac6da2ad608cf3, type: 3}
+  m_Name: CameraViewData
+  m_EditorClassIdentifier: 
+  CameraViews:
+  - ID: ID_MainMenu
+    position: {x: 6.384, y: 1.272, z: -4.799}
+    rotation: {x: 0.2, y: 323, z: 10}
+    fieldOfView: 30
+  - ID: ID_VehicleSelection
+    position: {x: -2.5, y: 2.25, z: 5.85}
+    rotation: {x: 5, y: 137, z: 0}
+    fieldOfView: 40
+  - ID: ID_CustomiseVehicle
+    position: {x: 3.53, y: 1.7, z: 5.5}
+    rotation: {x: 0, y: 223, z: 15}
+    fieldOfView: 60
+  - ID: ID_CustomiseVehicle_Body
+    position: {x: 3.57, y: 1.7, z: 5.8}
+    rotation: {x: 0.01, y: 223, z: 15.05}
+    fieldOfView: 40
+  - ID: ID_CustomiseVehicle_Performance
+    position: {x: 3.5, y: 7, z: 3.92}
+    rotation: {x: 50.52, y: 250.3, z: 14.7}
+    fieldOfView: 70
+  - ID: ID_CustomiseVehicle_Visuals
+    position: {x: 2.83, y: 2.6, z: 5.18}
+    rotation: {x: 20.2, y: 223.04, z: 15.05}
+    fieldOfView: 60
+  - ID: ID_QuickRace
+    position: {x: -5, y: 1.9, z: 2.2}
+    rotation: {x: 353.2, y: 241, z: 0}
+    fieldOfView: 60
+  - ID: ID_CustFBumper
+    position: {x: 2.64, y: 1.7, z: 5.5}
+    rotation: {x: 0, y: 223, z: 15.05}
+    fieldOfView: 60
+  - ID: ID_CustBonnet
+    position: {x: -0.06, y: 4.58, z: 5.5}
+    rotation: {x: 43.1, y: 177.9, z: 0}
+    fieldOfView: 50
+  - ID: ID_CustRBumper
+    position: {x: 3.6, y: 1.34, z: -2.66}
+    rotation: {x: 0, y: 330.34, z: -15.6}
+    fieldOfView: 60
+  - ID: ID_CustRims
+    position: {x: 3.52, y: 1.02, z: 3.64}
+    rotation: {x: 1.4, y: -105.08, z: 8.9}
+    fieldOfView: 50
+  - ID: ID_CustSpoiler
+    position: {x: 0.05, y: 2.5, z: -3.6}
+    rotation: {x: 15, y: 38, z: 0}
+    fieldOfView: 50
+  - ID: ID_CustFenders
+    position: {x: -1.42, y: 1.6, z: -0.84}
+    rotation: {x: 2.63, y: 41, z: -6}
+    fieldOfView: 50
+  - ID: ID_CustSideSkirts
+    position: {x: -5.32, y: 2.27, z: -2.51}
+    rotation: {x: 3.81, y: 65.4, z: 7.55}
+    fieldOfView: 30
+  - ID: ID_CustPaint
+    position: {x: -2.5, y: 2.25, z: 5.85}
+    rotation: {x: 5, y: 137, z: 0}
+    fieldOfView: 40
+  - ID: ID_Options
+    position: {x: -2.5, y: 2.25, z: 5.85}
+    rotation: {x: 5, y: 137, z: 0}
+    fieldOfView: 40
+  - ID: ID_Music
+    position: {x: 7.9, y: 1.1, z: 3.87}
+    rotation: {x: 0.7, y: 215.8, z: 0}
+    fieldOfView: 40

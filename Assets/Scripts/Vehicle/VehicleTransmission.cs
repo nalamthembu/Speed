@@ -42,7 +42,7 @@ public class VehicleTransmission : MonoBehaviour
 
     private void InitSound()
     {
-        if (GameManager.instance.IsInGarage)
+        if (GameManager.Instance.IsInMenu)
             return;
 
         source = gameObject.AddComponent<AudioSource>();

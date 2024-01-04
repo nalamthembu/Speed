@@ -58,6 +58,10 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 560ded4b74fa028419e95b8486e425fc, type: 3}
     - {fileID: 8300000, guid: ab3299ce6d232114087a3cdf02ef2818, type: 3}
     soundType: 0
+  - name: BTNFX_CLICK
+    sounds:
+    - {fileID: 8300000, guid: 543236f242f9431428466e9591d325cc, type: 3}
+    soundType: 2
   mixers:
   - name: Frontend
     group: {fileID: -8639346490034665312, guid: b1428a4646c72b54fa3a04d915d11afa, type: 2}

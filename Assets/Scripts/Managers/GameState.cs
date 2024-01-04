@@ -10,18 +10,18 @@ public class GameStatePaused : GameState
 {
     public override void CheckForStateChange(GameStateMachine stateMachine)
     {
-        if (!GameManager.instance.IsPaused)
+        if (!GameManager.Instance.IsPaused)
         {
-            if (GameManager.instance.IsInRace)
+            if (GameManager.Instance.IsInRace)
             {
                 stateMachine.SwitchState(stateMachine.gameState_Race);
             }
 
-            if (GameManager.instance.IsInRace == false)
+            if (GameManager.Instance.IsInRace == false)
             {
                 stateMachine.SwitchState(stateMachine.gameState_Menu);
                 //If we're not in a race theres no need to keep track of all the rigidbodies in the scene.
-                if (!GameManager.instance.IsInRace)
+                if (!GameManager.Instance.IsInRace)
                     stateMachine.bodies.Clear();
             }
         }
@@ -55,9 +55,10 @@ public class GameStatePaused : GameState
 
 public class GameStateInMenu : GameState
 {
+
     public override void CheckForStateChange(GameStateMachine stateMachine)
     {
-        if (GameManager.instance.IsInRace)
+        if (GameManager.Instance.IsInRace)
         {
             stateMachine.SwitchState(stateMachine.gameState_Race);
         }
@@ -67,6 +68,9 @@ public class GameStateInMenu : GameState
 
     public override void EnterState(GameStateMachine stateMachine)
     {
+        //Freeze All Rigidbodies
+        stateMachine.StopAllRigidbodies();
+
         //Change music style to menu ( garage ) music.
         if (FEManager.instance.IsReadingInput == false)
         {
@@ -93,9 +97,9 @@ public class GameStateInRace : GameState
 {
     public override void CheckForStateChange(GameStateMachine stateMachine)
     {
-        if (!GameManager.instance.IsPaused)
+        if (!GameManager.Instance.IsPaused)
         {
-            if (!GameManager.instance.IsInRace)
+            if (!GameManager.Instance.IsInRace)
             {
                 stateMachine.SwitchState(stateMachine.gameState_Menu);
             }
@@ -123,7 +127,7 @@ public class GameStateInRace : GameState
         }
 
         //If we're not in a race theres no need to keep track of all the rigidbodies in the scene.
-        if (!GameManager.instance.IsInRace)
+        if (!GameManager.Instance.IsInRace)
             stateMachine.bodies.Clear();
 
         return;

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class GameStateMachine : MonoBehaviour
 {
@@ -9,6 +10,10 @@ public class GameStateMachine : MonoBehaviour
     public GameStateInRace gameState_Race = new();
     public GameStatePaused gameState_Paused = new();
     public GameState gameState_Current;
+
+    private GameStateEnum m_GameStateEnum;
+
+    public event Action OnIsRacing, OnIsInMenu, OnIsPaused;
 
     //Every rigidbody in the scene is kept here to "pause" when the game is in the paused state.
     public List<Body> bodies;
@@ -46,7 +51,31 @@ public class GameStateMachine : MonoBehaviour
         gameState_Current = newState;
 
         gameState_Current.EnterState(this);
+
+        switch (gameState_Current)
+        {
+            case GameStateInMenu:
+                m_GameStateEnum = GameStateEnum.IsInMenu;
+                OnIsInMenu?.Invoke();
+                break;
+
+            case GameStatePaused:
+                m_GameStateEnum = GameStateEnum.IsPaused;
+                OnIsPaused?.Invoke();
+                break;
+
+            case GameStateInRace:
+                m_GameStateEnum = GameStateEnum.IsRacing;
+
+                if (Player.instance != null)
+                    Player.instance.InitialisePlayer();
+
+                OnIsRacing?.Invoke();
+                break;
+        }
     }
+
+    public GameStateEnum GetCurrentGameState() => m_GameStateEnum;
 
     #region RIGIDBODY_MANAGEMENT
     public void GetAllRigidbodies()
@@ -110,4 +139,11 @@ public struct Body
         this.rigidbody = rigidbody;
         this.wasPreviouslyKinematic = wasPreviouslyKinematic;
     }
+}
+
+public enum GameStateEnum
+{
+    IsRacing,
+    IsInMenu,
+    IsPaused,
 }

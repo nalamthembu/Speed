@@ -78,8 +78,15 @@ public class Wheel : MonoBehaviour
 
     private void ResizeWheelCollider()
     {
-        Bounds b = rTyre.GetComponent<MeshRenderer>().bounds;
-        collider.radius = b.size.z / 2;
+        if (TryGetComponent<MeshRenderer>(out var meshRenderer))
+        {
+            Bounds b = meshRenderer.bounds;
+            collider.radius = b.size.z / 2;
+        }
+        else
+        {
+            Debug.LogError("Could not find MeshRenderer");
+        }
     }
 
     [ContextMenu("Spawn Wheel (DEBUG)")]

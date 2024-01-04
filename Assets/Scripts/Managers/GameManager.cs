@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using RaceSystem;
+using UnityEngine.SceneManagement;
 
 [
     RequireComponent
@@ -10,13 +10,13 @@ using RaceSystem;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager instance;
+    public static GameManager Instance;
 
     private Player player;
 
     public bool IsPaused;
     public bool IsInRace;
-    public bool IsInGarage;
+    public bool IsInMenu;
 
     public bool DEBUG_MODE = false;
 
@@ -26,8 +26,11 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        if (instance is null)
-            instance = this;
+        if (Instance is null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
         else
         {
             Destroy(gameObject);
@@ -40,12 +43,46 @@ public class GameManager : MonoBehaviour
     private void InitialiseVFX()
     {
         SKIDMARK_PARENTOBJ = new GameObject("SKID_MARK_VFX");
+        DontDestroyOnLoad(SKIDMARK_PARENTOBJ);
     }
 
     public void InitPlayer()
     {
-        FEManager.instance.FE_Racing.maxRev = Player.instance.Vehicle.Transmission.powerData.maxRPM;
+        RacingHUD.Instance.SetMaxRev(Player.instance.Vehicle.Transmission.powerData.maxRPM);
     }
+
+    private void OnEnable() => SceneManager.sceneLoaded += CheckIfIsInMenuLevel;
+
+    private void OnDisable() => SceneManager.sceneLoaded -= CheckIfIsInMenuLevel;
+
+
+    private void CheckIfIsInMenuLevel(Scene scene, LoadSceneMode loadSceneMode)
+    {
+        print("** DEBUG ** : CHECKING LEVEL -> " + scene.name);
+
+        bool WeAreInMenuLevel = LevelManager.Instance.GetCurrentLevel() == 0 || LevelManager.Instance.GetCurrentLevel() == 1;
+
+        if (WeAreInMenuLevel)
+        {
+            IsInRace = false;
+
+            IsInMenu = true;
+
+            print("** DEBUG ** IS IN MENU/GARAGE");
+        }
+        else
+        {
+            IsInRace = true;
+
+            IsInMenu = false;
+
+            print("** DEBUG ** IS NOT IN MENU/GARAGE");
+        }
+
+        MusicManager.instance.FadeInCurrentSong();
+        MusicManager.instance.PlayRandomSong();
+    }
+
 
     private void OnApplicationFocus(bool focus)
     {
@@ -63,9 +100,11 @@ public class GameManager : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Alpha0))
             {
-                SaveSystem.TrySave(player.Vehicle);
-
                 Debug.LogWarning("** DEBUG : ATTEMPTING TO SAVE **");
+                if (SaveSystem.TrySave(player.Vehicle))
+                    Debug.Log("** DEBUG : SAVED SUCESSFULLY **");
+                else
+                    Debug.LogError("** DEBUG : SAVE FAILED! **");
             }
         }
 
@@ -73,10 +112,6 @@ public class GameManager : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                //YOU CAN'T PAUSE UNTIL THE RACE STARTS.
-                if (!Race.instance.RaceHasStarted && IsInRace)
-                    return;
-
                 IsPaused = !IsPaused;
 
                 FEManager.instance.IsReadingInput = IsPaused;
@@ -89,9 +124,9 @@ public class GameManager : MonoBehaviour
                 SetCursorMode(CursorLockMode.Confined, false);
             }
 
-            FEManager.instance.FE_Racing.gearIndicator.text = Player.instance.Vehicle.Transmission.IsInReverse ? "R" : (Player.instance.Vehicle.Transmission.CurrentGear + 1).ToString();
-            FEManager.instance.FE_Racing.speedometer.text = Mathf.Floor(Player.instance.Vehicle.SpeedKMH) + "KM/H";
-            FEManager.instance.FE_Racing.currentRev = Player.instance.Vehicle.Engine.RPM;
+            RacingHUD.Instance.SetGearIndicator(Player.instance.Vehicle.Transmission.IsInReverse ? "R" : (Player.instance.Vehicle.Transmission.CurrentGear + 1).ToString());
+            RacingHUD.Instance.SetSpeedometer(Player.instance.Vehicle.SpeedKMH);
+            RacingHUD.Instance.SetRev(Player.instance.Vehicle.Engine.RPM);
         }
         else
         {

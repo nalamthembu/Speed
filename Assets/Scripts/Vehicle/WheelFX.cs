@@ -93,7 +93,7 @@ public class WheelFX : MonoBehaviour
 
     void Update()
     {
-        if (!m_WheelCollider.GetGroundHit(out m_WheelHit) || GameIsPaused() || GameManager.instance.IsInGarage)
+        if (!m_WheelCollider.GetGroundHit(out m_WheelHit) || GameIsPaused() || GameManager.Instance.IsInMenu)
         {
             if (m_SkidSource.isPlaying)
                 StopAllSounds();
@@ -263,7 +263,7 @@ public class WheelFX : MonoBehaviour
         markMesh.uv = uvm;
         filter.mesh = markMesh;
         renderer.material = m_SkidMaterial;
-        mark.transform.SetParent(GameManager.instance.SKIDMARK_PARENTOBJ.transform);
+        mark.transform.SetParent(GameManager.Instance.SKIDMARK_PARENTOBJ.transform);
         Destroy(mark, GameManager.SKIDMARK_LIFETIME);
     }
 

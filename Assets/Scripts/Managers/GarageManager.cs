@@ -3,26 +3,16 @@ using UnityEngine;
 
 public class GarageManager : MonoBehaviour
 {
-    [SerializeField] CameraView[] cameraViews;
 
-    [SerializeField] Camera garageCamera;
-
-    [SerializeField] Vector3[] cameraMatrix = new Vector3[3]; //Position, Rotation, FOV(x) only 
-
-    [SerializeField] Transform vehicleSpawnPoint;
+    [SerializeField] Transform m_VehicleSpawnPoint;
 
     [SerializeField] TMP_Text vehicleName_SelectionScreen;
-
-    private string DEBUG_CURRENT_CAM_VIEW;
 
     //TO-DO : SAVE DISPLAY VEHICLE TO FILE FOR PLAYER TO SPAWN IN.
 
     Vehicle displayVehicle;
 
     public static GarageManager instance;
-
-    public bool DEBUG_MODE;
-    public Transform VehicleSpawnPoint { get { return vehicleSpawnPoint; } }
 
     public void SetDisplayVehicle(string vehicleName)
     {
@@ -34,8 +24,8 @@ public class GarageManager : MonoBehaviour
         (
             vehicleName,
             new Vector3[]
-            { vehicleSpawnPoint.position,
-                    vehicleSpawnPoint.eulerAngles
+            { m_VehicleSpawnPoint.position,
+                    m_VehicleSpawnPoint.eulerAngles
             }
          );
 
@@ -43,7 +33,13 @@ public class GarageManager : MonoBehaviour
             Debug.LogError("Selection screen is not available");
 
         vehicleName_SelectionScreen.text = vehicleName;
+
+        displayVehicle.SetSimulatePhysics(false);
+
+        displayVehicle.transform.parent = m_VehicleSpawnPoint;
     }
+
+    //0 references on this method means its being called by a OnClickEvent()
 
     public void ChangePartOnDisplayVehicle(string partNameAndChangeDirection)
     {
@@ -264,11 +260,6 @@ public class GarageManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
-        if (garageCamera is null)
-        {
-            Debug.LogError("**DEBUG** : Garage Camera is NULL");
-        }
     }
 
     private void Start()
@@ -276,8 +267,6 @@ public class GarageManager : MonoBehaviour
         string randomVehicleName = VehicleManager.instance.vehicleLib.vehicles[Random.Range(0, VehicleManager.instance.vehicleLib.vehicles.Length)].name;
 
         vehicleName_SelectionScreen.text = randomVehicleName;
-
-        GoToCameraView(cameraViews[0].name);
 
         if (SaveSystem.TryLoad(out PlayerData data))
         {
@@ -291,8 +280,8 @@ public class GarageManager : MonoBehaviour
                         data.vehicleName,
                         new Vector3[]
                         {
-                            vehicleSpawnPoint.position,
-                            vehicleSpawnPoint.eulerAngles
+                            m_VehicleSpawnPoint.position,
+                            m_VehicleSpawnPoint.eulerAngles
                         }
                     );
 
@@ -319,67 +308,31 @@ public class GarageManager : MonoBehaviour
             }
 
             print("vehicle loaded successfully");
+
+            displayVehicle.SetSimulatePhysics(false);
+            displayVehicle.transform.parent = m_VehicleSpawnPoint;
+            displayVehicle.transform.localPosition = displayVehicle.transform.localEulerAngles *= 0;
         }
     }
 
-    public void GoToCameraView(string viewName)
+    //LEFT RIGHT OPTIONS IN VEHICLE SELECT IN GARAGE.
+    public void SpawnNextVehicleInGarage_LEFT()
     {
-        for (int i = 0; i < viewName.Length; i++)
-        {
-            if (cameraViews[i].name.Equals(viewName))
-            {
-                cameraMatrix = new Vector3[]
-                {
-                    cameraViews[i].position,
-                    cameraViews[i].rotation,
-                    Vector3.one * cameraViews[i].fieldOfView
-                };
-
-                DEBUG_CURRENT_CAM_VIEW = viewName;
-
-                return;
-            }
-        }
+        VehicleManager.instance.SetSelectedVehicle(VehicleManager.instance.GetSelectedVehicle() - 1);
+        if (VehicleManager.instance.TryGetSelectedVehicleName(VehicleManager.instance.GetSelectedVehicle(), out string vehicleName))
+            SetDisplayVehicle(vehicleName);
     }
 
-    Vector3 camPosVel;
-    float fovVel;
-
-    private void LateUpdate()
+    public void SpawnNextVehicleInGarage_RIGHT()
     {
-        if (DEBUG_MODE)
-            GoToCameraView(DEBUG_CURRENT_CAM_VIEW);
-
-        garageCamera.transform.position = Vector3.SmoothDamp(garageCamera.transform.position, cameraMatrix[0], ref camPosVel, 0.5F);
-        garageCamera.transform.rotation = Quaternion.Lerp(garageCamera.transform.rotation, Quaternion.Euler(cameraMatrix[1]), Time.deltaTime * 7.5F);
-        garageCamera.fieldOfView = Mathf.SmoothDamp(garageCamera.fieldOfView, cameraMatrix[2].x, ref fovVel, .96F);
+        VehicleManager.instance.SetSelectedVehicle(VehicleManager.instance.GetSelectedVehicle() + 1);
+        if (VehicleManager.instance.TryGetSelectedVehicleName(VehicleManager.instance.GetSelectedVehicle(), out string vehicleName))
+            SetDisplayVehicle(vehicleName);
     }
+
 
     public void SaveVehicle()
     {
         SaveSystem.TrySave(displayVehicle);
     }
-
-    //DEBUG
-    private void OnDrawGizmos()
-    {
-        if (cameraViews.Length > 0)
-        {
-            Gizmos.color = Color.cyan;
-
-            foreach (CameraView view in cameraViews)
-            {
-                Gizmos.DrawWireCube(view.position, Vector3.one * 0.25f);
-            }
-        }
-    }
-}
-
-[System.Serializable]
-public struct CameraView
-{
-    public string name;
-    public Vector3 position;
-    public Vector3 rotation;
-    public float fieldOfView;
 }

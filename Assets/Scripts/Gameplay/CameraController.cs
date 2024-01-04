@@ -9,7 +9,7 @@ public class CameraController : MonoBehaviour
 
     [SerializeField] float rotationTime = 0.25F;
 
-    [SerializeField] float handHeldIntensity;
+    [SerializeField] float handHeldSmoothing, handHeldRange, handHeldSmoothTime;
 
     [SerializeField] LayerMask obstructionLayer;
 
@@ -17,18 +17,22 @@ public class CameraController : MonoBehaviour
 
     private float idleTimer = 0;
 
+    private Vector3 handHeldVelocity;
+
     private const float MAX_IDLE_TIME = 10.0F;
 
     private Transform target;
 
-    public static CameraController instance;
+    public static CameraController Instance;
 
     new private Camera camera;
 
+    public bool IsUsingIdleCamera { get; private set; }
+
     private void Awake()
     {
-        if (instance is null)
-            instance = this;
+        if (Instance is null)
+            Instance = this;
         else
             Destroy(gameObject);
 
@@ -42,11 +46,11 @@ public class CameraController : MonoBehaviour
 
     Vector3 velocity;
 
-    Vector3 idleCameraVelocity;
-
-    private void Update()
+    private void LateUpdate()
     {
-        if (UseIdleCamera())
+        IsUsingIdleCamera = ShouldUseIdleCamera();
+
+        if (IsUsingIdleCamera)
         {
             return;
         }
@@ -74,9 +78,10 @@ public class CameraController : MonoBehaviour
         transform.position = desiredCamPos;
 
         transform.forward = Vector3.SmoothDamp(transform.forward, target.forward, ref velocity, rotationTime);
+        ShouldDoHandHeldEffect(t >= 0.5F, camSettings[camIndex].handHeldSmoothingTime);
     }
 
-    public bool UseIdleCamera()
+    public bool ShouldUseIdleCamera()
     {
         float flooredVehicleSpeed = Mathf.FloorToInt(Player.instance.Vehicle.SpeedKMH);
 
@@ -92,18 +97,42 @@ public class CameraController : MonoBehaviour
 
         if (idleTimer >= MAX_IDLE_TIME)
         {
-            Vector3 idlePosition = (target.position - transform.forward * -idleSettings.cameraPosition.z + transform.up * idleSettings.cameraPosition.y + transform.right * idleSettings.cameraPosition.x);
+            transform.position = Vector3.Lerp(transform.position, target.position + idleSettings.GetCurrentCameraPreset().position, Time.deltaTime * 2);
 
-            transform.position = Vector3.SmoothDamp(transform.position, idlePosition, ref idleCameraVelocity, 2.0F);
+            transform.eulerAngles = Vector3.Lerp(transform.eulerAngles, idleSettings.GetCurrentCameraPreset().rotation, Time.deltaTime * 2);
 
-            transform.eulerAngles = Vector3.up * idleSettings.yAxisRotation;
+            camera.fieldOfView = Mathf.Lerp(camera.fieldOfView, idleSettings.GetCurrentCameraPreset().fieldOfView, Time.deltaTime * 2);
 
-            camera.fieldOfView = idleSettings.FOV;
+            ShouldDoHandHeldEffect(true, handHeldSmoothing);
+
+            idleSettings.Update();
 
             return true;
         }
 
+        ShouldDoHandHeldEffect(false);
+
         return false;
+    }
+
+    private void ShouldDoHandHeldEffect(bool handHeldEffectEnabled, float smoothing = 5)
+    {
+        if (handHeldEffectEnabled == true)
+        {
+
+            Vector3 handHeldPosition = new()
+            {
+                x = Mathf.Sin(Time.time * handHeldSmoothing) * Random.Range(-handHeldRange, handHeldRange),
+                y = Mathf.Cos(Time.time * handHeldSmoothing) * Random.Range(-handHeldRange, handHeldRange),
+                z = Random.Range(-handHeldRange, handHeldRange)
+            };
+
+            camera.transform.localPosition = Vector3.SmoothDamp(camera.transform.localPosition, handHeldPosition, ref handHeldVelocity, smoothing);
+
+            return;
+        }
+
+        camera.transform.localPosition = Vector3.zero;
     }
 
     public void SetCameraFocus(Transform newTarget)
@@ -111,6 +140,21 @@ public class CameraController : MonoBehaviour
         target = newTarget;
         Debug.Log("Camera focus set to : " + newTarget);
     }
+
+    private void OnEnable()
+    {
+        GameStateMachine.instance.OnIsRacing += GameStateIsRacing;
+        GameStateMachine.instance.OnIsInMenu += GameStateIsInMenu;
+    }
+
+    private void OnDisable()
+    {
+        GameStateMachine.instance.OnIsRacing -= GameStateIsRacing;
+        GameStateMachine.instance.OnIsInMenu -= GameStateIsInMenu;
+    }
+
+    private void GameStateIsInMenu() => gameObject.SetActive(false);
+    private void GameStateIsRacing() => gameObject.SetActive(true);
 }
 
 [System.Serializable]
@@ -120,16 +164,58 @@ public struct CameraSettings
 
     [Range(10, 100)] public float minFOV, maxFOV;
 
+    [Range(0, 100)] public float handHeldSmoothingTime;
+
     [Range(10, 250)] public float maxFOVSpeed;
 }
 
 [System.Serializable]
 public struct IdleCameraSettings
 {
-    public Vector3 cameraPosition;
+    [SerializeField] IdleCameraPreset[] m_IdleCameraPresets;
 
-    [Range(-360, 360)] public float yAxisRotation;
+    private IdleCameraPreset m_CurrentIdleCamPreset;
 
-    [Range(10, 100)] public float FOV;
+    [Range(1, 10)] public float cameraChangeFrequencyInSeconds;
 
+    private float currentTime;
+
+    int currentIndex;
+
+    public IdleCameraPreset GetCurrentCameraPreset() => m_CurrentIdleCamPreset;
+
+    public void SetTargetCameraPosition(int index)
+    {
+        m_CurrentIdleCamPreset = m_IdleCameraPresets[index];
+    }
+
+    public void Update()
+    {
+        if (m_IdleCameraPresets.Length > 0)
+        {
+            currentTime += Time.deltaTime;
+
+            if (currentTime >= cameraChangeFrequencyInSeconds)
+            {
+                currentIndex++;
+
+                if (currentIndex >= m_IdleCameraPresets.Length)
+                    currentIndex = 0;
+
+                SetTargetCameraPosition(currentIndex);
+
+                currentTime = 0;
+            }
+        }
+    }
+}
+
+[System.Serializable]
+public struct IdleCameraPreset
+{
+    public Vector3 position;
+
+    public Vector3 rotation;
+
+    public float fieldOfView;
 }
