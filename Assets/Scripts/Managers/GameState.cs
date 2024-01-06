@@ -1,4 +1,6 @@
-﻿public abstract class GameState
+﻿using UnityEngine;
+
+public abstract class GameState
 {
     public abstract void EnterState(GameStateMachine stateMachine);
     public abstract void UpdateState(GameStateMachine stateMachine);
@@ -55,7 +57,6 @@ public class GameStatePaused : GameState
 
 public class GameStateInMenu : GameState
 {
-
     public override void CheckForStateChange(GameStateMachine stateMachine)
     {
         if (GameManager.Instance.IsInRace)
@@ -112,19 +113,25 @@ public class GameStateInRace : GameState
 
     public override void EnterState(GameStateMachine stateMachine)
     {
-        // if music is not in race style -> change it to race type music.
+        //Make sure there is a player vehicle in the scene.
+        if (Player.instance != null)
+        {
+            if (Player.instance.Vehicle == null)
+            {
+                Player.instance.InitialisePlayer();
+            }
+        }
+        else
+            Debug.LogError("There is no Player Object in the scene!");
+
+        //Get all rigidbodies
         stateMachine.GetAllRigidbodies();
+
     }
 
     public override void ExitState(GameStateMachine stateMachine)
     {
-        for (int i = 0; i < stateMachine.bodies.Count; i++)
-        {
-            if (stateMachine.bodies[i].wasPreviouslyKinematic)
-                continue;
-
-            stateMachine.bodies[i].rigidbody.isKinematic = false;
-        }
+        stateMachine.ResumeAllRigidbodies();
 
         //If we're not in a race theres no need to keep track of all the rigidbodies in the scene.
         if (!GameManager.Instance.IsInRace)

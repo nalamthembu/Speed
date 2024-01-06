@@ -9,7 +9,7 @@ public class FEManager : MonoBehaviour
 {
     public static FEManager instance;
 
-    public Leaderboard FE_Leaderboard;
+    [SerializeField] PauseMenu m_PauseMenu;
 
     public NotificationSystem FE_Notifications;
 
@@ -47,6 +47,19 @@ public class FEManager : MonoBehaviour
     {
         if (IsReadingInput)
             frontEndInput.ReadInput();
+
+        if (GameManager.Instance.IsInRace)
+            m_PauseMenu.Update();
+    }
+
+    private void OnEnable()
+    {
+        m_PauseMenu.OnEnable();
+    }
+
+    private void OnDisable()
+    {
+        m_PauseMenu.OnDisable();
     }
 
     //FRONT END METHODS
@@ -185,17 +198,6 @@ public struct FEInput
 }
 
 [System.Serializable]
-public struct Leaderboard
-{
-    public TMP_Text playerPosition;
-    public TMP_Text raceProgress;
-    public TMP_Text timeElapsed;
-    public CanvasGroup canvasGroup;
-
-    public bool Visible;
-}
-
-[System.Serializable]
 public struct NotificationSystem
 {
     public TMP_Text notificationText;
@@ -209,13 +211,73 @@ public struct Transitions //BLACK_SCREEN
 }
 
 [System.Serializable]
-public struct GarageSubMenu
+public class PauseMenu
 {
-    public string name;
-    public string id;
-    public Vector2 size;
-    public GameObject[] menuElements;
-    public GameObject[] importantElements;
-    public CanvasGroup canvasGroup;
-    public bool isActive { get; set; }
+    private bool m_Enabled;
+
+    [SerializeField] CanvasGroup m_CanvasGroup;
+
+    private float m_AlphaVelocity;
+
+    public void OnEnable()
+    {
+        GameStateMachine.Instance.OnIsPaused += OnPaused;
+        GameStateMachine.Instance.OnIsRacing += OnResume;
+    }
+
+    public void OnDisable()
+    {
+        GameStateMachine.Instance.OnIsPaused -= OnPaused;
+        GameStateMachine.Instance.OnIsRacing -= OnResume;
+    }
+
+    public void Update()
+    {
+        DoVisibility();
+    }
+
+    private void DoVisibility()
+    {
+        if (m_Enabled)
+        {
+            if (m_CanvasGroup.alpha <= 1)
+            {
+                m_CanvasGroup.alpha = Mathf.SmoothDamp(m_CanvasGroup.alpha, 1, ref m_AlphaVelocity, 0.5F);
+
+                if (m_CanvasGroup.alpha + 0.1F >= 1)
+                {
+                    m_CanvasGroup.alpha = 1;
+
+                    m_CanvasGroup.interactable = true;
+                }
+            }
+        }
+        else
+        {
+            if (m_CanvasGroup.alpha > 0)
+            {
+                m_CanvasGroup.alpha = Mathf.SmoothDamp(m_CanvasGroup.alpha, 0, ref m_AlphaVelocity, 0.5F);
+
+                if (m_CanvasGroup.alpha - 0.1F <= 0)
+                {
+                    m_CanvasGroup.alpha = 0;
+
+                    m_CanvasGroup.interactable = false;
+                }
+            }
+        }
+    }
+
+
+    private void OnResume()
+    {
+        m_Enabled = false;
+        m_CanvasGroup.gameObject.SetActive(m_Enabled);
+    }
+
+    private void OnPaused()
+    {
+        m_Enabled = true;
+        m_CanvasGroup.gameObject.SetActive(m_Enabled);
+    }
 }

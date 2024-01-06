@@ -26,6 +26,17 @@ public class GarageUI : MonoBehaviour
         SoundManager.instance.PlaySound("BTNFX_CLICK", sourceUI);
     }
 
+    public void QuitGame()
+    {
+#if UNITY_EDITOR
+        if (Application.isEditor)
+        {
+            UnityEditor.EditorApplication.isPlaying = false;
+        }
+#endif
+        Application.Quit();
+    }
+
     private void Awake()
     {
         if (m_CamViewManager is null)

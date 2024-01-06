@@ -24,6 +24,8 @@ public class Vehicle : MonoBehaviour
 
     public Axis[] axes;
 
+    [SerializeField] Seat[] seats;
+
     private Rigidbody rigidBody;
 
     private VehicleInput input;
@@ -97,6 +99,16 @@ public class Vehicle : MonoBehaviour
         SetMaxSteerAngle();
 
         IsAIRacer = GetComponent<AIDriver>();
+    }
+
+
+    public void InitialiseSeatCharacter(GameObject characterPrefab, SeatType seatType)
+    {
+        for (int i = 0; i < seats.Length; i++)
+        {
+            if (seatType == seats[i].GetSeatType())
+                seats[i].InitialiseSeat(characterPrefab);
+        }
     }
 
     private void SetMaxSteerAngle()
@@ -276,4 +288,33 @@ public struct Axis
                isSteering == axis.isSteering &&
                steerRadius == axis.steerRadius;
     }
+}
+
+[System.Serializable]
+public struct Seat
+{
+    [SerializeField] SeatType m_SeatType;
+
+    [SerializeField] GameObject m_CharacterPrefab; //The character we spawn into the seat.
+
+    [SerializeField] Transform m_SeatTransform;
+
+    public SeatType GetSeatType() => m_SeatType;
+
+    public void InitialiseSeat(GameObject characterPrefab = null)
+    {
+        if (characterPrefab == null)
+        Object.Instantiate(m_CharacterPrefab, m_SeatTransform.position, m_SeatTransform.rotation, m_SeatTransform);
+        else
+            Object.Instantiate(characterPrefab, m_SeatTransform.position, m_SeatTransform.rotation, m_SeatTransform);
+    }
+
+}
+
+public enum SeatType
+{
+    RearLeft,
+    RearRight,
+    Passenger,
+    Driver
 }

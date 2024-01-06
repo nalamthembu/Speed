@@ -12,8 +12,6 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-    private Player player;
-
     public bool IsPaused;
     public bool IsInRace;
     public bool IsInMenu;
@@ -29,7 +27,6 @@ public class GameManager : MonoBehaviour
         if (Instance is null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -96,20 +93,31 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (DEBUG_MODE)
+        if (Debug.isDebugBuild)
         {
-            if (Input.GetKeyDown(KeyCode.Alpha0))
+            if (DEBUG_MODE)
             {
-                Debug.LogWarning("** DEBUG : ATTEMPTING TO SAVE **");
-                if (SaveSystem.TrySave(player.Vehicle))
-                    Debug.Log("** DEBUG : SAVED SUCESSFULLY **");
-                else
-                    Debug.LogError("** DEBUG : SAVE FAILED! **");
+                if (Input.GetKeyDown(KeyCode.Alpha0))
+                {
+                    Debug.LogWarning("** DEBUG : ATTEMPTING TO SAVE **");
+                    if (SaveSystem.TrySave(Player.instance.Vehicle))
+                        Debug.Log("** DEBUG : SAVED SUCESSFULLY **");
+                    else
+                        Debug.LogError("** DEBUG : SAVE FAILED! **");
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.Insert))
+            {
+                Debug.developerConsoleVisible = !Debug.developerConsoleVisible;
             }
         }
 
         if (IsInRace)
         {
+            if (Player.instance == null || RacingHUD.Instance == null || Player.instance.Vehicle is null)
+                return;
+
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 IsPaused = !IsPaused;

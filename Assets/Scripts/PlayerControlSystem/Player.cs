@@ -6,6 +6,8 @@ public class Player : Racer
     //I ONLY WANT ONE INSTANCE OF THE PLAYER IN ANY SCENE.
     public static Player instance;
 
+    [SerializeField] GameObject m_PlayerCharacterPrefab;
+
     protected override void Awake()
     {
         if (instance is null)
@@ -80,7 +82,7 @@ public class Player : Racer
         GameManager.Instance.InitPlayer();
     }
 
-    public void Initialise(Vehicle vehicle)
+    private void Initialise(Vehicle vehicle)
     {
         this.vehicle = vehicle;
         this.vehicle.transform.parent = transform;

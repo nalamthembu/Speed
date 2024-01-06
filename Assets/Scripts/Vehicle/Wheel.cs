@@ -30,7 +30,6 @@ public class Wheel : MonoBehaviour
 
     private void Awake()
     {
-        collider = GetComponent<WheelCollider>();
         SpawnWheelAndRim();
     }
 
@@ -78,9 +77,18 @@ public class Wheel : MonoBehaviour
 
     private void ResizeWheelCollider()
     {
-        if (TryGetComponent<MeshRenderer>(out var meshRenderer))
+        //Change : Of course this object wouldn't have a mesh renderer on it!
+        //You need to get it from the tyre *Mesh* itself
+        if (tyre.mesh.TryGetComponent<MeshRenderer>(out var meshRenderer))
         {
             Bounds b = meshRenderer.bounds;
+
+            if (collider is null)
+            {
+                Debug.LogError("Wheel Collider is null!");
+                return;
+            }
+              
             collider.radius = b.size.z / 2;
         }
         else
@@ -92,6 +100,9 @@ public class Wheel : MonoBehaviour
     [ContextMenu("Spawn Wheel (DEBUG)")]
     public void SpawnWheelAndRim()
     {
+        if (collider is null)
+            collider = GetComponent<WheelCollider>();
+
         Vector3 wheelDirection = Vector3.zero;
 
         if (rTyre)

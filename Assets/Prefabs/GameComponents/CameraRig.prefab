@@ -147,7 +147,9 @@ MonoBehaviour:
     maxedFOVPosition: {x: 0, y: -0.5, z: -6}
     minFOV: 50
     maxFOV: 90
+    handHeldSmoothingTime: 1.2
     maxFOVSpeed: 100
+    maxHandHeldSpeed: 100
   idleSettings:
     m_IdleCameraPresets:
     - position: {x: -3.73, y: -0.97, z: -6.75}
@@ -155,7 +157,9 @@ MonoBehaviour:
       fieldOfView: 40
     cameraChangeFrequencyInSeconds: 5
   rotationTime: 0.95
-  handHeldIntensity: 0.1
+  handHeldSmoothing: 1.2
+  handHeldRange: 10
+  handHeldSmoothTime: 5
   obstructionLayer:
     serializedVersion: 2
     m_Bits: 1

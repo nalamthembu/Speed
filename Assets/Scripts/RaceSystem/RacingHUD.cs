@@ -33,6 +33,9 @@ public class RacingHUD : MonoBehaviour
     float alphaOnVelocity = 0;
     float alphaOffVelocity = 0;
 
+    //Flags
+    bool m_bHUDInitialised;
+
     public TMP_Text GetGearIndicator() => m_GearIndicator;
     public TMP_Text GetSpeedometer() => m_Speedometer;
     public void SetGearIndicator(string gear) => m_GearIndicator.text = gear;
@@ -47,14 +50,41 @@ public class RacingHUD : MonoBehaviour
             Destroy(gameObject);
     }
 
-    private void Start() => GameStateMachine.instance.OnIsRacing += InitialiseRacingHUD;
-    private void OnDisable() => GameStateMachine.instance.OnIsRacing -= InitialiseRacingHUD;
+    private void Start()
+    {
+        GameStateMachine.Instance.OnIsRacing += InitialiseRacingHUD;
+        GameStateMachine.Instance.OnIsPaused += OnGamePaused;
+    }
 
+    private void OnDisable()
+    {
+        GameStateMachine.Instance.OnIsRacing -= InitialiseRacingHUD;
+        GameStateMachine.Instance.OnIsPaused -= OnGamePaused;
+    }
+
+    //Called when this game is paused.
+    private void OnGamePaused()
+    {
+        if (!m_bHUDInitialised)
+            InitialiseRacingHUD();
+
+        m_CanvasGroup.gameObject.SetActive(false);
+    }
+
+    //Called when we init and/or when we resume a game from pause.
     public void InitialiseRacingHUD()
     {
-        InitialiseRevCounter();
-        FindPlayerAndAttachMiniMap();
-        InitialiseVehicleIcons();
+        if (!m_bHUDInitialised)
+        {
+            InitialiseRevCounter();
+            FindPlayerAndAttachMiniMap();
+            InitialiseVehicleIcons();
+
+            m_bHUDInitialised = true;
+        }
+
+        if (!m_CanvasGroup.gameObject.activeSelf)
+            m_CanvasGroup.gameObject.SetActive(true);
     }
 
     private void InitialiseVehicleIcons()
@@ -186,7 +216,7 @@ public class RacingHUD : MonoBehaviour
 
     public void Update()
     {
-        if (GameStateMachine.instance.GetCurrentGameState() == GameStateEnum.IsRacing)
+        if (GameStateMachine.Instance.GetCurrentGameState() == GameStateEnum.IsRacing)
         {
             if (!ShouldBeVisible())
                 return;

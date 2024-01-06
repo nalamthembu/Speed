@@ -78,7 +78,7 @@ public class CameraController : MonoBehaviour
         transform.position = desiredCamPos;
 
         transform.forward = Vector3.SmoothDamp(transform.forward, target.forward, ref velocity, rotationTime);
-        ShouldDoHandHeldEffect(t >= 0.5F, camSettings[camIndex].handHeldSmoothingTime);
+        DoHandHeldEffect(Player.instance.Vehicle.SpeedKMH / camSettings[camIndex].maxHandHeldSpeed, camSettings[camIndex].handHeldSmoothingTime);
     }
 
     public bool ShouldUseIdleCamera()
@@ -115,11 +115,25 @@ public class CameraController : MonoBehaviour
         return false;
     }
 
+    private void DoHandHeldEffect(float percent, float smoothing = 5)
+    {
+        Vector3 handHeldPosition = new()
+        {
+            x = Mathf.Sin(Time.time * handHeldSmoothing) * Random.Range(-handHeldRange, handHeldRange),
+            y = Mathf.Cos(Time.time * handHeldSmoothing) * Random.Range(-handHeldRange, handHeldRange),
+            z = Random.Range(-handHeldRange, handHeldRange)
+        };
+
+        handHeldPosition *= Mathf.Lerp(0, 1, Mathf.Clamp01(percent));
+
+        camera.transform.localPosition = Vector3.SmoothDamp(camera.transform.localPosition, handHeldPosition, ref handHeldVelocity, smoothing);
+    }
+
     private void ShouldDoHandHeldEffect(bool handHeldEffectEnabled, float smoothing = 5)
     {
-        if (handHeldEffectEnabled == true)
-        {
 
+        if (handHeldEffectEnabled == true)
+        { 
             Vector3 handHeldPosition = new()
             {
                 x = Mathf.Sin(Time.time * handHeldSmoothing) * Random.Range(-handHeldRange, handHeldRange),
@@ -143,14 +157,14 @@ public class CameraController : MonoBehaviour
 
     private void OnEnable()
     {
-        GameStateMachine.instance.OnIsRacing += GameStateIsRacing;
-        GameStateMachine.instance.OnIsInMenu += GameStateIsInMenu;
+        GameStateMachine.Instance.OnIsRacing += GameStateIsRacing;
+        GameStateMachine.Instance.OnIsInMenu += GameStateIsInMenu;
     }
 
     private void OnDisable()
     {
-        GameStateMachine.instance.OnIsRacing -= GameStateIsRacing;
-        GameStateMachine.instance.OnIsInMenu -= GameStateIsInMenu;
+        GameStateMachine.Instance.OnIsRacing -= GameStateIsRacing;
+        GameStateMachine.Instance.OnIsInMenu -= GameStateIsInMenu;
     }
 
     private void GameStateIsInMenu() => gameObject.SetActive(false);
@@ -166,7 +180,7 @@ public struct CameraSettings
 
     [Range(0, 100)] public float handHeldSmoothingTime;
 
-    [Range(10, 250)] public float maxFOVSpeed;
+    [Range(10, 250)] public float maxFOVSpeed, maxHandHeldSpeed;
 }
 
 [System.Serializable]

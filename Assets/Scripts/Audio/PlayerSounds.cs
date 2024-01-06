@@ -48,6 +48,9 @@ public class PlayerSounds : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (Player.instance == null || Player.instance.Vehicle == null)
+            return;
+
         if (other.bounds.extents.sqrMagnitude <= minObjectSize * minObjectSize)
             return;
 

@@ -29,11 +29,8 @@ public class MusicManager : MonoBehaviour
 
     private void Awake()
     {
-        if (instance is null)
-        {
+        if (instance == null)
             instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
         else
         {
             Destroy(gameObject);
@@ -45,6 +42,8 @@ public class MusicManager : MonoBehaviour
         source.outputAudioMixerGroup = musicScriptable.musicMixerGroup;
 
         source.bypassReverbZones = true;
+
+        DontDestroyOnLoad(gameObject);
     }
 
     private void Start()

@@ -264,55 +264,77 @@ public class GarageManager : MonoBehaviour
 
     private void Start()
     {
-        string randomVehicleName = VehicleManager.instance.vehicleLib.vehicles[Random.Range(0, VehicleManager.instance.vehicleLib.vehicles.Length)].name;
-
-        vehicleName_SelectionScreen.text = randomVehicleName;
-
         if (SaveSystem.TryLoad(out PlayerData data))
         {
-            if (data is null)
-                print("could not load game");
-            else
-            {
-                displayVehicle =
-                    VehicleManager.instance.SpawnVehicle
-                    (
-                        data.vehicleName,
-                        new Vector3[]
-                        {
+            displayVehicle =
+                VehicleManager.instance.SpawnVehicle
+                (
+                    data.vehicleName,
+                    new Vector3[]
+                    {
                             m_VehicleSpawnPoint.position,
                             m_VehicleSpawnPoint.eulerAngles
-                        }
-                    );
+                    }
+                );
 
-                if (displayVehicle is null)
-                {
-                    Debug.LogError("**VEHICLE IS NULL**");
-                    return;
-                }
-
-                //SETUPKIT
-                var kit = displayVehicle.GetComponent<VehicleBodyKitManager>();
-                kit.kitIndiceSettings.bonnet = data.kitIndices[0];
-                kit.kitIndiceSettings.fender = data.kitIndices[1];
-                kit.kitIndiceSettings.frontBumper = data.kitIndices[2];
-                kit.kitIndiceSettings.rearBumper = data.kitIndices[3];
-                kit.kitIndiceSettings.rollCage = data.kitIndices[4];
-                kit.kitIndiceSettings.roofScoop = data.kitIndices[5];
-                kit.kitIndiceSettings.sideSkirt = data.kitIndices[6];
-                kit.kitIndiceSettings.spoiler = data.kitIndices[7];
-                kit.kitIndiceSettings.rims = data.kitIndices[8];
-                kit.paintJobSettings.paintJobIndex = data.paintJobIndex;
-
-                kit.InitialiseBodyKit();
+            if (displayVehicle is null)
+            {
+                Debug.LogError("**VEHICLE IS NULL**");
+                return;
             }
 
-            print("vehicle loaded successfully");
+            //SETUPKIT
+            var kit = displayVehicle.GetComponent<VehicleBodyKitManager>();
+            kit.kitIndiceSettings.bonnet = data.kitIndices[0];
+            kit.kitIndiceSettings.fender = data.kitIndices[1];
+            kit.kitIndiceSettings.frontBumper = data.kitIndices[2];
+            kit.kitIndiceSettings.rearBumper = data.kitIndices[3];
+            kit.kitIndiceSettings.rollCage = data.kitIndices[4];
+            kit.kitIndiceSettings.roofScoop = data.kitIndices[5];
+            kit.kitIndiceSettings.sideSkirt = data.kitIndices[6];
+            kit.kitIndiceSettings.spoiler = data.kitIndices[7];
+            kit.kitIndiceSettings.rims = data.kitIndices[8];
+            kit.paintJobSettings.paintJobIndex = data.paintJobIndex;
+
+            kit.InitialiseBodyKit();
+        }
+
+        if (data is null)
+        {
+            print("could not load game, loading random vehicle");
+
+            string randomVehicleName = VehicleManager.instance.vehicleLib.vehicles[Random.Range(0, VehicleManager.instance.vehicleLib.vehicles.Length)].name;
+
+            vehicleName_SelectionScreen.text = randomVehicleName;
+
+            displayVehicle =
+                VehicleManager.instance.SpawnVehicle
+                (
+                    randomVehicleName,
+                    new Vector3[]
+                    {
+                            m_VehicleSpawnPoint.position,
+                            m_VehicleSpawnPoint.eulerAngles
+                    }
+                );
+
+            var kit = displayVehicle.GetComponent<VehicleBodyKitManager>();
+            kit.InitialiseBodyKit();
 
             displayVehicle.SetSimulatePhysics(false);
             displayVehicle.transform.parent = m_VehicleSpawnPoint;
             displayVehicle.transform.localPosition = displayVehicle.transform.localEulerAngles *= 0;
+
+            //Save that random ass vehicle.
+            SaveVehicle();
         }
+
+        print("vehicle loaded successfully");
+
+        displayVehicle.SetSimulatePhysics(false);
+        displayVehicle.transform.parent = m_VehicleSpawnPoint;
+        displayVehicle.transform.localPosition = displayVehicle.transform.localEulerAngles *= 0;
+
     }
 
     //LEFT RIGHT OPTIONS IN VEHICLE SELECT IN GARAGE.
@@ -330,6 +352,7 @@ public class GarageManager : MonoBehaviour
             SetDisplayVehicle(vehicleName);
     }
 
+    public void LoadRace(int raceID) => LevelManager.Instance.LoadLevel(raceID);
 
     public void SaveVehicle()
     {

@@ -4,7 +4,7 @@ using System;
 
 public class GameStateMachine : MonoBehaviour
 {
-    public static GameStateMachine instance;
+    public static GameStateMachine Instance;
 
     public GameStateInMenu gameState_Menu = new();
     public GameStateInRace gameState_Race = new();
@@ -17,12 +17,11 @@ public class GameStateMachine : MonoBehaviour
 
     //Every rigidbody in the scene is kept here to "pause" when the game is in the paused state.
     public List<Body> bodies;
-    public List<Vector3> velocities;
 
     private void Awake()
     {
-        if (instance is null)
-            instance = this;
+        if (Instance is null)
+            Instance = this;
         else
         {
             Destroy(gameObject);
@@ -67,7 +66,10 @@ public class GameStateMachine : MonoBehaviour
             case GameStateInRace:
                 m_GameStateEnum = GameStateEnum.IsRacing;
 
-                if (Player.instance != null)
+                //Change: this was checking if the player was *not* null before,
+                //this meant every time you unpaused the game it would spawn a new player in.
+
+                if (Player.instance == null) 
                     Player.instance.InitialisePlayer();
 
                 OnIsRacing?.Invoke();
@@ -84,60 +86,56 @@ public class GameStateMachine : MonoBehaviour
 
         bodies = new();
 
-        velocities = new();
-
         for (int i = 0; i < b.Length; i++)
         {
-            //If the rigidbody was previously kinematic don't change that when we unpause.
             if (b[i].isKinematic)
-                bodies.Add(new Body(b[i], b[i].isKinematic));
-            else
-                bodies.Add(new Body(b[i], false));
+                continue;
 
-            velocities.Add(b[i].velocity);
+            bodies.Add(new(b[i]));
         }
     }
 
     public void StopAllRigidbodies()
     {
         for (int i = 0; i < bodies.Count; i++)
-        {
-            //If the rigidbody was previously kinematic don't change that when we unpause.
-            if (bodies[i].wasPreviouslyKinematic)
-                continue;
-
-            velocities[i] = bodies[i].rigidbody.velocity;
-
-            bodies[i].rigidbody.isKinematic = true;
-        }
+            bodies[i].Pause();
     }
 
     public void ResumeAllRigidbodies()
     {
         for (int i = 0; i < bodies.Count; i++)
-        {
-            //If the rigidbody was previously kinematic don't change that when we unpause.
-            if (bodies[i].wasPreviouslyKinematic)
-                continue;
-
-            bodies[i].rigidbody.isKinematic = false;
-            bodies[i].rigidbody.velocity = velocities[i];
-        }
+            bodies[i].Resume();
     }
     #endregion
 
 }
 
 [System.Serializable]
-public struct Body
+public class Body
 {
-    public Rigidbody rigidbody;
-    public bool wasPreviouslyKinematic;
+    readonly private Rigidbody rigidbody;
+    private Vector3 previousVelocity;
 
-    public Body(Rigidbody rigidbody, bool wasPreviouslyKinematic, Vector3 previousVelocity = default)
+    public Body(Rigidbody rigidbody)
     {
         this.rigidbody = rigidbody;
-        this.wasPreviouslyKinematic = wasPreviouslyKinematic;
+    }
+
+    public void Pause()
+    {
+        previousVelocity = rigidbody.velocity;
+        rigidbody.isKinematic = true;
+
+        Debug.Log(previousVelocity);
+    }
+
+    public void Resume()
+    {
+        rigidbody.isKinematic = false;
+        rigidbody.velocity = previousVelocity;
+
+        Debug.Log(rigidbody.velocity + " unp");
+
     }
 }
 
