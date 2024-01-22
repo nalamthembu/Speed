@@ -122,7 +122,13 @@ public class GameStateInRace : GameState
             }
         }
         else
-            Debug.LogError("There is no Player Object in the scene!");
+        {
+            //Spawn in new player first...
+            Object.Instantiate(stateMachine.PlayerPrefab, Vector3.zero, Quaternion.identity);
+            //Then spawn in a camera...
+            Object.Instantiate(stateMachine.GameplayCameraPrefab, Vector3.zero, Quaternion.identity);
+            Debug.LogError("There is no Player Object in the scene! Spawning one...");
+        }
 
         //Get all rigidbodies
         stateMachine.GetAllRigidbodies();

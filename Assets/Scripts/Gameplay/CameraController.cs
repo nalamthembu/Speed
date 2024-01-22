@@ -32,11 +32,19 @@ public class CameraController : MonoBehaviour
     private void Awake()
     {
         if (Instance is null)
+        {
             Instance = this;
+        }
         else
             Destroy(gameObject);
 
         InitialiseCamera();
+    }
+
+    private void OnDestroy()
+    {
+        Debug.Log("Gameplay Camera Destroyed!");
+        Instance = null;
     }
 
     private void InitialiseCamera()
@@ -66,14 +74,6 @@ public class CameraController : MonoBehaviour
         Vector3 highSpeedPosition = (targetPos - transform.forward * -camSettings[camIndex].maxedFOVPosition.z + transform.up * camSettings[camIndex].maxedFOVPosition.y);
 
         Vector3 desiredCamPos = Vector3.Lerp(normalPosition, highSpeedPosition, t);
-
-        // Check for camera collision
-        float obstacleOffset = 0.1f; // Adjust this offset value as needed
-        if (Physics.Raycast(target.position, -transform.forward, out RaycastHit hit, camSettings[camIndex].cameraPosition.z + obstacleOffset, obstructionLayer))
-        {
-            // If there is an obstacle, pull the camera in closer with an offset
-            desiredCamPos = hit.point + transform.forward * obstacleOffset;
-        }
 
         transform.position = desiredCamPos;
 
@@ -155,20 +155,6 @@ public class CameraController : MonoBehaviour
         Debug.Log("Camera focus set to : " + newTarget);
     }
 
-    private void OnEnable()
-    {
-        GameStateMachine.Instance.OnIsRacing += GameStateIsRacing;
-        GameStateMachine.Instance.OnIsInMenu += GameStateIsInMenu;
-    }
-
-    private void OnDisable()
-    {
-        GameStateMachine.Instance.OnIsRacing -= GameStateIsRacing;
-        GameStateMachine.Instance.OnIsInMenu -= GameStateIsInMenu;
-    }
-
-    private void GameStateIsInMenu() => gameObject.SetActive(false);
-    private void GameStateIsRacing() => gameObject.SetActive(true);
 }
 
 [System.Serializable]

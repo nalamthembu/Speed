@@ -63,6 +63,8 @@ public class GameManager : MonoBehaviour
         {
             IsInRace = false;
 
+            IsPaused = false;
+
             IsInMenu = true;
 
             print("** DEBUG ** IS IN MENU/GARAGE");
@@ -71,9 +73,11 @@ public class GameManager : MonoBehaviour
         {
             IsInRace = true;
 
+            IsPaused = false;
+
             IsInMenu = false;
 
-            print("** DEBUG ** IS NOT IN MENU/GARAGE");
+            print("** DEBUG ** IS RACE");
         }
 
         MusicManager.instance.FadeInCurrentSong();
@@ -117,6 +121,7 @@ public class GameManager : MonoBehaviour
         {
             if (Player.instance == null || RacingHUD.Instance == null || Player.instance.Vehicle is null)
                 return;
+            
 
             if (Input.GetKeyDown(KeyCode.Escape))
             {

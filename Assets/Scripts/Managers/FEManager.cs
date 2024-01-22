@@ -41,6 +41,8 @@ public class FEManager : MonoBehaviour
     {
         //FADE FROM BLACK
         StartCoroutine(MakeVisible(FE_Transitions.canvasGroup, false));
+
+        m_PauseMenu.Start();
     }
 
     private void Update()
@@ -50,11 +52,6 @@ public class FEManager : MonoBehaviour
 
         if (GameManager.Instance.IsInRace)
             m_PauseMenu.Update();
-    }
-
-    private void OnEnable()
-    {
-        m_PauseMenu.OnEnable();
     }
 
     private void OnDisable()
@@ -219,7 +216,7 @@ public class PauseMenu
 
     private float m_AlphaVelocity;
 
-    public void OnEnable()
+    public void Start()
     {
         GameStateMachine.Instance.OnIsPaused += OnPaused;
         GameStateMachine.Instance.OnIsRacing += OnResume;

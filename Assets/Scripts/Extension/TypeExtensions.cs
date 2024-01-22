@@ -67,4 +67,12 @@ public static class TypeExtensions
             )).ToString();
     }
     #endregion
+
+    #region GAMEOBJECT
+    //Checks if the game object is in a specific layer mask.
+    public static bool IsInLayerMask(this GameObject gameObject, LayerMask layermask)
+    {
+        return layermask == (layermask | (1 << gameObject.layer));
+    }
+    #endregion
 }

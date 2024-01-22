@@ -93,15 +93,30 @@ public class RacingHUD : MonoBehaviour
 
         Racer[] racers = FindObjectsOfType<Racer>();
 
+        if (racers.Length <= 0)
+            return;
+
         for (int i = 0; i < racers.Length; i++)
         {
-            Transform icon =
-                Instantiate(
+            if (racers[i] is null)
+                continue;
+
+            GameObject GOIcon = Instantiate(
                     m_VehicleIconTemplatePrefab,
                     racers[i].Vehicle.transform.position + Vector3.up,
                     racers[i].Vehicle.transform.rotation,
                     racers[i].Vehicle.transform
-                    ).transform;
+                    );
+
+            Transform icon;
+
+            if (GOIcon != null && GOIcon.TryGetComponent<Transform>(out var iconTransform))
+                icon = iconTransform;
+            else
+            {
+                Debug.LogError("Icon Instantiating failed!");
+                return;
+            }
 
             if (icon.TryGetComponent<SpriteRenderer>(out var sprite))
             {

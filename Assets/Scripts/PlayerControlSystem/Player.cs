@@ -19,6 +19,13 @@ public class Player : Racer
         }
     }
 
+    private void OnDestroy()
+    {
+        Debug.Log("Player Was Destroyed!");
+
+        instance = null;
+    }
+
     public void InitialisePlayer()
     {
         Vehicle vehicle;

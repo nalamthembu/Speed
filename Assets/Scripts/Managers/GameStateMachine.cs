@@ -6,10 +6,16 @@ public class GameStateMachine : MonoBehaviour
 {
     public static GameStateMachine Instance;
 
+    [SerializeField] GameObject m_PlayerPrefab;
+    [SerializeField] GameObject m_GameplayCameraPrefab;
+
     public GameStateInMenu gameState_Menu = new();
     public GameStateInRace gameState_Race = new();
     public GameStatePaused gameState_Paused = new();
     public GameState gameState_Current;
+
+    public GameObject PlayerPrefab { get { return m_PlayerPrefab; } }
+    public GameObject GameplayCameraPrefab { get { return m_GameplayCameraPrefab; } }
 
     private GameStateEnum m_GameStateEnum;
 
@@ -21,7 +27,10 @@ public class GameStateMachine : MonoBehaviour
     private void Awake()
     {
         if (Instance is null)
+        {
             Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
         else
         {
             Destroy(gameObject);
@@ -65,13 +74,6 @@ public class GameStateMachine : MonoBehaviour
 
             case GameStateInRace:
                 m_GameStateEnum = GameStateEnum.IsRacing;
-
-                //Change: this was checking if the player was *not* null before,
-                //this meant every time you unpaused the game it would spawn a new player in.
-
-                if (Player.instance == null) 
-                    Player.instance.InitialisePlayer();
-
                 OnIsRacing?.Invoke();
                 break;
         }
@@ -91,50 +93,69 @@ public class GameStateMachine : MonoBehaviour
             if (b[i].isKinematic)
                 continue;
 
-            bodies.Add(new(b[i]));
+            bodies.Add(new(b[i], b[i].gameObject.name));
         }
     }
 
     public void StopAllRigidbodies()
     {
         for (int i = 0; i < bodies.Count; i++)
-            bodies[i].Pause();
+        {
+            if (bodies[i] == null && bodies[i].TryPause() == false)
+            {
+                Debug.LogWarning("Rigidbody was null, removing from list.");
+                bodies.Remove(bodies[i]);
+            }
+        }
     }
-
+    
     public void ResumeAllRigidbodies()
     {
         for (int i = 0; i < bodies.Count; i++)
-            bodies[i].Resume();
+            if (bodies[i] == null && !bodies[i].TryResume())
+                bodies.Remove(bodies[i]);
     }
     #endregion
 
 }
 
-[System.Serializable]
+[Serializable]
 public class Body
 {
-    readonly private Rigidbody rigidbody;
+    [SerializeField] string Name; //This is so it shows up in the editor.
+    private Rigidbody rigidbody;
     private Vector3 previousVelocity;
 
-    public Body(Rigidbody rigidbody)
+    public Body(Rigidbody rigidbody, string Name = "Body")
     {
+        this.Name = Name;
         this.rigidbody = rigidbody;
     }
 
-    public void Pause()
+    public bool TryPause()
     {
+        if (rigidbody is null)
+            return false;
+
         previousVelocity = rigidbody.velocity;
         rigidbody.isKinematic = true;
 
         Debug.Log(previousVelocity);
+
+        return true;
     }
 
-    public void Resume()
+    public bool TryResume()
     {
+        if (rigidbody is null)
+            return false;
+
         rigidbody.isKinematic = false;
         rigidbody.velocity = previousVelocity;
 
         Debug.Log(rigidbody.velocity + " unp");
+
+        return true;
 
     }
 }
