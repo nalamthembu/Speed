@@ -25,6 +25,9 @@ public class LevelManager : MonoBehaviour
         }
     }
 
+    public static event Action OnStartLoadingLevel;
+    public static event Action OnLevelLoadingFinished;
+
     public int GetCurrentLevel() => SceneManager.GetActiveScene().buildIndex;
 
     private void OnEnable() => SceneManager.sceneLoaded += OnSceneLoaded;
@@ -50,6 +53,8 @@ public class LevelManager : MonoBehaviour
     {
         //SETUP_LOADING_SCREEN
         m_LoadingScreen.SetEnabled(true);
+
+        OnStartLoadingLevel?.Invoke();
 
         while (m_LoadingScreen.GetCanvasGroupAlpha() < 1)
         {
@@ -121,6 +126,8 @@ public class LevelManager : MonoBehaviour
         m_LoadingScreen.SetEnabled(false);
 
         MusicManager.instance.FadeInCurrentSong();
+
+        OnLevelLoadingFinished?.Invoke();
     }
 }
 

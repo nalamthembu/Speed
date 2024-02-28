@@ -166,7 +166,7 @@ public class VehicleTransmission : MonoBehaviour
             {
                 currentGear++;
 
-                SoundManager.instance.PlaySound("VehicleFX_Shifting", source);
+                SoundManager.Instance.PlaySound("VehicleFX_Shifting", source);
 
                 gearChangeTimer = 0;
 
@@ -192,7 +192,7 @@ public class VehicleTransmission : MonoBehaviour
 
             if (gearChangeTimer >= powerData.timeToChangeGears)
             {
-                SoundManager.instance.PlaySound("VehicleFX_Shifting", source);
+                SoundManager.Instance.PlaySound("VehicleFX_Shifting", source);
 
                 currentGear--;
 

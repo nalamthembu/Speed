@@ -23,7 +23,7 @@ public class GarageUI : MonoBehaviour
 
     public void PlayUISound()
     {
-        SoundManager.instance.PlaySound("BTNFX_CLICK", sourceUI);
+        SoundManager.Instance.PlaySound("BTNFX_CLICK", sourceUI);
     }
 
     public void QuitGame()

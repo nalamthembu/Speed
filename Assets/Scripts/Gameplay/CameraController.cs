@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using Random = UnityEngine.Random;
 
 
 public class CameraController : MonoBehaviour
@@ -6,6 +8,8 @@ public class CameraController : MonoBehaviour
     [SerializeField] CameraSettings[] camSettings;
 
     [SerializeField] IdleCameraSettings idleSettings;
+
+    [SerializeField] LayerMask collisionMask;
 
     [SerializeField] float rotationTime = 0.25F;
 
@@ -28,6 +32,12 @@ public class CameraController : MonoBehaviour
     new private Camera camera;
 
     public bool IsUsingIdleCamera { get; private set; }
+
+    //flag
+    bool m_NotifiedAudioControllerOfIdleCamera;
+    bool m_NotifiedAudioControllerOfOutIdleCamera;
+    public static event Action OnIdleCamera;
+    public static event Action OnOutIdleCamera;
 
     private void Awake()
     {
@@ -60,7 +70,23 @@ public class CameraController : MonoBehaviour
 
         if (IsUsingIdleCamera)
         {
+            if (!m_NotifiedAudioControllerOfIdleCamera)
+            {
+                m_NotifiedAudioControllerOfIdleCamera = true;
+                m_NotifiedAudioControllerOfOutIdleCamera = false;
+                OnIdleCamera?.Invoke();
+            }
+
             return;
+        }
+        else
+        {
+            m_NotifiedAudioControllerOfIdleCamera = false;
+            if (!m_NotifiedAudioControllerOfOutIdleCamera)
+            {
+                OnOutIdleCamera?.Invoke();
+                m_NotifiedAudioControllerOfOutIdleCamera = true;
+            }
         }
 
         Vector3 targetPos = target.position;

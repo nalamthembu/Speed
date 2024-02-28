@@ -17,6 +17,13 @@ public class RacingHUD : MonoBehaviour
     [SerializeField] TMP_Text m_Speedometer, m_GearIndicator;
     [SerializeField] CanvasGroup m_CanvasGroup;
 
+    [Header("Extras")]
+    public GameObject m_BoostGauge;
+    public GameObject m_NitrousGauge;
+    public Transform m_BoostGaugeLevelTemplate, m_BoostNeedle;
+    private float m_MaxBoost;
+    private VehicleForcedInduction m_ForcedInduction;
+
     [Header("Mini Map")]
     [SerializeField] GameObject m_MiniMapCameraPrefab;
     private Vehicle playerVehicle;
@@ -79,12 +86,16 @@ public class RacingHUD : MonoBehaviour
             InitialiseRevCounter();
             FindPlayerAndAttachMiniMap();
             InitialiseVehicleIcons();
+            InitialiseBoostGauge();
+            //TODO : SHOW NITRO GAUGE.
 
             m_bHUDInitialised = true;
         }
 
         if (!m_CanvasGroup.gameObject.activeSelf)
+        {
             m_CanvasGroup.gameObject.SetActive(true);
+        }
     }
 
     private void InitialiseVehicleIcons()
@@ -156,6 +167,27 @@ public class RacingHUD : MonoBehaviour
         CreateRevLabels();
     }
 
+    private void InitialiseBoostGauge()
+    {
+        if (Player.instance == null)
+            return;
+
+        //Show boost gauge if vehicle has some forced induction (turbo/supercharger)
+        if (Player.instance.Vehicle.TryGetComponent<VehicleForcedInduction>(out var forcedInduction))
+        {
+            m_ForcedInduction = forcedInduction;
+            m_MaxBoost = m_ForcedInduction.GetMaxBoost();
+            CreateBoostGaugeLevels();
+            m_BoostGaugeLevelTemplate.gameObject.SetActive(false);
+            m_BoostGauge.SetActive(true);
+        }
+        else
+        {   //Don't show boost gauge.
+            m_BoostGauge.SetActive(false);
+            return;
+        }
+    }
+
     private void FindPlayerAndAttachMiniMap()
     {
         m_MiniMapCamera = Instantiate(m_MiniMapCameraPrefab, transform.position, Quaternion.identity).GetComponent<Camera>();
@@ -170,6 +202,26 @@ public class RacingHUD : MonoBehaviour
         if (this.currentRev > m_MaxRev) this.currentRev = m_MaxRev;
     }
 
+    private void CreateBoostGaugeLevels()
+    {
+        int labelCount = 3;
+
+        float totalAngleSize = ZERO_REV_ANGLE - 0;
+
+        for (int i = 0; i <= labelCount; i++)
+        {
+            Transform boostLevelTransform = Instantiate(m_BoostGaugeLevelTemplate, m_BoostNeedle.parent);
+
+            float boostLabelAngle = ZERO_REV_ANGLE - ((float)i / labelCount) * totalAngleSize;
+
+            //Boost gauge doesn't show bar (that's just not needed for this type of game, its not a simulator)
+
+            boostLevelTransform.eulerAngles = new(0, 0, boostLabelAngle);
+
+            boostLevelTransform.gameObject.SetActive(true);
+        }
+    }
+
     private void CreateRevLabels()
     {
         int labelCount = 10;
@@ -178,7 +230,7 @@ public class RacingHUD : MonoBehaviour
 
         for (int i = 0; i <= labelCount; i++)
         {
-            Transform revLabelTransform = Object.Instantiate(m_RevLevelTemplate, m_TachNeedle.parent);
+            Transform revLabelTransform = Instantiate(m_RevLevelTemplate, m_TachNeedle.parent);
 
             float labelRevNormalised = (float)i / labelCount;
 
@@ -236,16 +288,35 @@ public class RacingHUD : MonoBehaviour
             if (!ShouldBeVisible())
                 return;
 
-            float angle = m_TachNeedle.eulerAngles.z;
-
-            float targetAngle = GetRevRotation();
-
-            float finalAngle = Mathf.LerpAngle(angle, targetAngle, Time.deltaTime * 6.0F);
-
-            m_TachNeedle.eulerAngles = new Vector3(0, 0, finalAngle);
-
+            HandleRevNeedle();
+            
             TrackPlayerWithMiniMapCamera();
+
+            if (m_BoostGauge.activeSelf)
+                HandleBoostNeedle();
         }
+    }
+
+    private void HandleBoostNeedle()
+    {
+        float angle = m_BoostNeedle.eulerAngles.z;
+
+        float targetAngle = GetBoostRotation();
+
+        float finalAngle = Mathf.LerpAngle(angle, targetAngle, Time.deltaTime * 10.0F);
+
+        m_BoostNeedle.eulerAngles = new Vector3(0, 0, finalAngle);
+    }
+
+    private void HandleRevNeedle()
+    {
+        float angle = m_TachNeedle.eulerAngles.z;
+
+        float targetAngle = GetRevRotation();
+
+        float finalAngle = Mathf.LerpAngle(angle, targetAngle, Time.deltaTime * 6.0F);
+
+        m_TachNeedle.eulerAngles = new Vector3(0, 0, finalAngle);
     }
 
     private void TrackPlayerWithMiniMapCamera()
@@ -262,5 +333,14 @@ public class RacingHUD : MonoBehaviour
         float revNormalised = currentRev / m_MaxRev;
 
         return ZERO_REV_ANGLE - revNormalised * totalAngleSize;
+    }
+
+    private float GetBoostRotation()
+    {
+        float totalAngleSize = ZERO_REV_ANGLE - 0;
+
+        float boostNormalised = m_ForcedInduction.GetCurrentBoost() / m_ForcedInduction.GetMaxBoost();
+
+        return ZERO_REV_ANGLE - boostNormalised * totalAngleSize;
     }
 }

@@ -1,6 +1,13 @@
 using System;
 using UnityEngine;
 using RaceSystem;
+using UnityEngine.AI;
+using UnityEditor.TerrainTools;
+
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public class AIDriver : Racer
 {
@@ -12,12 +19,28 @@ public class AIDriver : Racer
     public float targetThrottle { get; private set; }
     public float targetBrake { get; private set; }
     public float targetHandbrake { get; private set; }
-    public Vector3 targetPosition { get; private set; }
     public float remainingDistance { get; private set; }
 
     private float targetSpeed = 100;
 
-    private Transform targetTransform;
+
+    //NAVIGATION
+
+    public bool debugMode;
+
+    public Transform targetTransform;
+
+    private NavMeshPath navMeshPath;
+
+    private Vector3[] path;
+
+    private Vector3[] checkPoints;
+
+    private int currentCheckpoint;
+
+    private float pathRecalculationTimer = 5;
+
+    //END OF NAVIGATION
 
     float steerDirection;
 
@@ -76,15 +99,64 @@ public class AIDriver : Racer
 
     private void ProcessNavigation()
     {
-        if (targetTransform != null || targetPosition != null)
+        CalculatePath();
+
+        if (path != null && path.Length > 0)
         {
-            remainingDistance = Vector3.Distance(transform.position, targetTransform.position);
+            if (targetTransform != null)
+            {
+                remainingDistance = Vector3.Distance(transform.position, checkPoints[currentCheckpoint]);
+
+                if (remainingDistance <= 1)
+                    currentCheckpoint++;
+
+                if (currentCheckpoint > checkPoints.Length)
+                {
+                    Debug.Log("Done with path, going back to first checkpoint!");
+                    currentCheckpoint = 0;
+                }
+            }
+        }
+    }
+
+    private void CalculatePath()
+    {
+        if (targetTransform)
+
+            pathRecalculationTimer += Time.deltaTime;
+
+        if (pathRecalculationTimer >= 5.0F)
+        {
+            if (NavMesh.CalculatePath(transform.position, targetTransform.position, NavMesh.AllAreas, navMeshPath))
+            {
+                path = new Vector3[navMeshPath.corners.Length];
+
+                currentCheckpoint = 0;
+
+                pathRecalculationTimer = 0;
+            }
         }
     }
 
     private void OnDrawGizmosSelected()
-    {
-        Gizmos.DrawCube(targetPosition, Vector3.one);
+    { 
+        if (path != null && checkPoints != null && checkPoints.Length > 0)
+        {
+            for (int i = 1; i < checkPoints.Length; i++)
+            {
+                if (checkPoints[i - 1] != null)
+                {
+                    Gizmos.color = Color.yellow;
+
+                    Gizmos.DrawCube(checkPoints[i - 1], Vector3.one);
+                    Gizmos.color = Color.yellow;
+                    Gizmos.DrawCube(checkPoints[i], Vector3.one);
+
+                    Gizmos.color = Color.red;
+                    Gizmos.DrawLine(checkPoints[i - 1], checkPoints[i]);
+                }
+            }
+        }
     }
 
     private void DetectAndAvoidObstacles()
@@ -208,7 +280,7 @@ public class AIDriver : Racer
     {
         //Steer in correct direction
 
-        if (targetTransform != null)
+        if (checkPoints != null && checkPoints.Length > 0)
         {
             Vector3 steerVector;
 
@@ -216,9 +288,9 @@ public class AIDriver : Racer
                     (
                         new
                             (
-                                targetTransform.position.x,
+                                checkPoints[currentCheckpoint].x,
                                 transform.position.y,
-                                targetTransform.position.z
+                                checkPoints[currentCheckpoint].z
                             )
                     );
 
@@ -227,6 +299,7 @@ public class AIDriver : Racer
             input.Steering = steerDirection;
         }
 
+        //Driving style.
         switch (driver.driverType)
         {
             case DriverType.CAREFUL:
@@ -307,3 +380,22 @@ public enum DriverType
     NPC,
     COP
 }
+
+#if UNITY_EDITOR
+
+[CustomEditor(typeof(AIDriver))]
+public class AIDriverEditor : Editor
+{
+    public override void OnInspectorGUI()
+    {
+        DrawDefaultInspector();
+
+        AIDriver aiDriver = (AIDriver)target;
+
+        if (aiDriver.debugMode)
+        {
+            EditorGUILayout.ObjectField("Debug Target Transform", aiDriver.targetTransform, typeof(Transform));
+        }
+    }
+}
+#endif

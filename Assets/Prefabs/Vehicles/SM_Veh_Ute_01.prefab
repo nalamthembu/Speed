@@ -437,6 +437,7 @@ MonoBehaviour:
     isPowered: 1
     isSteering: 0
     steerRadius: 0
+  seats: []
 --- !u!114 &3317155200295531761
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1599,9 +1600,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wheelRoadNoiseID: WheelFX_RoadNoise
   minRPMB4RoadNoise: 500
-  wheelSkidID: WheelFX_Skid
-  m_SkidAt: 0.45
-  m_SoundEmission: 15
+  m_SkidData: {fileID: 11400000, guid: 7e5f35fdd88d4dd478c0f3bdcec36738, type: 2}
   m_SkidMaterial: {fileID: 2100000, guid: c6233f257e547e144b366ffb0fdc3b28, type: 2}
   m_SkidParticlePrefab: {fileID: 1685495609958368, guid: 99b17d4a1ca9458468b14409003c95e4, type: 3}
   randomMaxPitch:
@@ -1712,9 +1711,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wheelRoadNoiseID: WheelFX_RoadNoise
   minRPMB4RoadNoise: 500
-  wheelSkidID: WheelFX_Skid
-  m_SkidAt: 0.45
-  m_SoundEmission: 15
+  m_SkidData: {fileID: 11400000, guid: 7e5f35fdd88d4dd478c0f3bdcec36738, type: 2}
   m_SkidMaterial: {fileID: 2100000, guid: c6233f257e547e144b366ffb0fdc3b28, type: 2}
   m_SkidParticlePrefab: {fileID: 1685495609958368, guid: 99b17d4a1ca9458468b14409003c95e4, type: 3}
   randomMaxPitch:
@@ -1825,9 +1822,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wheelRoadNoiseID: WheelFX_RoadNoise
   minRPMB4RoadNoise: 500
-  wheelSkidID: WheelFX_Skid
-  m_SkidAt: 0.45
-  m_SoundEmission: 15
+  m_SkidData: {fileID: 11400000, guid: 7e5f35fdd88d4dd478c0f3bdcec36738, type: 2}
   m_SkidMaterial: {fileID: 2100000, guid: c6233f257e547e144b366ffb0fdc3b28, type: 2}
   m_SkidParticlePrefab: {fileID: 1685495609958368, guid: 99b17d4a1ca9458468b14409003c95e4, type: 3}
   randomMaxPitch:
@@ -1938,9 +1933,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wheelRoadNoiseID: WheelFX_RoadNoise
   minRPMB4RoadNoise: 500
-  wheelSkidID: WheelFX_Skid
-  m_SkidAt: 0.45
-  m_SoundEmission: 15
+  m_SkidData: {fileID: 11400000, guid: 7e5f35fdd88d4dd478c0f3bdcec36738, type: 2}
   m_SkidMaterial: {fileID: 2100000, guid: c6233f257e547e144b366ffb0fdc3b28, type: 2}
   m_SkidParticlePrefab: {fileID: 1685495609958368, guid: 99b17d4a1ca9458468b14409003c95e4, type: 3}
   randomMaxPitch:

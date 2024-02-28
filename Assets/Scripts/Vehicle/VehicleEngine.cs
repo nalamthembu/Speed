@@ -1,5 +1,7 @@
+using System;
 using UnityEngine;
 
+[RequireComponent(typeof(Vehicle))]
 public class VehicleEngine : MonoBehaviour
 {
     private VehicleTransmission transmission;
@@ -8,8 +10,11 @@ public class VehicleEngine : MonoBehaviour
 
     private float totalPower;
 
+    private float additionalPower;
+
     private float engineRPM;
 
+    private Vehicle attachedVehicle;
 
     [SerializeField][Range(0.001F, 2.0F)] float engineResponseTime;
 
@@ -27,6 +32,7 @@ public class VehicleEngine : MonoBehaviour
     {
         transmission = GetComponent<VehicleTransmission>();
         input = GetComponent<VehicleInput>();
+        attachedVehicle = GetComponent<Vehicle>();
     }
 
     private void FixedUpdate()
@@ -34,11 +40,16 @@ public class VehicleEngine : MonoBehaviour
         CalculateEnginePower();
     }
 
+    //Used by forced induction (fake boost basically)
+    public void AddPower(float amount) => additionalPower = amount;
+
     protected virtual void CalculateEnginePower()
     {
         float gearRatio = input.IsInReverse ? transmission.powerData.reverseGearRatio : transmission.powerData.gearRatios[transmission.CurrentGear];
 
         totalPower = transmission.powerData.torqueCurve.Evaluate(engineRPM) * (gearRatio);
+
+        totalPower += additionalPower; //FROM FORCED INDUCTION.
 
         totalPower *= input.RawThrottle;
 

@@ -58,11 +58,11 @@ public class PlayerSounds : MonoBehaviour
         {
             if (other.bounds.extents.sqrMagnitude < maxObjectSizeBeforeBigWhoosh * maxObjectSizeBeforeBigWhoosh)
             {
-                SoundManager.instance.PlaySound(soundIDs.regularWhoosh, other.transform.position, false, new RandomPitch(1, 1.5f));
+                SoundManager.Instance.PlaySound(soundIDs.regularWhoosh, other.transform.position, false, new RandomPitch(1, 1.5f));
             }
             else
             {
-                SoundManager.instance.PlaySound(soundIDs.bigWhoosh, other.transform.position, false, new RandomPitch(1, 1.5f));
+                SoundManager.Instance.PlaySound(soundIDs.bigWhoosh, other.transform.position, false, new RandomPitch(1, 1.5f));
             }
         }
     }

@@ -62,6 +62,16 @@ MonoBehaviour:
     sounds:
     - {fileID: 8300000, guid: 543236f242f9431428466e9591d325cc, type: 3}
     soundType: 2
+  - name: VehicleFX_TurboWastegate
+    sounds:
+    - {fileID: 8300000, guid: 8dd7e7f0205dc6147b1b8e9bcb73b7e9, type: 3}
+    - {fileID: 8300000, guid: 836945b0c1d0f094c8eae9d0e2deecd4, type: 3}
+    - {fileID: 8300000, guid: 080ea69d27e37f2408b4756024e779d2, type: 3}
+    soundType: 0
+  - name: VehicleFX_TurboLoop
+    sounds:
+    - {fileID: 8300000, guid: 1298350f6e52e524c8d88f139142fc84, type: 3}
+    soundType: 0
   mixers:
   - name: Frontend
     group: {fileID: -8639346490034665312, guid: b1428a4646c72b54fa3a04d915d11afa, type: 2}

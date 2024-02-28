@@ -17,7 +17,7 @@ MonoBehaviour:
     overrideState: 1
     value: 1
   gradingMode:
-    overrideState: 0
+    overrideState: 1
     value: 1
   externalLut:
     overrideState: 0
@@ -104,13 +104,13 @@ MonoBehaviour:
     value: 100
   lift:
     overrideState: 1
-    value: {x: 0.76131815, y: 1, z: 0.7739623, w: -0.31774053}
+    value: {x: 0.7364968, y: 1, z: 0.7499703, w: -0.27058825}
   gamma:
     overrideState: 1
-    value: {x: 0.82342196, y: 0.8057364, z: 1, w: 0.22065315}
+    value: {x: 0.75798136, y: 0.81137717, z: 1, w: -0.31764707}
   gain:
     overrideState: 1
-    value: {x: 1, y: 1, z: 1, w: 0.17652252}
+    value: {x: 1, y: 1, z: 1, w: 0.5294118}
   masterCurve:
     overrideState: 0
     value:

@@ -12,6 +12,10 @@ public class CameraViewManager : MonoBehaviour
 
     private string DEBUG_CURRENT_CAM_VIEW;
 
+    [SerializeField] float handHeldSmoothing, handHeldRange, handHeldSmoothTime;
+
+    private Vector3 handHeldVelocity;
+
     Vector3 camPosVel;
     float fovVel;
 
@@ -51,6 +55,22 @@ public class CameraViewManager : MonoBehaviour
         }
     }
 
+
+
+    private void DoHandHeldEffect(float percent, float smoothing = 5)
+    {
+        Vector3 handHeldPosition = new()
+        {
+            x = Mathf.Sin(Time.time * handHeldSmoothing) * Random.Range(-handHeldRange, handHeldRange),
+            y = Mathf.Cos(Time.time * handHeldSmoothing) * Random.Range(-handHeldRange, handHeldRange),
+            z = Random.Range(-handHeldRange, handHeldRange)
+        };
+
+        handHeldPosition *= Mathf.Lerp(0, 1, Mathf.Clamp01(percent));
+
+        garageCamera.transform.localPosition = Vector3.SmoothDamp(garageCamera.transform.localPosition, handHeldPosition, ref handHeldVelocity, smoothing);
+    }
+
     private void LateUpdate()
     {
         if (DEBUG_MODE)
@@ -68,9 +88,11 @@ public class CameraViewManager : MonoBehaviour
             desiredPosition = hitBack.point + Vector3.up * 4.0F;
         }
 
-        garageCamera.transform.position = Vector3.SmoothDamp(garageCamera.transform.position, desiredPosition, ref camPosVel, 0.5F);
-        garageCamera.transform.rotation = Quaternion.Lerp(garageCamera.transform.rotation, Quaternion.Euler(cameraMatrix[1]), Time.deltaTime * 7.5F);
+        garageCamera.transform.parent.position = Vector3.SmoothDamp(garageCamera.transform.parent.position, desiredPosition, ref camPosVel, 0.5F);
+        garageCamera.transform.parent.rotation = Quaternion.Lerp(garageCamera.transform.parent.rotation, Quaternion.Euler(cameraMatrix[1]), Time.deltaTime * 7.5F);
         garageCamera.fieldOfView = Mathf.SmoothDamp(garageCamera.fieldOfView, cameraMatrix[2].x, ref fovVel, .96F);
+
+        DoHandHeldEffect(1, handHeldSmoothTime);
     }
 
     public void OnDrawGizmos()

@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Rendering;
+using static Unity.VisualScripting.Member;
 
 enum PARTICLE_STATE
 {
@@ -23,21 +24,14 @@ public class WheelFX : MonoBehaviour
 
     private float currentMaxRoadNoisePitch = 1.25F;
 
-    [Header("Skidding")]
+    [SerializeField] GlobalSkidData m_SkidData;
 
-    [SerializeField] string wheelSkidID = "WheelFX_Skid";
-    [SerializeField][Range(0.001f, 3)] float m_SkidAt = .5f;
-    [SerializeField][Range(1, 30)] float m_SoundEmission = 15f;
+    [Header("Skid Visual Settings")]
     [SerializeField] Material m_SkidMaterial;
     [SerializeField] GameObject m_SkidParticlePrefab;
 
-    private float currentSkidMaxPitch = 1.25F;
-
-    [SerializeField] float[] randomMaxPitch = new float[] { 1.25F, 1.5F };
-
     private ParticleSystem m_SkidParticleSystem;
 
-    private float m_SoundWait;
     private float m_CurrentFrictionValue;
     private float m_SkidTime = 0;
 
@@ -46,6 +40,8 @@ public class WheelFX : MonoBehaviour
     private AudioSource m_SkidSource;
 
     private AudioSource m_RoadNoiseSource;
+
+    [SerializeField] float[] randomMaxPitch = { 1, 1.5f };
 
     #endregion
 
@@ -65,8 +61,6 @@ public class WheelFX : MonoBehaviour
         m_RoadNoiseSource = gameObject.AddComponent<AudioSource>();
 
         currentMaxRoadNoisePitch = randomMaxPitch[Random.Range(0, randomMaxPitch.Length)];
-
-        currentSkidMaxPitch = randomMaxPitch[Random.Range(0, randomMaxPitch.Length)];
 
         m_RoadNoiseSource.maxDistance = 10.0F;
 
@@ -105,12 +99,8 @@ public class WheelFX : MonoBehaviour
 
         if (IsSkidding())
         {
-            if (m_SoundWait <= 0)
-            {
-                m_SoundWait = 1;
-
+            if (m_SkidTime < 1)
                 m_SkidTime += Time.deltaTime;
-            }
 
             DrawSkidMesh();
 
@@ -127,50 +117,69 @@ public class WheelFX : MonoBehaviour
         }
 
         SkidSound();
+
         HandleWheelNoise();
-
-        m_SoundWait -= Time.deltaTime * m_SoundEmission;
-
     }
 
     void HandleWheelNoise()
     {
-        if (m_RoadNoiseSource.isPlaying)
+        if (IsSkidding() || !m_WheelCollider.isGrounded)
         {
-            if (IsSkidding() || !m_WheelCollider.isGrounded)
-            {
+            if (m_RoadNoiseSource.isPlaying)
                 m_RoadNoiseSource.Stop();
 
-                currentMaxRoadNoisePitch = randomMaxPitch[Random.Range(0, randomMaxPitch.Length)];
+            currentMaxRoadNoisePitch = randomMaxPitch[Random.Range(0, randomMaxPitch.Length)];
 
-                return;
-            }
+            return;
         }
         else
-            SoundManager.instance.PlaySound(wheelRoadNoiseID, m_RoadNoiseSource, true);
+        {
+            if (!m_RoadNoiseSource.isPlaying)
+                SoundManager.Instance.PlaySound(wheelRoadNoiseID, m_RoadNoiseSource, true);
 
-        m_RoadNoiseSource.pitch = Mathf.Lerp(1, currentMaxRoadNoisePitch, (m_WheelCollider.rpm / minRPMB4RoadNoise));
-        m_RoadNoiseSource.volume = Mathf.SmoothStep(0, 1.0F, Mathf.Floor(m_WheelCollider.rpm) / minRPMB4RoadNoise);
+            m_RoadNoiseSource.pitch = Mathf.Lerp(1, currentMaxRoadNoisePitch, (Mathf.Abs(m_WheelCollider.rpm) / minRPMB4RoadNoise));
+            m_RoadNoiseSource.volume = Mathf.SmoothStep(0, 0.35F, Mathf.Floor(Mathf.Abs(m_WheelCollider.rpm)) / minRPMB4RoadNoise);
+        }
     }
 
     void SkidSound()
     {
-        if (m_SkidSource.isPlaying)
+        if (m_SkidData != null && m_SkidData.GlobalSkidSettings != null)
         {
-            if (!IsSkidding() || !m_WheelCollider.isGrounded)
+            if (m_CurrentFrictionValue >= m_SkidData.GlobalSkidSettings.MinSkidThreshold)
+            {
+                //Is Skidding
+                if (!m_SkidSource.isPlaying)
+                {
+                    if (SoundManager.Instance)
+                        SoundManager.Instance.PlaySound(m_SkidData.GlobalSkidSettings.wheelSkidID, m_SkidSource, true);
+                }
+                else
+                {
+                    //If the source is playing...
+                    float randomMaxPitch = Random.Range(m_SkidData.GlobalSkidSettings.MaxSkidVolume - 0.25f, m_SkidData.GlobalSkidSettings.MaxSkidVolume + 0.25F);
+                    m_SkidSource.pitch = Mathf.Lerp(1, randomMaxPitch, m_CurrentFrictionValue / m_SkidData.GlobalSkidSettings.MaxSkidThreshold);
+                    if (m_CurrentFrictionValue < m_SkidData.GlobalSkidSettings.OscillationThreshold)
+                    {
+                        float targetPitch = Mathf.Lerp(1, m_SkidData.GlobalSkidSettings.MaxSkidPitch, m_CurrentFrictionValue / m_SkidData.GlobalSkidSettings.MaxSkidThreshold);
+                        float targetVolume = Mathf.Lerp(m_SkidData.GlobalSkidSettings.MinSkidVolume, m_SkidData.GlobalSkidSettings.MinSkidVolume, m_CurrentFrictionValue / m_SkidData.GlobalSkidSettings.MaxSkidThreshold);
+                        m_SkidSource.pitch = Mathf.SmoothDamp(m_SkidSource.pitch, targetPitch, ref m_SkidData.GlobalSkidSettings.SinPitchVelocity, 1);
+                        m_SkidSource.volume = Mathf.SmoothDamp(m_SkidSource.volume, targetVolume, ref m_SkidData.GlobalSkidSettings.SinVolumeVelocity, 0.25F);
+                    }
+                    else
+                    {
+                        float targetOscPitch = 1 + Mathf.Sin(Time.time * m_SkidData.GlobalSkidSettings.PitchFrequency) * m_SkidData.GlobalSkidSettings.PitchAmplitude;
+                        float targetOscVol = m_SkidData.GlobalSkidSettings.MinSkidVolume + Mathf.Sin(Time.time * m_SkidData.GlobalSkidSettings.VolumeFrequency) * m_SkidData.GlobalSkidSettings.VolumeAmplitude;
+                        m_SkidSource.pitch = Mathf.SmoothDamp(m_SkidSource.pitch, targetOscPitch, ref m_SkidData.GlobalSkidSettings.SinPitchVelocity, m_SkidData.GlobalSkidSettings.SmoothTimePitchOsc);
+                        m_SkidSource.volume = Mathf.SmoothDamp(m_SkidSource.volume, targetOscVol, ref m_SkidData.GlobalSkidSettings.SinVolumeVelocity, m_SkidData.GlobalSkidSettings.SmoothTimeVolumeOsc);
+                    }
+                }
+            }
+            else
             {
                 m_SkidSource.Stop();
-
-                currentSkidMaxPitch = randomMaxPitch[Random.Range(0, randomMaxPitch.Length)];
-
-                return;
             }
         }
-        else
-            SoundManager.instance.PlaySound(wheelSkidID, m_SkidSource, true);
-
-        m_SkidSource.pitch = Mathf.Lerp(1, currentSkidMaxPitch, m_CurrentFrictionValue / 1);
-        m_SkidSource.volume = Mathf.Lerp(0, 1.0F, m_CurrentFrictionValue / 1);
     }
 
     bool GameIsPaused() => Time.timeScale <= 0 || Mathf.Floor(m_WheelCollider.rpm) == 0;
@@ -179,7 +188,7 @@ public class WheelFX : MonoBehaviour
     {
         m_CurrentFrictionValue = Mathf.Abs((m_WheelHit.forwardSlip + m_WheelHit.sidewaysSlip) / 2);
 
-        return m_CurrentFrictionValue * 1.5F > m_SkidAt;
+        return m_CurrentFrictionValue > m_SkidData.GlobalSkidSettings.MinSkidThreshold;
     }
 
     void StopAllSounds()

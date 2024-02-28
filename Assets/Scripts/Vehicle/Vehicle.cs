@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 [
     RequireComponent
@@ -51,6 +52,14 @@ public class Vehicle : MonoBehaviour
     public float SpeedKMH { get { return rigidBody.velocity.magnitude * 3.5F; } }
     public VehicleEngine Engine { get { return engine; } }
     public VehicleTransmission Transmission { get { return transmission; } }
+
+    public bool IsControlledByPlayer()
+    {
+        if (!TryGetComponent<PlayerVehicleInput>(out var input))
+            return false;
+
+        return input.playerControlEnabled;
+    }
 
     //ORIENTATION RESET
     private const float TIME_BEFORE_AUTORESET = 3;

@@ -7,13 +7,13 @@ public class SoundManager : MonoBehaviour
 
     public SoundLibrary library;
 
-    public static SoundManager instance;
+    public static SoundManager Instance;
 
     private void Awake()
     {
-        if (instance is null)
+        if (Instance is null)
         {
-            instance = this;
+            Instance = this;
 
             DontDestroyOnLoad(gameObject);
         }
@@ -35,7 +35,7 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    public void PlaySound(string soundName, AudioSource source, bool loop = false)
+    public void PlaySound(string soundName, AudioSource source, bool loop = false, RandomPitch? randomPitch = default, float minDist = 5)
     {
         if (soundDictionary.TryGetValue(soundName, out Sound sound))
         {
@@ -68,6 +68,10 @@ public class SoundManager : MonoBehaviour
                     source.spatialBlend = 1;
 
                     source.loop = loop;
+
+                    source.minDistance = minDist;
+
+                    source.pitch = randomPitch != null ? randomPitch.Value.GetRandomPitch() : 1;
 
                     break;
             }
@@ -171,7 +175,7 @@ public struct RandomPitch
     public float min;
     public float max;
 
-    public RandomPitch(float min, float max)
+    public RandomPitch(float min = 1, float max = 1)
     {
         this.min = min;
         this.max = max;
