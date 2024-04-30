@@ -45,3 +45,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_PlayerCharacterPrefab: {fileID: 0}
+  m_GameplayCameraPrefab: {fileID: 6624375224643038457, guid: ee86c911a2e7329458c627d43f05ea94, type: 3}
+  vehicle: {fileID: 0}

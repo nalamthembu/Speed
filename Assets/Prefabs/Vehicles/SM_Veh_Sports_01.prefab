@@ -219,6 +219,431 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!1 &3838635861691781981
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3841386815487292863}
+  - component: {fileID: 3807910545819094759}
+  m_Layer: 6
+  m_Name: _Empty
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3841386815487292863
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3838635861691781981}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6389940606102849271}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3807910545819094759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3838635861691781981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6dcd2266c92fd740bdfac8b91d46014, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  masterVolume: 1
+  audioMixer: {fileID: -4490982569798276675, guid: b1428a4646c72b54fa3a04d915d11afa, type: 2}
+  engineCurrentRPM: 0
+  gasPedalPressing: 1
+  gasPedalValue: 1
+  gasPedalValueSetting: 0
+  gasPedalSimSpeed: 5.5
+  maxRPMLimit: 4200
+  pitchMultiplier: 1
+  reverbZoneSetting: 0
+  optimisationLevel: 0.01
+  audioRolloffMode: 0
+  minDistance: 25
+  maxDistance: 1000
+  isReversing: 0
+  useRPMLimit: 1
+  enableReverseGear: 0
+  carCurrentSpeed: 0
+  carMaxSpeed: 0
+  isShifting: 0
+  idleClip: {fileID: 8300000, guid: f19449c23885193489444aad6f4405ec, type: 3}
+  idleVolCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: -0.06962456
+      outSlope: -0.06962456
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.05103016
+      value: 0.74030226
+      inSlope: -0.16182661
+      outSlope: -0.16182661
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.14711702
+      value: 0.7323945
+      inSlope: -0.19761306
+      outSlope: -0.19761306
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.39941177
+      value: 0
+      inSlope: -8.206973
+      outSlope: -8.206973
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  idlePitchCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.5
+      inSlope: 3
+      outSlope: 3
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 3.5
+      inSlope: 3
+      outSlope: 3
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  lowOffClip: {fileID: 8300000, guid: 510e97dc75eb99e47b9b491b07a3d07f, type: 3}
+  lowOnClip: {fileID: 8300000, guid: 1955fccca9bb9bf47966255b823040cf, type: 3}
+  lowVolCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.084033854
+      value: 0.71587473
+      inSlope: 0.06752694
+      outSlope: 0.06752694
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.3009072
+      value: 0.7202785
+      inSlope: -0.09995916
+      outSlope: -0.09995916
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.5
+      value: 0
+      inSlope: -10.196497
+      outSlope: -10.196497
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  lowPitchCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 3
+      outSlope: 3
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 3
+      inSlope: 3
+      outSlope: 3
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  medOffClip: {fileID: 8300000, guid: 27aaf112494e7cb4dab6068caebc950b, type: 3}
+  medOnClip: {fileID: 8300000, guid: cd1d7fed975595f4da2752ab2e44bb03, type: 3}
+  medVolCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.3419632
+      value: -0.0016961156
+      inSlope: 4.7815967
+      outSlope: 4.7815967
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.42177087
+      value: 0.41996628
+      inSlope: 0.73098713
+      outSlope: 0.73098713
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.49551937
+      value: 0.41997388
+      inSlope: -1.0301973
+      outSlope: -1.0301973
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.5631244
+      value: 0
+      inSlope: -4.427543
+      outSlope: -4.427543
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  medPitchCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 2
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  highOffClip: {fileID: 8300000, guid: 685c76999f27e1948931a4ab1023d1d7, type: 3}
+  highOnClip: {fileID: 8300000, guid: 5f34c75bab3c50d48bac2c69c2bd2a53, type: 3}
+  highVolCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0.05364914
+      outSlope: 0.05364914
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.6071229
+      value: 0.99740964
+      inSlope: 0.040114503
+      outSlope: 0.040114503
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.9933809
+      value: 0.9969643
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  highPitchCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.2
+      value: 0.10110802
+      inSlope: 1.1236149
+      outSlope: 1.1236149
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1.1236149
+      outSlope: 1.1236149
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  maxRPMClip: {fileID: 8300000, guid: 35259e5e0adcea84d8421490d5cab1d7, type: 3}
+  maxRPMVolCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.98868656
+      value: 0
+      inSlope: Infinity
+      outSlope: Infinity
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.9933809
+      value: 1
+      inSlope: 1.2784194
+      outSlope: 1.2784194
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reversingClip: {fileID: 8300000, guid: ab48462ad5b353a4887240546d19f906, type: 3}
+  reversingVolCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.5463793
+      value: 1.0042017
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reversingPitchCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 2
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  mainCamera: {fileID: 0}
+  isCameraNear: 0
+  engineShakeSetting: 0
+  shakeLenghtSetting: 0
+  shakeLength: 50
+  shakeVolumeChange: 0.5
+  randomChance: 0.5
 --- !u!1 &5373877994391740113
 GameObject:
   m_ObjectHideFlags: 0
@@ -250,6 +675,37 @@ Transform:
   m_Children:
   - {fileID: 8701877958146326387}
   - {fileID: 1846449919933288349}
+  m_Father: {fileID: 6389940606102849271}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5763949544205571085
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3719603839410632345}
+  m_Layer: 6
+  m_Name: CentreOfMass
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3719603839410632345
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5763949544205571085}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.248, z: 0.915}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
   m_Father: {fileID: 6389940606102849271}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6392996158596534205
@@ -763,17 +1219,12 @@ GameObject:
   - component: {fileID: 6398455576192766507}
   - component: {fileID: 6408549692666521587}
   - component: {fileID: 6366393755188677099}
-  - component: {fileID: 6366393755188677105}
-  - component: {fileID: 6366393755188677104}
-  - component: {fileID: 6366393755188677111}
+  - component: {fileID: 7322786320159538850}
   - component: {fileID: 6366393755188677110}
+  - component: {fileID: 4613440061094063460}
   - component: {fileID: 6366393755188677109}
   - component: {fileID: 6366393755188677108}
-  - component: {fileID: -3012663198624950190}
-  - component: {fileID: 5302549513330941300}
   - component: {fileID: 7757321100902243571}
-  - component: {fileID: 2365202105604794426}
-  - component: {fileID: 7979031284192165709}
   m_Layer: 6
   m_Name: SM_Veh_Sports_01
   m_TagString: Untagged
@@ -808,6 +1259,7 @@ Transform:
   - {fileID: 5158008046230921732}
   - {fileID: 4522616590542724128}
   - {fileID: 3841386815487292863}
+  - {fileID: 3719603839410632345}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6398455576192766507
@@ -882,7 +1334,7 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 43408731848165332, guid: 03022f8280a0caa4890438bdbe981d08, type: 2}
---- !u!114 &6366393755188677105
+--- !u!114 &7322786320159538850
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -891,36 +1343,243 @@ MonoBehaviour:
   m_GameObject: {fileID: 6393720303507002595}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 271911ce04c8226448a10eb3ec96639d, type: 3}
+  m_Script: {fileID: 11500000, guid: 55ee3767aacda0f46adcb0e0740b278d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &6366393755188677104
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6393720303507002595}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dfdcb51c8d41ef94894b3678b2d1882a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  engineResponseTime: 0
---- !u!114 &6366393755188677111
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6393720303507002595}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dfed7845f72695348b35b8a9556eef70, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  powerData: {fileID: 11400000, guid: 45851683f546e264ab4ab0de801c428b, type: 2}
-  timeToChangeGears: 0.05
+  tireSideDeflection: 0
+  tireSideDeflectionRate: 10
+  tireImpulseRatio: 0.5
+  wheelSleepVelocity: 0.2
+  advancedSuspensionDamper: 0
+  suspensionDamperLimitFactor: 2
+  contactAngleAffectsTireForce: 1
+  integrationSteps: 2
+  integrationUseRK4: 0
+  centerOfMass: {fileID: 0}
+  accurateSuspensionForces: 1
+  scaleFactor: 1
+  vehicleSleepCriteria: 0
+  showContactGizmos: 1
+  disableContactProcessing: 0
+  inertia:
+    mode: 1
+    inertiaColliders: []
+    chassisDimensions: {x: 1.5, y: 0.5, z: 4}
+    inertiaBias: 0
+    inertiaTensor: {x: 2000, y: 2200, z: 400}
+    inertiaTensorRotation: {x: 0, y: 0, z: 0}
+  axles:
+  - leftWheel: {fileID: 3607598788502295004}
+    rightWheel: {fileID: 8723427783396356404}
+    brakeCircuit: 1
+    steeringMode: 1
+    steeringRatio: 1
+  - leftWheel: {fileID: 5796754466136710862}
+    rightWheel: {fileID: 4355733531556780850}
+    brakeCircuit: 2
+    steeringMode: 0
+    steeringRatio: 1
+  driveline:
+    drivenAxles: 2
+    firstDrivenAxle: 1
+    secondDrivenAxle: 0
+    thirdDrivenAxle: 2
+    fourthDrivenAxle: 3
+    twoDrivenAxlesConfig: 1
+    threeDrivenAxlesConfig: 1
+    fourDrivenAxlesConfig: 3
+  differential:
+    type: 2
+    gearRatio: 3.7
+    preload: 0
+    powerStiffness: 0.2
+    coastStiffness: 0.2
+    clutchPreload: 50
+    clutchPackFriction: 0.4
+    powerAngle: 45
+    coastAngle: 80
+    torquePreload: 0
+    powerRatio: 5
+    coastRatio: 5
+  centerDifferential:
+    type: 1
+    gearRatio: 1
+    preload: 0
+    powerStiffness: 0.2
+    coastStiffness: 0.2
+    clutchPreload: 50
+    clutchPackFriction: 0.4
+    powerAngle: 45
+    coastAngle: 80
+    torquePreload: 0
+    powerRatio: 5
+    coastRatio: 5
+  interAxleDifferential:
+    type: 1
+    gearRatio: 1
+    preload: 0
+    powerStiffness: 0.2
+    coastStiffness: 0.2
+    clutchPreload: 50
+    clutchPackFriction: 0.4
+    powerAngle: 45
+    coastAngle: 80
+    torquePreload: 0
+    powerRatio: 5
+    coastRatio: 5
+  torqueSplitter:
+    preload: 0
+    stiffness: 0.5
+  steering:
+    maxSteerAngle: 35
+    toeAngle: 0
+    ackerman: 1
+    ackermanReference: {fileID: 0}
+    ratioReference: {fileID: 0}
+  brakes:
+    maxBrakeTorque: 2000
+    brakeBias: 0.7
+    handbrakeTorque: 1500
+    handbrakeAxle: 0
+  tireFriction:
+    model: 2
+    settings:
+      adherent: {x: 0.5, y: 0.95}
+      peak: {x: 1.5, y: 1.1}
+      limit: {x: 4, y: 0.8}
+      a: 0
+      b: 0
+      c: 0.5
+      d: 0
+      A: 0.95
+      B: 0.8
+      C: 1.5
+      D: 1.1
+      E: -2
+    frictionMultiplier: 1
+  engine:
+    idleRpm: 1000
+    peakRpm: 4200
+    maxRpm: 6500
+    idleRpmTorque: 135
+    peakRpmTorque: 188
+    idleRpmCurveBias: 0
+    peakRpmCurveBias: 0
+    inertia: 0.5
+    frictionTorque: 20
+    rotationalFriction: 0.1
+    viscousFriction: 0.01
+    torqueCap: 0
+    torqueCapLimit: 200
+    rpmLimiter: 1
+    rpmLimiterMode: 0
+    rpmLimiterMax: 6000
+    rpmLimiterCutoffTime: 0.075
+    idleControl: 1
+    maxIdleThrottle: 1
+    activeIdleRange: 0.5
+    activeIdleBias: 0.25
+    canStall: 0
+    stallBias: 0.5
+    stalledFrictionTorque: 25
+    starterMotorBias: 0.6
+    maxFuelPerRev: 0.16
+  clutch:
+    type: 2
+    maxTorqueTransfer: 300
+    lockRpm: 2000
+    lockRatioBias: 0.1
+  gearbox:
+    type: 0
+    forwardGearRatios:
+    - 3.538
+    - 2.238
+    - 1.535
+    - 1.162
+    - 1.081
+    - 0.902
+    reverseGearRatios:
+    - -3.44
+    auto2ndGearMinSpeed: 8
+    parkRequiresStopAndBrakes: 0
+    allowParkInManual: 0
+    manualShiftTime: 0.25
+    autoShift: 1
+    autoShiftNeutralRpm: 800
+    autoShiftFirstGearRpm: 1000
+    autoShiftDownRevs: 1900
+    autoShiftUpRevs: 3500
+    autoShiftUpInterval: 1
+    autoShiftDownInterval: 0.3
+    automaticTransitionTime: 0.5
+    automaticShiftInterval: 1
+    automaticGearDownRevs: 1900
+    automaticGearUpRevs: 3500
+    automaticShiftReverseGears: 0
+    automaticInitialGearForward: 1
+    automaticInitialGearReverse: -1
+  retarder:
+    levels: 0
+    curve: 0
+    maxTorque: 3500
+    minRpm: 100
+    maxRpm: 2500
+    curveBias: 0.7
+    baseRpm: 100
+    peakRpm: 1000
+    peakTorque: 3500
+    limitRpm: 2500
+    limitTorque: 2000
+  steeringAids:
+    priority: 1
+    helpMode: 0
+    helpRatio: 1
+    helpGravity: 0.4
+    limitMode: 0
+    limitRatio: 1
+    limitProportionality: 0.9
+    limitCustomSlip: 2
+  speedControl:
+    cruiseControl: 0
+    cruiseSpeed: 27.777779
+    minSpeedForCC: 4.166667
+    speedLimiter: 0
+    speedLimit: 13.888889
+    throttleSlope: 1
+    minSpeed: 4.166667
+  antiLock:
+    enabled: 0
+    mode: 0
+    trigger: 0
+    minSlipOffset: 0.3
+    maxSlipOffset: 1.5
+    minSlip: 0.5
+    maxSlip: 5
+    minPressureRatio: 0.25
+    valvePositions: 2
+  tractionControl:
+    enabled: 0
+    mode: 0
+    ratio: 1
+    customSlip: 2
+  stabilityControl:
+    enabled: 0
+    minSpeed: 6
+    understeerMinRate: 0.5
+    understeerMaxRate: 1.5
+    understeerMinSpeed: 6
+    oversteerMinAngle: 4
+    oversteerMaxAngle: 12
+    oversteerMinSpeed: 10
+  antiSpin:
+    enabled: 0
+    maxSpeed: 5.555556
+    minRotationDiffRpm: 100
+    maxRotationDiffRpm: 400
+    maxBrakeTorque: 1000
+  engineReactionFactor: 1
+  parkModeReactionFactor: 0.95
+  maxSubsystemsEnergy: 100000
 --- !u!54 &6366393755188677110
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -945,9 +1604,46 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &4613440061094063460
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6393720303507002595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cd4db2053cace74bb8cadb64e702df8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  throttleAndBrakeMode: 1
+  brakeOnThrottleBackwards: 1
+  applyClutchOnHandbrake: 1
+  unlockDrivelineOnHandbrake: 1
+  progressiveSteerMode: 0
+  movementRate: 0.25
+  autoCenterRate: 0.01
+  ignitionKey: 107
+  steerAxis: Horizontal
+  throttleAndBrakeAxis: Vertical
+  handbrakeAxis: Jump
+  clutchAxis: Fire1
+  gearShiftButton: Fire2
+  gearModeSelectButton: Fire3
+  keyboardNumbersSelectGears: 1
+  neutralGear: 110
+  reverseGear: 114
+  externalThrottle: 0
+  reverse: 0
+  externalBrake: 0
+  externalHandbrake: 0
+  externalSteer: 0
+  externalClutch: 0
+  externalIgnition: 1
+  lockBrakesOnEnable: 0
 --- !u!114 &6366393755188677109
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -960,20 +1656,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3c9735ea2ab4b74999c59a3008b843b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  axes:
-  - wheels:
-    - {fileID: 7341111582819339145}
-    - {fileID: 7341111581686769951}
-    isPowered: 0
-    isSteering: 1
-    steerRadius: 6
-  - wheels:
-    - {fileID: 7341111582965114246}
-    - {fileID: 7341111582957779237}
-    isPowered: 1
-    isSteering: 0
-    steerRadius: 0
-  seats: []
+  m_Seats: []
+  m_WheelVisualComponents:
+  - {fileID: 6679211766563634953}
+  - {fileID: 3365809120887814520}
+  - {fileID: 4326539179582101749}
+  - {fileID: 2269292356738321610}
+  m_CameraFocus: {fileID: 5158008046230921732}
+  m_StartTime: 0.5
+  m_MaxDrag: 1
 --- !u!114 &6366393755188677108
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -988,8 +1679,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bodyKit: {fileID: 11400000, guid: b142bb2f4a522e04b8bf776be54ec2c9, type: 2}
   paintJob: {fileID: 11400000, guid: 670d2f8e0486f304cae4d03a7185f02d, type: 2}
-  Tyres: {fileID: 0}
-  Rims: {fileID: 0}
   kitIndiceSettings:
     bonnet: 0
     fender: 0
@@ -1001,42 +1690,12 @@ MonoBehaviour:
     spoiler: 0
     rims: 0
   paintJobSettings:
-    paintJobIndex: 1
+    paintJobIndex: 0
   nonCustomParts:
     parts:
+    - {fileID: 6394641474726638881}
     - {fileID: 6393880287470555727}
     - {fileID: 6393366502430619923}
-    - {fileID: 6394641474726638881}
---- !u!114 &-3012663198624950190
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6393720303507002595}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b54c6fcf8bfa7aa4b8bb357f399dbffa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerControlEnabled: 0
-  camera_Focus: {fileID: 5158008046230921732}
---- !u!114 &5302549513330941300
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6393720303507002595}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d83dd86317f09dd438dfecef5be7c69d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  minTailLightIntensity: 0.25
-  tailLightResponseTime: 0.25
-  actualTailLightMaxIntensity: 10
-  actualHeadLightMaxIntensity: 10
 --- !u!114 &7757321100902243571
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1050,142 +1709,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   simulated: 1
---- !u!82 &2365202105604794426
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6393720303507002595}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
---- !u!114 &7979031284192165709
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6393720303507002595}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 693adf3d6bb47ea48a37ff8dc21183d3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SpoolTime: 1
-  m_BoostCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 100
-      inSlope: 2
-      outSlope: 2
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  m_WasteGateSoundID: VehicleFX_TurboWastegate
-  m_ForcedInductionLoop: VehicleFX_TurboLoop
-  m_WasteGateShutTime: 0.2
+  m_StartPeakRPM: 3000
+  m_StartPeakReachTime: 0.25
 --- !u!1 &6393809532394359165
 GameObject:
   m_ObjectHideFlags: 0
@@ -1611,9 +2136,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7341111581686769949}
-  - component: {fileID: 7341111581686769951}
-  - component: {fileID: 7341111581686769950}
-  - component: {fileID: 8075262827055795472}
+  - component: {fileID: 3607598788502295004}
+  - component: {fileID: 3365809120887814520}
   m_Layer: 6
   m_Name: WheelFL
   m_TagString: Untagged
@@ -1636,7 +2160,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7341111582857570081}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7341111581686769951
+--- !u!114 &3607598788502295004
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1645,54 +2169,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 7341111581686769948}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 324d5eb897c77f74f8fd7620d0b6e66b, type: 3}
+  m_Script: {fileID: 11500000, guid: 71be0dbe3cea9be418f8a0a5634476f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tyre: {fileID: 11400000, guid: 3f5a528d12467104fb50a6960d6bccc8, type: 2}
-  rim: {fileID: 11400000, guid: 3e3e0887994b77a48b667bfa275fce95, type: 2}
-  wheelMeshParent: {fileID: 7341111582020760764}
-  wheelPosition: 1
-  wheelSide: 0
---- !u!146 &7341111581686769950
-WheelCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7341111581686769948}
-  serializedVersion: 2
-  m_Center: {x: 0, y: 0, z: 0}
-  m_Radius: 0.5
-  m_SuspensionSpring:
-    spring: 35000
-    damper: 4500
-    targetPosition: 0.5
-  m_SuspensionDistance: 0.05
-  m_ForceAppPointDistance: 0
-  m_Mass: 80
-  m_WheelDampingRate: 0.25
-  m_ForwardFriction:
-    m_ExtremumSlip: 2
-    m_ExtremumValue: 5
-    m_AsymptoteSlip: 5
-    m_AsymptoteValue: 2
-    m_Stiffness: 1
-  m_SidewaysFriction:
-    m_ExtremumSlip: 0.4
-    m_ExtremumValue: 1
-    m_AsymptoteSlip: 0.5
-    m_AsymptoteValue: 0.75
-    m_Stiffness: 1
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_Enabled: 1
-  m_ProvidesContacts: 0
---- !u!114 &8075262827055795472
+  mass: 20
+  radius: 0.3
+  center: {x: 0, y: 0, z: 0}
+  suspensionDistance: 0.25
+  suspensionAnchor: 0.5
+  springRate: 30000
+  damperRate: 1500
+  suspensionTransform: {fileID: 0}
+  caliperTransform: {fileID: 0}
+  wheelTransform: {fileID: 0}
+  groundPenetration: 0.02
+  disableSuspensionMovement: 0
+  hideWheelOnDisable: 1
+--- !u!114 &3365809120887814520
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1701,18 +2194,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 7341111581686769948}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a665828c118f4d84fb7ada97e40ec80e, type: 3}
+  m_Script: {fileID: 11500000, guid: 22b49c3dcb4bcc84fb30cdd4ef77fa04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wheelRoadNoiseID: WheelFX_RoadNoise
-  minRPMB4RoadNoise: 500
-  m_SkidData: {fileID: 11400000, guid: 7e5f35fdd88d4dd478c0f3bdcec36738, type: 2}
-  m_SkidMaterial: {fileID: 2100000, guid: c6233f257e547e144b366ffb0fdc3b28, type: 2}
-  m_SkidParticlePrefab: {fileID: 1685495609958368, guid: 99b17d4a1ca9458468b14409003c95e4, type: 3}
-  randomMaxPitch:
-  - 1
-  - 1.35
-  m_MarkWidth: 0.2
+  m_TyreData: {fileID: 11400000, guid: 3f5a528d12467104fb50a6960d6bccc8, type: 2}
+  m_RimData: {fileID: 11400000, guid: 07aa5a3fd48924e48ac22ae091c54271, type: 2}
+  m_WheelMeshParent: {fileID: 7341111582020760764}
+  m_WheelPosition: 1
+  m_WheelSide: 0
 --- !u!1 &7341111582020760755
 GameObject:
   m_ObjectHideFlags: 0
@@ -1753,9 +2242,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7341111582819339151}
-  - component: {fileID: 7341111582819339145}
-  - component: {fileID: 7341111582819339144}
-  - component: {fileID: 1998585381079604169}
+  - component: {fileID: 8723427783396356404}
+  - component: {fileID: 6679211766563634953}
   m_Layer: 6
   m_Name: WheelFR
   m_TagString: Untagged
@@ -1778,7 +2266,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7341111582857570081}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7341111582819339145
+--- !u!114 &8723427783396356404
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1787,54 +2275,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 7341111582819339150}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 324d5eb897c77f74f8fd7620d0b6e66b, type: 3}
+  m_Script: {fileID: 11500000, guid: 71be0dbe3cea9be418f8a0a5634476f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tyre: {fileID: 11400000, guid: 3f5a528d12467104fb50a6960d6bccc8, type: 2}
-  rim: {fileID: 11400000, guid: 3e3e0887994b77a48b667bfa275fce95, type: 2}
-  wheelMeshParent: {fileID: 7341111582020760764}
-  wheelPosition: 1
-  wheelSide: 1
---- !u!146 &7341111582819339144
-WheelCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7341111582819339150}
-  serializedVersion: 2
-  m_Center: {x: 0, y: 0, z: 0}
-  m_Radius: 0.5
-  m_SuspensionSpring:
-    spring: 35000
-    damper: 4500
-    targetPosition: 0.5
-  m_SuspensionDistance: 0.05
-  m_ForceAppPointDistance: 0
-  m_Mass: 80
-  m_WheelDampingRate: 0.25
-  m_ForwardFriction:
-    m_ExtremumSlip: 2
-    m_ExtremumValue: 5
-    m_AsymptoteSlip: 5
-    m_AsymptoteValue: 2
-    m_Stiffness: 1
-  m_SidewaysFriction:
-    m_ExtremumSlip: 0.4
-    m_ExtremumValue: 1
-    m_AsymptoteSlip: 0.5
-    m_AsymptoteValue: 0.75
-    m_Stiffness: 1
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_Enabled: 1
-  m_ProvidesContacts: 0
---- !u!114 &1998585381079604169
+  mass: 20
+  radius: 0.3
+  center: {x: 0, y: 0, z: 0}
+  suspensionDistance: 0.25
+  suspensionAnchor: 0.5
+  springRate: 30000
+  damperRate: 1500
+  suspensionTransform: {fileID: 0}
+  caliperTransform: {fileID: 0}
+  wheelTransform: {fileID: 0}
+  groundPenetration: 0.02
+  disableSuspensionMovement: 0
+  hideWheelOnDisable: 1
+--- !u!114 &6679211766563634953
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1843,18 +2300,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 7341111582819339150}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a665828c118f4d84fb7ada97e40ec80e, type: 3}
+  m_Script: {fileID: 11500000, guid: 22b49c3dcb4bcc84fb30cdd4ef77fa04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wheelRoadNoiseID: WheelFX_RoadNoise
-  minRPMB4RoadNoise: 500
-  m_SkidData: {fileID: 11400000, guid: 7e5f35fdd88d4dd478c0f3bdcec36738, type: 2}
-  m_SkidMaterial: {fileID: 2100000, guid: c6233f257e547e144b366ffb0fdc3b28, type: 2}
-  m_SkidParticlePrefab: {fileID: 1685495609958368, guid: 99b17d4a1ca9458468b14409003c95e4, type: 3}
-  randomMaxPitch:
-  - 1
-  - 1.35
-  m_MarkWidth: 0.2
+  m_TyreData: {fileID: 11400000, guid: 3f5a528d12467104fb50a6960d6bccc8, type: 2}
+  m_RimData: {fileID: 11400000, guid: 07aa5a3fd48924e48ac22ae091c54271, type: 2}
+  m_WheelMeshParent: {fileID: 7341111582020760764}
+  m_WheelPosition: 1
+  m_WheelSide: 1
 --- !u!1 &7341111582857570080
 GameObject:
   m_ObjectHideFlags: 0
@@ -1899,9 +2352,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7341111582957779227}
-  - component: {fileID: 7341111582957779237}
-  - component: {fileID: 7341111582957779236}
-  - component: {fileID: 5799414391064237307}
+  - component: {fileID: 5796754466136710862}
+  - component: {fileID: 2269292356738321610}
   m_Layer: 6
   m_Name: WheelBL
   m_TagString: Untagged
@@ -1924,7 +2376,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7341111582857570081}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7341111582957779237
+--- !u!114 &5796754466136710862
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1933,54 +2385,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 7341111582957779226}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 324d5eb897c77f74f8fd7620d0b6e66b, type: 3}
+  m_Script: {fileID: 11500000, guid: 71be0dbe3cea9be418f8a0a5634476f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tyre: {fileID: 11400000, guid: 3f5a528d12467104fb50a6960d6bccc8, type: 2}
-  rim: {fileID: 11400000, guid: 3e3e0887994b77a48b667bfa275fce95, type: 2}
-  wheelMeshParent: {fileID: 7341111582020760764}
-  wheelPosition: 0
-  wheelSide: 0
---- !u!146 &7341111582957779236
-WheelCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7341111582957779226}
-  serializedVersion: 2
-  m_Center: {x: 0, y: 0, z: 0}
-  m_Radius: 0.5
-  m_SuspensionSpring:
-    spring: 35000
-    damper: 4500
-    targetPosition: 0.5
-  m_SuspensionDistance: 0.05
-  m_ForceAppPointDistance: 0
-  m_Mass: 80
-  m_WheelDampingRate: 0.25
-  m_ForwardFriction:
-    m_ExtremumSlip: 2
-    m_ExtremumValue: 5
-    m_AsymptoteSlip: 5
-    m_AsymptoteValue: 2
-    m_Stiffness: 1
-  m_SidewaysFriction:
-    m_ExtremumSlip: 0.4
-    m_ExtremumValue: 1
-    m_AsymptoteSlip: 0.5
-    m_AsymptoteValue: 0.75
-    m_Stiffness: 1
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_Enabled: 1
-  m_ProvidesContacts: 0
---- !u!114 &5799414391064237307
+  mass: 20
+  radius: 0.3
+  center: {x: 0, y: 0, z: 0}
+  suspensionDistance: 0.25
+  suspensionAnchor: 0.5
+  springRate: 30000
+  damperRate: 1500
+  suspensionTransform: {fileID: 0}
+  caliperTransform: {fileID: 0}
+  wheelTransform: {fileID: 0}
+  groundPenetration: 0.02
+  disableSuspensionMovement: 0
+  hideWheelOnDisable: 1
+--- !u!114 &2269292356738321610
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1989,18 +2410,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 7341111582957779226}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a665828c118f4d84fb7ada97e40ec80e, type: 3}
+  m_Script: {fileID: 11500000, guid: 22b49c3dcb4bcc84fb30cdd4ef77fa04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wheelRoadNoiseID: WheelFX_RoadNoise
-  minRPMB4RoadNoise: 500
-  m_SkidData: {fileID: 11400000, guid: 7e5f35fdd88d4dd478c0f3bdcec36738, type: 2}
-  m_SkidMaterial: {fileID: 2100000, guid: c6233f257e547e144b366ffb0fdc3b28, type: 2}
-  m_SkidParticlePrefab: {fileID: 1685495609958368, guid: 99b17d4a1ca9458468b14409003c95e4, type: 3}
-  randomMaxPitch:
-  - 1
-  - 1.35
-  m_MarkWidth: 0.2
+  m_TyreData: {fileID: 11400000, guid: 3f5a528d12467104fb50a6960d6bccc8, type: 2}
+  m_RimData: {fileID: 11400000, guid: 07aa5a3fd48924e48ac22ae091c54271, type: 2}
+  m_WheelMeshParent: {fileID: 7341111582020760764}
+  m_WheelPosition: 0
+  m_WheelSide: 0
 --- !u!1 &7341111582965113467
 GameObject:
   m_ObjectHideFlags: 0
@@ -2010,9 +2427,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7341111582965114244}
-  - component: {fileID: 7341111582965114246}
-  - component: {fileID: 7341111582965114245}
-  - component: {fileID: 5359766741076699746}
+  - component: {fileID: 4355733531556780850}
+  - component: {fileID: 4326539179582101749}
   m_Layer: 6
   m_Name: WheelBR
   m_TagString: Untagged
@@ -2035,7 +2451,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7341111582857570081}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7341111582965114246
+--- !u!114 &4355733531556780850
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2044,54 +2460,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 7341111582965113467}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 324d5eb897c77f74f8fd7620d0b6e66b, type: 3}
+  m_Script: {fileID: 11500000, guid: 71be0dbe3cea9be418f8a0a5634476f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tyre: {fileID: 11400000, guid: 3f5a528d12467104fb50a6960d6bccc8, type: 2}
-  rim: {fileID: 11400000, guid: 3e3e0887994b77a48b667bfa275fce95, type: 2}
-  wheelMeshParent: {fileID: 7341111582020760764}
-  wheelPosition: 0
-  wheelSide: 1
---- !u!146 &7341111582965114245
-WheelCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7341111582965113467}
-  serializedVersion: 2
-  m_Center: {x: 0, y: 0, z: 0}
-  m_Radius: 0.5
-  m_SuspensionSpring:
-    spring: 35000
-    damper: 4500
-    targetPosition: 0.5
-  m_SuspensionDistance: 0.05
-  m_ForceAppPointDistance: 0
-  m_Mass: 80
-  m_WheelDampingRate: 0.25
-  m_ForwardFriction:
-    m_ExtremumSlip: 2
-    m_ExtremumValue: 5
-    m_AsymptoteSlip: 5
-    m_AsymptoteValue: 2
-    m_Stiffness: 1
-  m_SidewaysFriction:
-    m_ExtremumSlip: 0.4
-    m_ExtremumValue: 1
-    m_AsymptoteSlip: 0.5
-    m_AsymptoteValue: 0.75
-    m_Stiffness: 1
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_Enabled: 1
-  m_ProvidesContacts: 0
---- !u!114 &5359766741076699746
+  mass: 20
+  radius: 0.3
+  center: {x: 0, y: 0, z: 0}
+  suspensionDistance: 0.25
+  suspensionAnchor: 0.5
+  springRate: 30000
+  damperRate: 1500
+  suspensionTransform: {fileID: 0}
+  caliperTransform: {fileID: 0}
+  wheelTransform: {fileID: 0}
+  groundPenetration: 0.02
+  disableSuspensionMovement: 0
+  hideWheelOnDisable: 1
+--- !u!114 &4326539179582101749
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2100,633 +2485,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 7341111582965113467}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a665828c118f4d84fb7ada97e40ec80e, type: 3}
+  m_Script: {fileID: 11500000, guid: 22b49c3dcb4bcc84fb30cdd4ef77fa04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wheelRoadNoiseID: WheelFX_RoadNoise
-  minRPMB4RoadNoise: 500
-  m_SkidData: {fileID: 11400000, guid: 7e5f35fdd88d4dd478c0f3bdcec36738, type: 2}
-  m_SkidMaterial: {fileID: 2100000, guid: c6233f257e547e144b366ffb0fdc3b28, type: 2}
-  m_SkidParticlePrefab: {fileID: 1685495609958368, guid: 99b17d4a1ca9458468b14409003c95e4, type: 3}
-  randomMaxPitch:
-  - 1
-  - 1.35
-  m_MarkWidth: 0.2
---- !u!1001 &3837191282275214055
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 6389940606102849271}
-    m_Modifications:
-    - target: {fileID: 1657919603716538, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: m_Name
-      value: _Empty
-      objectReference: {fileID: 0}
-    - target: {fileID: 1657919603716538, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 4268101583525720, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4268101583525720, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4268101583525720, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4268101583525720, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4268101583525720, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4268101583525720, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4268101583525720, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4268101583525720, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4268101583525720, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4268101583525720, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: idleClip
-      value: 
-      objectReference: {fileID: 8300000, guid: f19449c23885193489444aad6f4405ec, type: 3}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: lowOnClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 1955fccca9bb9bf47966255b823040cf, type: 3}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: medOnClip
-      value: 
-      objectReference: {fileID: 8300000, guid: cd1d7fed975595f4da2752ab2e44bb03, type: 3}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: audioMixer
-      value: 
-      objectReference: {fileID: -4490982569798276675, guid: b1428a4646c72b54fa3a04d915d11afa, type: 2}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: highOnClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 5f34c75bab3c50d48bac2c69c2bd2a53, type: 3}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: lowOffClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 510e97dc75eb99e47b9b491b07a3d07f, type: 3}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: maxRPMClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 35259e5e0adcea84d8421490d5cab1d7, type: 3}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: medOffClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 27aaf112494e7cb4dab6068caebc950b, type: 3}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: highOffClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 685c76999f27e1948931a4ab1023d1d7, type: 3}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: maxDistance
-      value: 1000
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: minDistance
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: useRPMLimit
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: audioRolloffMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: enableReverseGear
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: lowVolCurve.m_RotationOrder
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: medVolCurve.m_RotationOrder
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: highVolCurve.m_RotationOrder
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: idleVolCurve.m_RotationOrder
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: lowPitchCurve.m_RotationOrder
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: medPitchCurve.m_RotationOrder
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: highPitchCurve.m_RotationOrder
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: idlePitchCurve.m_RotationOrder
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: lowVolCurve.m_Curve.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: maxRPMVolCurve.m_RotationOrder
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: medVolCurve.m_Curve.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: highVolCurve.m_Curve.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: lowPitchCurve.m_Curve.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: medPitchCurve.m_Curve.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: highPitchCurve.m_Curve.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: reversingVolCurve.m_RotationOrder
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: reversingPitchCurve.m_RotationOrder
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: lowVolCurve.m_Curve.Array.data[0].time
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: lowVolCurve.m_Curve.Array.data[1].time
-      value: 0.084033854
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: lowVolCurve.m_Curve.Array.data[2].time
-      value: 0.3009072
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: lowVolCurve.m_Curve.Array.data[3].time
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: medVolCurve.m_Curve.Array.data[0].time
-      value: 0.3419632
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: medVolCurve.m_Curve.Array.data[1].time
-      value: 0.42177087
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: medVolCurve.m_Curve.Array.data[2].time
-      value: 0.49551937
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: medVolCurve.m_Curve.Array.data[3].time
-      value: 0.5631244
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: highVolCurve.m_Curve.Array.data[0].time
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: highVolCurve.m_Curve.Array.data[1].time
-      value: 0.6071229
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: highVolCurve.m_Curve.Array.data[2].time
-      value: 0.9933809
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: idleVolCurve.m_Curve.Array.data[1].time
-      value: 0.05103016
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: idleVolCurve.m_Curve.Array.data[2].time
-      value: 0.14711702
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: idleVolCurve.m_Curve.Array.data[3].time
-      value: 0.39941177
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: lowVolCurve.m_Curve.Array.data[0].value
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: lowVolCurve.m_Curve.Array.data[1].value
-      value: 0.71587473
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: lowVolCurve.m_Curve.Array.data[2].value
-      value: 0.7202785
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: lowVolCurve.m_Curve.Array.data[3].value
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: medVolCurve.m_Curve.Array.data[0].value
-      value: -0.0016961156
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: medVolCurve.m_Curve.Array.data[1].value
-      value: 0.41996628
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: medVolCurve.m_Curve.Array.data[2].value
-      value: 0.41997388
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: medVolCurve.m_Curve.Array.data[3].value
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: highVolCurve.m_Curve.Array.data[0].value
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: highVolCurve.m_Curve.Array.data[1].value
-      value: 0.99740964
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: highVolCurve.m_Curve.Array.data[2].value
-      value: 0.9969643
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: idleVolCurve.m_Curve.Array.data[1].value
-      value: 0.74030226
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: idleVolCurve.m_Curve.Array.data[2].value
-      value: 0.7323945
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: idleVolCurve.m_Curve.Array.data[3].value
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: lowPitchCurve.m_Curve.Array.data[0].time
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: lowPitchCurve.m_Curve.Array.data[1].time
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: medPitchCurve.m_Curve.Array.data[0].time
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: medPitchCurve.m_Curve.Array.data[1].time
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: highPitchCurve.m_Curve.Array.data[0].time
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: highPitchCurve.m_Curve.Array.data[1].time
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: idlePitchCurve.m_Curve.Array.data[0].time
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: idlePitchCurve.m_Curve.Array.data[1].time
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: lowPitchCurve.m_Curve.Array.data[0].value
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: lowPitchCurve.m_Curve.Array.data[1].value
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: lowVolCurve.m_Curve.Array.data[1].inSlope
-      value: 0.06752694
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: lowVolCurve.m_Curve.Array.data[2].inSlope
-      value: -0.09995916
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: lowVolCurve.m_Curve.Array.data[3].inSlope
-      value: -10.196497
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: maxRPMVolCurve.m_Curve.Array.data[0].time
-      value: 0.98868656
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: maxRPMVolCurve.m_Curve.Array.data[1].time
-      value: 0.9933809
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: medPitchCurve.m_Curve.Array.data[0].value
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: medPitchCurve.m_Curve.Array.data[1].value
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: medVolCurve.m_Curve.Array.data[0].inSlope
-      value: 4.7815967
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: medVolCurve.m_Curve.Array.data[1].inSlope
-      value: 0.73098713
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: medVolCurve.m_Curve.Array.data[2].inSlope
-      value: -1.0301973
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: medVolCurve.m_Curve.Array.data[3].inSlope
-      value: -4.427543
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: highPitchCurve.m_Curve.Array.data[0].value
-      value: 0.10110802
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: highPitchCurve.m_Curve.Array.data[1].value
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: highVolCurve.m_Curve.Array.data[0].inSlope
-      value: 0.05364914
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: highVolCurve.m_Curve.Array.data[1].inSlope
-      value: 0.040114503
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: idlePitchCurve.m_Curve.Array.data[0].value
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: idlePitchCurve.m_Curve.Array.data[1].value
-      value: 3.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: idleVolCurve.m_Curve.Array.data[1].inSlope
-      value: -0.16182661
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: idleVolCurve.m_Curve.Array.data[2].inSlope
-      value: -0.19761306
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: idleVolCurve.m_Curve.Array.data[3].inSlope
-      value: -8.206973
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: lowVolCurve.m_Curve.Array.data[1].outSlope
-      value: 0.06752694
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: lowVolCurve.m_Curve.Array.data[2].outSlope
-      value: -0.09995916
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: lowVolCurve.m_Curve.Array.data[3].outSlope
-      value: -10.196497
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: medVolCurve.m_Curve.Array.data[0].outSlope
-      value: 4.7815967
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: medVolCurve.m_Curve.Array.data[1].outSlope
-      value: 0.73098713
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: medVolCurve.m_Curve.Array.data[2].outSlope
-      value: -1.0301973
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: medVolCurve.m_Curve.Array.data[3].outSlope
-      value: -4.427543
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: highVolCurve.m_Curve.Array.data[0].outSlope
-      value: 0.05364914
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: highVolCurve.m_Curve.Array.data[1].outSlope
-      value: 0.040114503
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: idleVolCurve.m_Curve.Array.data[1].outSlope
-      value: -0.16182661
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: idleVolCurve.m_Curve.Array.data[2].outSlope
-      value: -0.19761306
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: idleVolCurve.m_Curve.Array.data[3].outSlope
-      value: -8.206973
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: lowPitchCurve.m_Curve.Array.data[0].inSlope
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: lowPitchCurve.m_Curve.Array.data[1].inSlope
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: medPitchCurve.m_Curve.Array.data[0].inSlope
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: medPitchCurve.m_Curve.Array.data[1].inSlope
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: highPitchCurve.m_Curve.Array.data[0].inSlope
-      value: 1.1236149
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: highPitchCurve.m_Curve.Array.data[1].inSlope
-      value: 1.1236149
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: idlePitchCurve.m_Curve.Array.data[0].inSlope
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: idlePitchCurve.m_Curve.Array.data[1].inSlope
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: lowPitchCurve.m_Curve.Array.data[0].outSlope
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: lowPitchCurve.m_Curve.Array.data[1].outSlope
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: maxRPMVolCurve.m_Curve.Array.data[1].inSlope
-      value: 1.2784194
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: medPitchCurve.m_Curve.Array.data[0].outSlope
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: medPitchCurve.m_Curve.Array.data[1].outSlope
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: reversingVolCurve.m_Curve.Array.data[0].time
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: reversingVolCurve.m_Curve.Array.data[1].time
-      value: 0.5463793
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: reversingVolCurve.m_Curve.Array.data[2].time
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: highPitchCurve.m_Curve.Array.data[0].outSlope
-      value: 1.1236149
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: highPitchCurve.m_Curve.Array.data[1].outSlope
-      value: 1.1236149
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: idlePitchCurve.m_Curve.Array.data[0].outSlope
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: idlePitchCurve.m_Curve.Array.data[1].outSlope
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: maxRPMVolCurve.m_Curve.Array.data[1].outSlope
-      value: 1.2784194
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: reversingVolCurve.m_Curve.Array.data[1].value
-      value: 1.0042017
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: reversingVolCurve.m_Curve.Array.data[2].value
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: reversingPitchCurve.m_Curve.Array.data[0].time
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: lowPitchCurve.m_Curve.Array.data[0].tangentMode
-      value: 34
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: lowPitchCurve.m_Curve.Array.data[1].tangentMode
-      value: 34
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: medPitchCurve.m_Curve.Array.data[0].tangentMode
-      value: 34
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: medPitchCurve.m_Curve.Array.data[1].tangentMode
-      value: 34
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: reversingPitchCurve.m_Curve.Array.data[0].value
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: highPitchCurve.m_Curve.Array.data[0].tangentMode
-      value: 34
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: highPitchCurve.m_Curve.Array.data[1].tangentMode
-      value: 34
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: idlePitchCurve.m_Curve.Array.data[0].tangentMode
-      value: 34
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: idlePitchCurve.m_Curve.Array.data[1].tangentMode
-      value: 34
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: reversingPitchCurve.m_Curve.Array.data[0].inSlope
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: reversingPitchCurve.m_Curve.Array.data[1].inSlope
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: reversingPitchCurve.m_Curve.Array.data[0].outSlope
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114871835123756032, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-      propertyPath: reversingPitchCurve.m_Curve.Array.data[1].outSlope
-      value: 2
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
---- !u!4 &3841386815487292863 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4268101583525720, guid: 993d60c2e5bca2b4d88b245b972f08b3, type: 3}
-  m_PrefabInstance: {fileID: 3837191282275214055}
-  m_PrefabAsset: {fileID: 0}
+  m_TyreData: {fileID: 11400000, guid: 3f5a528d12467104fb50a6960d6bccc8, type: 2}
+  m_RimData: {fileID: 11400000, guid: 07aa5a3fd48924e48ac22ae091c54271, type: 2}
+  m_WheelMeshParent: {fileID: 7341111582020760764}
+  m_WheelPosition: 0
+  m_WheelSide: 1

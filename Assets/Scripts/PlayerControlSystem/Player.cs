@@ -1,34 +1,57 @@
-﻿using RaceSystem;
+﻿using System;
+using Unity.VisualScripting;
 using UnityEngine;
+using VehiclePhysics;
 
-public class Player : Racer
+public class Player : MonoBehaviour
 {
     //I ONLY WANT ONE INSTANCE OF THE PLAYER IN ANY SCENE.
-    public static Player instance;
+    public static Player Instance;
 
     [SerializeField] GameObject m_PlayerCharacterPrefab;
 
-    protected override void Awake()
+    [SerializeField] GameObject m_GameplayCameraPrefab;
+
+    [SerializeField] Vehicle vehicle;
+
+    public Vehicle Vehicle { get { return vehicle; } }
+
+    public static event Action OnPlayerInitialised;
+
+    private bool m_Initialized;
+
+    protected void Awake()
     {
-        if (instance is null)
-            instance = this;
+        if (Instance == null)
+            Instance = this;
         else
         {
             Destroy(gameObject);
             return;
         }
+
+        //Player Camera
+        Instantiate(m_GameplayCameraPrefab);
     }
 
     private void OnDestroy()
     {
         Debug.Log("Player Was Destroyed!");
 
-        instance = null;
+        Instance = null;
     }
 
+
+    [ContextMenu("Debug : Initialise Player")]
     public void InitialisePlayer()
     {
-        Vehicle vehicle;
+        if (VehicleManager.instance == null)
+        {
+            Debug.LogError("There is no Vehicle Manager in this scene!");
+            return;
+        }
+
+        Vehicle vehicle = null;
 
         if (SaveSystem.TryLoad(out PlayerData data))
         {
@@ -60,7 +83,7 @@ public class Player : Racer
                         }
                     );
 
-                if (vehicle is null)
+                if (vehicle == null)
                 {
                     Debug.LogError("**VEHICLE IS NULL**");
                     return;
@@ -84,9 +107,15 @@ public class Player : Racer
                 kit.InitialiseBodyKit();
             }
         }
+        if (vehicle != null)
+        {
+            CameraController.Instance.SetCameraFocus(vehicle.CameraFocus);
+            OnPlayerInitialised?.Invoke();
+            m_Initialized = true;
 
-        CameraController.Instance.SetCameraFocus(this.vehicle.GetComponent<PlayerVehicleInput>().camera_Focus);
-        GameManager.Instance.InitPlayer();
+            if (RacingHUD.Instance)
+                RacingHUD.Instance.SetMaxRev(vehicle.PeakEngineRPM);
+        }
     }
 
     private void Initialise(Vehicle vehicle)
@@ -94,6 +123,15 @@ public class Player : Racer
         this.vehicle = vehicle;
         this.vehicle.transform.parent = transform;
         this.vehicle.transform.SetLocalPositionAndRotation(transform.localPosition, transform.localRotation);
-        this.vehicle.GetComponent<PlayerVehicleInput>().playerControlEnabled = true;
+        this.vehicle.GetComponent<VPStandardInput>().enabled = true;
+    }
+
+    private void Update()
+    {
+        if (RacingHUD.Instance && vehicle)
+        {
+            RacingHUD.Instance.SetRev(vehicle.EngineRPM);
+            RacingHUD.Instance.SetSpeedometer(vehicle.SpeedKMH);
+        }
     }
 }

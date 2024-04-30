@@ -5,12 +5,9 @@ public class VehicleBodyKitManager : MonoBehaviour
 {
     public VehicleBodyKitScriptable bodyKit;
     public VehiclePaintjobScriptable paintJob;
-    public TyreScriptable Tyres;
-    public RimScriptable Rims;
     public KitIndiceSettings kitIndiceSettings;
     public PaintJobSettings paintJobSettings;
     public NonCustomisableParts nonCustomParts;
-    private Vehicle vehicle;
 
     //"r" prefix means real-time or spawned at runtime
     private GameObject rbodyKit;
@@ -18,8 +15,6 @@ public class VehicleBodyKitManager : MonoBehaviour
 
     private void Awake()
     {
-        vehicle = GetComponent<Vehicle>();
-
         InitialiseBodyKit();
     }
 
@@ -52,15 +47,6 @@ public class VehicleBodyKitManager : MonoBehaviour
         InitialisePart(bodyKit.roofScoops[kitIndiceSettings.roofScoop].mesh, rbodyKit.transform);
         InitialisePart(bodyKit.sideSkirts[kitIndiceSettings.sideSkirt].mesh, rbodyKit.transform);
         InitialisePart(bodyKit.spoilers[kitIndiceSettings.spoiler].mesh, rbodyKit.transform, bodyKit.spoilers[kitIndiceSettings.spoiler].location);
-
-        //Init Rims
-
-        for (int i = 0; i < vehicle.AllWheels.Count; i++)
-        {
-            vehicle.AllWheels[i].Rim = bodyKit.rims[kitIndiceSettings.rims];
-            vehicle.AllWheels[i].SpawnWheelAndRim();
-        }
-
 
         for (int i = 0; i < nonCustomParts.parts.Length; i++)
         {

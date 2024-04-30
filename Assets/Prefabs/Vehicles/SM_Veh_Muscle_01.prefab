@@ -1664,10 +1664,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d83dd86317f09dd438dfecef5be7c69d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minTailLightIntensity: 0.25
-  tailLightResponseTime: 0.25
-  actualTailLightMaxIntensity: 10
-  actualHeadLightMaxIntensity: 10
+  minTailIntensity: 5
+  maxTailIntensity: 20
+  headLightsDim: 5
+  headLightsBright: 8
 --- !u!114 &4984497113712395037
 MonoBehaviour:
   m_ObjectHideFlags: 0

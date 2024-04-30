@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Custom_WheelShader
+  m_Shader: {fileID: 4800000, guid: 6958d787b831c7940bb97dc7bfb09ca6, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 1
+  m_DoubleSidedGI: 1
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BrakeGlowEmission:
+        m_Texture: {fileID: 2800000, guid: 11406d2e07ea2ec4ba382e0bfee30139, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _GlitterDetail:
+        m_Texture: {fileID: 2800000, guid: c37d7e64d47303647b48e8e8e5f86e2d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _HeadLightEmission:
+        m_Texture: {fileID: 2800000, guid: 1f07d94cd46d4a240b6e0dc6f3423661, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: ac7f32cf1757ec44fa9a336b3724ed2b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _TailLightEmission:
+        m_Texture: {fileID: 2800000, guid: 6dfc496727dadab438c90d425a3f5d73, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _BrakeGlow: 0
+    - _Braking: 10
+    - _CellSize: 0.1
+    - _GlitterDetailAmount: 10
+    - _Glossiness: 0.795
+    - _HeadLightBrightness: 6
+    - _Metallic: 0.62
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _DEBUG: {r: 0.68235296, g: 0.2901961, b: 1, a: 0}
+    - _HeadLightColour: {r: 0.60956365, g: 0.6084906, b: 1, a: 1}
+  m_BuildTextureStacks: []

@@ -1,12 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
-
-[
-    RequireComponent
-    (
-        typeof(GameStateMachine)
-    )
-]
+using System;
+using ThirdPersonFramework.UserInterface;
 
 public class GameManager : MonoBehaviour
 {
@@ -22,9 +17,12 @@ public class GameManager : MonoBehaviour
 
     public GameObject SKIDMARK_PARENTOBJ { get; private set; }
 
+    public static Action EventOnGamePaused;
+    public static Action EventOnGameResume;
+
     private void Awake()
     {
-        if (Instance is null)
+        if (Instance == null)
         {
             Instance = this;
         }
@@ -43,15 +41,36 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(SKIDMARK_PARENTOBJ);
     }
 
-    public void InitPlayer()
+    private void OnEnable()
     {
-        RacingHUD.Instance.SetMaxRev(Player.instance.Vehicle.Transmission.powerData.maxRPM);
+        SceneManager.sceneLoaded += CheckIfIsInMenuLevel;
+        PauseMenu.OnPauseMenuOpened += OnGamePaused;
+        PauseMenu.OnPauseMenuClosed += OnGameResume;
     }
 
-    private void OnEnable() => SceneManager.sceneLoaded += CheckIfIsInMenuLevel;
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= CheckIfIsInMenuLevel;
+        PauseMenu.OnPauseMenuOpened -= OnGamePaused;
+        PauseMenu.OnPauseMenuClosed -= OnGameResume;
+    }
 
-    private void OnDisable() => SceneManager.sceneLoaded -= CheckIfIsInMenuLevel;
 
+    private void OnGamePaused() => EventOnGamePaused?.Invoke();
+    private void OnGameResume() => EventOnGameResume?.Invoke();
+
+    public void OnPlayerQuitGame()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#endif
+        Application.Quit();
+    }
+
+    public void OnCancelQuitGame()
+    {
+        //Do nothing.
+    }
 
     private void CheckIfIsInMenuLevel(Scene scene, LoadSceneMode loadSceneMode)
     {
@@ -84,17 +103,6 @@ public class GameManager : MonoBehaviour
         MusicManager.instance.PlayRandomSong();
     }
 
-
-    private void OnApplicationFocus(bool focus)
-    {
-        /*
-        if (!focus) //Clicks on another window or something.
-        {
-            IsPaused = true;
-        }
-        */
-    }
-
     private void Update()
     {
         if (Debug.isDebugBuild)
@@ -104,7 +112,7 @@ public class GameManager : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.Alpha0))
                 {
                     Debug.LogWarning("** DEBUG : ATTEMPTING TO SAVE **");
-                    if (SaveSystem.TrySave(Player.instance.Vehicle))
+                    if (SaveSystem.TrySave(Player.Instance.Vehicle))
                         Debug.Log("** DEBUG : SAVED SUCESSFULLY **");
                     else
                         Debug.LogError("** DEBUG : SAVE FAILED! **");
@@ -116,54 +124,6 @@ public class GameManager : MonoBehaviour
                 Debug.developerConsoleVisible = !Debug.developerConsoleVisible;
             }
         }
-
-        if (IsInRace)
-        {
-            if (Player.instance == null || RacingHUD.Instance == null || Player.instance.Vehicle is null)
-                return;
-            
-
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                IsPaused = !IsPaused;
-
-                FEManager.instance.IsReadingInput = IsPaused;
-            }
-
-            GetCursorMode(out CursorLockMode lockState, out bool isVisible);
-
-            if (lockState is not CursorLockMode.Confined && isVisible)
-            {
-                SetCursorMode(CursorLockMode.Confined, false);
-            }
-
-            RacingHUD.Instance.SetGearIndicator(Player.instance.Vehicle.Transmission.IsInReverse ? "R" : (Player.instance.Vehicle.Transmission.CurrentGear + 1).ToString());
-            RacingHUD.Instance.SetSpeedometer(Player.instance.Vehicle.SpeedKMH);
-            RacingHUD.Instance.SetRev(Player.instance.Vehicle.Engine.RPM);
-        }
-        else
-        {
-            GetCursorMode(out CursorLockMode lockState, out bool isVisible);
-
-            if (lockState is not CursorLockMode.Confined && !isVisible)
-            {
-                SetCursorMode(CursorLockMode.Confined, true);
-            }
-        }
-    }
-
-    public void GetCursorMode(out CursorLockMode lockState, out bool isVisible)
-    {
-        lockState = Cursor.lockState;
-
-        isVisible = Cursor.visible;
-    }
-
-    public void SetCursorMode(CursorLockMode lockState, bool visible)
-    {
-        Cursor.lockState = lockState;
-
-        Cursor.visible = visible;
     }
 
     public void QuitGame()

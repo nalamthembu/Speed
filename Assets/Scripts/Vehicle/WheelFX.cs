@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Rendering;
+using VehiclePhysics;
 using static Unity.VisualScripting.Member;
 
 enum PARTICLE_STATE
@@ -25,17 +26,24 @@ public class WheelFX : MonoBehaviour
     private float currentMaxRoadNoisePitch = 1.25F;
 
     [SerializeField] GlobalSkidData m_SkidData;
-
     [Header("Skid Visual Settings")]
     [SerializeField] Material m_SkidMaterial;
     [SerializeField] GameObject m_SkidParticlePrefab;
+
+    [Header("Brake Effects")]
+    [SerializeField] MeshRenderer m_WheelMeshRenderer;
+    [SerializeField] float m_BrakeHeatLevel = 0;
+    [SerializeField] float m_BrakeCooldownTime = 3; //seconds.
+    float m_BrakeCooldownVelocity = 0;
 
     private ParticleSystem m_SkidParticleSystem;
 
     private float m_CurrentFrictionValue;
     private float m_SkidTime = 0;
 
-    private WheelCollider m_WheelCollider;
+    private VPWheelCollider m_WheelCollider;
+
+    private WheelVisualComponent m_WheelComponent;
 
     private AudioSource m_SkidSource;
 
@@ -70,7 +78,6 @@ public class WheelFX : MonoBehaviour
 
         m_RoadNoiseSource.spatialBlend = 1;
 
-
         m_SkidSource.minDistance = 10.0F;
 
         m_SkidSource.spread = 360.0F;
@@ -82,12 +89,19 @@ public class WheelFX : MonoBehaviour
 
     void Start()
     {
-        m_WheelCollider = GetComponent<WheelCollider>();
+        m_WheelCollider = GetComponent<VPWheelCollider>();
+
+        m_WheelComponent = GetComponent<WheelVisualComponent>();
+
+        //Get Wheel Renderer.
+        m_WheelMeshRenderer = m_WheelComponent.SpawnedWheel.GetComponent<MeshRenderer>();
     }
 
     void Update()
     {
-        if (!m_WheelCollider.GetGroundHit(out m_WheelHit) || GameIsPaused() || GameManager.Instance.IsInMenu)
+        HandleBrakeVisuals();
+
+        if (!m_WheelCollider.GetGroundHit(out m_WheelHit) || GameManager.Instance.IsInMenu)
         {
             if (m_SkidSource.isPlaying)
                 StopAllSounds();
@@ -96,6 +110,10 @@ public class WheelFX : MonoBehaviour
 
             return;
         }
+
+        SkidSound();
+
+        HandleWheelNoise();
 
         if (IsSkidding())
         {
@@ -115,15 +133,30 @@ public class WheelFX : MonoBehaviour
 
             SkidParticles(PARTICLE_STATE.OFF);
         }
+    }
 
-        SkidSound();
+    void HandleBrakeVisuals()
+    {
+        if (m_WheelCollider == null || m_WheelMeshRenderer == null || m_WheelComponent == null)
+            return;
 
-        HandleWheelNoise();
+        if (m_WheelCollider.WheelCollider.brakeTorque > 0 && m_WheelCollider.WheelCollider.rpm > 500)
+        {
+
+            m_BrakeHeatLevel += Time.deltaTime;
+        }
+        else
+        {
+            if (m_BrakeHeatLevel > 0)
+                m_BrakeHeatLevel = Mathf.SmoothDamp(m_BrakeHeatLevel, 0, ref m_BrakeCooldownVelocity, m_BrakeCooldownTime);
+        }
+
+        m_WheelMeshRenderer.material.SetFloat("_BrakeGlow", m_BrakeHeatLevel);
     }
 
     void HandleWheelNoise()
     {
-        if (IsSkidding() || !m_WheelCollider.isGrounded)
+        if (IsSkidding() || !m_WheelCollider.GetGroundHit(out var wheelHit))
         {
             if (m_RoadNoiseSource.isPlaying)
                 m_RoadNoiseSource.Stop();
@@ -137,8 +170,10 @@ public class WheelFX : MonoBehaviour
             if (!m_RoadNoiseSource.isPlaying)
                 SoundManager.Instance.PlaySound(wheelRoadNoiseID, m_RoadNoiseSource, true);
 
-            m_RoadNoiseSource.pitch = Mathf.Lerp(1, currentMaxRoadNoisePitch, (Mathf.Abs(m_WheelCollider.rpm) / minRPMB4RoadNoise));
-            m_RoadNoiseSource.volume = Mathf.SmoothStep(0, 0.35F, Mathf.Floor(Mathf.Abs(m_WheelCollider.rpm)) / minRPMB4RoadNoise);
+            float avgSlippage = (wheelHit.sidewaysSlip + wheelHit.forwardSlip) / 2;
+
+            m_RoadNoiseSource.pitch = Mathf.Lerp(1, currentMaxRoadNoisePitch, (Mathf.Abs(avgSlippage) / minRPMB4RoadNoise));
+            m_RoadNoiseSource.volume = Mathf.SmoothStep(0, 0.35F, Mathf.Floor(Mathf.Abs(avgSlippage)) / minRPMB4RoadNoise);
         }
     }
 
@@ -181,8 +216,6 @@ public class WheelFX : MonoBehaviour
             }
         }
     }
-
-    bool GameIsPaused() => Time.timeScale <= 0 || Mathf.Floor(m_WheelCollider.rpm) == 0;
 
     bool IsSkidding()
     {

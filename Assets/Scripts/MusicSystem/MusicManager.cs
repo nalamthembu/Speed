@@ -87,10 +87,11 @@ public class MusicManager : MonoBehaviour
 
         int MAX_ITERATIONS = 100;
 
-        if (GameManager.Instance.IsInRace)
+        if (GameManager.Instance && GameManager.Instance.IsInRace)
         {
             for (int i = 0; i < MAX_ITERATIONS; i++)
             {
+
                 switch (musicScriptable.music[nowPlaying].type)
                 {
                     case MUSIC_TYPE.MUSIC_BOTH:
@@ -234,7 +235,7 @@ public class MusicManager : MonoBehaviour
 
         musicUI.ShowInfo(song.artist, song.title);
 
-        if (GameManager.Instance.IsInRace)
+        if (!DEBUG_MODE && GameManager.Instance && GameManager.Instance.IsInRace)
         {
             source.time = song.startTimeDuringRace;
         }

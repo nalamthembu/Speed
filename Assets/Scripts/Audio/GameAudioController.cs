@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameAudioController : MonoBehaviour
 {
@@ -28,13 +29,13 @@ public class GameAudioController : MonoBehaviour
         CameraController.OnIdleCamera += OnCameraIdling;
         CameraController.OnOutIdleCamera += OnOutOfIdleCamera;
         LevelManager.OnStartLoadingLevel += OnSceneTransition;
-        LevelManager.OnLevelLoadingFinished += OnSceneTransitionComplete;
+        SceneManager.sceneLoaded += OnSceneTransitionComplete;
     }
 
-    private void OnSceneTransitionComplete()
+    private void OnSceneTransitionComplete(Scene scene, LoadSceneMode loadSceneMode)
     {
-        if (LevelManager.Instance.GetCurrentLevel() == 1)
-            SetAudioState("Garage", 2);
+        if (scene.buildIndex == 1)
+            SetAudioState("Garage", 0.5F);
         else
         {
             SetAudioState("Default", 2);
@@ -50,7 +51,7 @@ public class GameAudioController : MonoBehaviour
         CameraController.OnIdleCamera -= OnCameraIdling;
         CameraController.OnOutIdleCamera -= OnOutOfIdleCamera;
         LevelManager.OnStartLoadingLevel -= OnSceneTransition;
-        LevelManager.OnLevelLoadingFinished -= OnSceneTransitionComplete;
+        SceneManager.sceneLoaded -= OnSceneTransitionComplete;
     }
 
     public void SetAudioState(string stateName, float timeToReach)

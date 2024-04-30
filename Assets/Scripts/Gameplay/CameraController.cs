@@ -17,6 +17,10 @@ public class CameraController : MonoBehaviour
 
     [SerializeField] LayerMask obstructionLayer;
 
+    [SerializeField] Mesh m_CameraMesh;
+
+    [SerializeField] float m_FwdOffset;
+
     private int camIndex;
 
     private float idleTimer = 0;
@@ -66,6 +70,9 @@ public class CameraController : MonoBehaviour
 
     private void LateUpdate()
     {
+        if (target == null)
+            return;
+
         IsUsingIdleCamera = ShouldUseIdleCamera();
 
         if (IsUsingIdleCamera)
@@ -91,7 +98,7 @@ public class CameraController : MonoBehaviour
 
         Vector3 targetPos = target.position;
 
-        float t = Player.instance.Vehicle.SpeedKMH / camSettings[camIndex].maxFOVSpeed;
+        float t = Player.Instance.Vehicle.SpeedKMH / camSettings[camIndex].maxFOVSpeed;
 
         camera.fieldOfView = Mathf.Lerp(camSettings[camIndex].minFOV, camSettings[camIndex].maxFOV, t);
 
@@ -99,17 +106,25 @@ public class CameraController : MonoBehaviour
 
         Vector3 highSpeedPosition = (targetPos - transform.forward * -camSettings[camIndex].maxedFOVPosition.z + transform.up * camSettings[camIndex].maxedFOVPosition.y);
 
+        Vector3 normalRotation = Vector3.right * -camSettings[camIndex].cameraPitch;
+
+        Vector3 highSpeedRotation = Vector3.right * -camSettings[camIndex].maxedCameraPitch;
+
         Vector3 desiredCamPos = Vector3.Lerp(normalPosition, highSpeedPosition, t);
+
+        Vector3 desiredCamRot = Vector3.Lerp(normalRotation, highSpeedRotation, t);
 
         transform.position = desiredCamPos;
 
+        camera.transform.localEulerAngles = desiredCamRot;
+
         transform.forward = Vector3.SmoothDamp(transform.forward, target.forward, ref velocity, rotationTime);
-        DoHandHeldEffect(Player.instance.Vehicle.SpeedKMH / camSettings[camIndex].maxHandHeldSpeed, camSettings[camIndex].handHeldSmoothingTime);
+        DoHandHeldEffect(Player.Instance.Vehicle.SpeedKMH / camSettings[camIndex].maxHandHeldSpeed, camSettings[camIndex].handHeldSmoothingTime);
     }
 
     public bool ShouldUseIdleCamera()
     {
-        float flooredVehicleSpeed = Mathf.FloorToInt(Player.instance.Vehicle.SpeedKMH);
+        float flooredVehicleSpeed = Mathf.FloorToInt(Player.Instance.Vehicle.SpeedKMH);
 
         if (flooredVehicleSpeed <= 0)
         {
@@ -181,12 +196,23 @@ public class CameraController : MonoBehaviour
         Debug.Log("Camera focus set to : " + newTarget);
     }
 
+
+    private void OnDrawGizmos()
+    {
+        if (m_CameraMesh != null)
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawMesh(m_CameraMesh, transform.position + transform.forward * m_FwdOffset, transform.rotation, transform.localScale);
+        }
+    }
 }
 
 [System.Serializable]
 public struct CameraSettings
 {
     public Vector3 cameraPosition, maxedFOVPosition;
+
+    public float cameraPitch, maxedCameraPitch;
 
     [Range(10, 100)] public float minFOV, maxFOV;
 

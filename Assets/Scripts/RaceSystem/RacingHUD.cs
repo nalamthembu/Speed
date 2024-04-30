@@ -1,13 +1,12 @@
 ﻿using System.Collections.Generic;
-using RaceSystem;
 using UnityEngine;
 using TMPro;
+using ThirdPersonFramework.UserInterface;
+using System;
 
-public class RacingHUD : MonoBehaviour
+public class RacingHUD : BaseUI
 {
     public static RacingHUD Instance;
-
-    [Header("Tach UI")]
     const float MAX_REV_ANGLE = -135;
     const float ZERO_REV_ANGLE = 135;
 
@@ -15,7 +14,7 @@ public class RacingHUD : MonoBehaviour
 
     [SerializeField] Transform m_RevLevelTemplate, m_TachNeedle;
     [SerializeField] TMP_Text m_Speedometer, m_GearIndicator;
-    [SerializeField] CanvasGroup m_CanvasGroup;
+    [SerializeField] float m_RevNeedleResponseSpeed = 6.0F;
 
     [Header("Extras")]
     public GameObject m_BoostGauge;
@@ -49,60 +48,89 @@ public class RacingHUD : MonoBehaviour
     public void SetSpeedometer(float speed) => m_Speedometer.text = Mathf.Floor(speed) + "KM/H";
     public void SetMaxRev(float MaxRev) => m_MaxRev = MaxRev;
 
-    private void Awake()
+    protected override void Awake()
     {
         if (Instance == null)
             Instance = this;
         else
             Destroy(gameObject);
+
+        base.Awake();
     }
 
-    private void Start()
+    protected override void Start()
     {
-        GameStateMachine.Instance.OnIsRacing += InitialiseRacingHUD;
-        GameStateMachine.Instance.OnIsPaused += OnGamePaused;
+        InitialiseRacingHUD();
+        Hide();
     }
 
-    private void OnDisable()
+    protected override void OnDisable()
     {
-        GameStateMachine.Instance.OnIsRacing -= InitialiseRacingHUD;
-        GameStateMachine.Instance.OnIsPaused -= OnGamePaused;
+        base.OnDisable();
+        PauseMenu.OnPauseMenuOpened -= OnGamePaused;
+        PauseMenu.OnPauseMenuClosed -= OnGameResumed;
+        Player.OnPlayerInitialised -= OnPlayerInitialised;
+        CameraController.OnIdleCamera -= OnIdleCamera;
+        CameraController.OnOutIdleCamera -= OnOutOfIdleCamera;
     }
 
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        PauseMenu.OnPauseMenuOpened += OnGamePaused;
+        Player.OnPlayerInitialised += OnPlayerInitialised;
+        PauseMenu.OnPauseMenuClosed += OnGameResumed;
+        CameraController.OnIdleCamera += OnIdleCamera;
+        CameraController.OnOutIdleCamera += OnOutOfIdleCamera;
+    }
+
+    private void OnOutOfIdleCamera() => Show();
+    private void OnIdleCamera() => Hide();
+
+    private void OnPlayerInitialised() => InitialiseRacingHUD();
+    
     //Called when this game is paused.
-    private void OnGamePaused()
+    protected override void OnGamePaused()
     {
+        base.OnGamePaused();
         if (!m_bHUDInitialised)
             InitialiseRacingHUD();
+        Hide();
+    }
 
-        m_CanvasGroup.gameObject.SetActive(false);
+    protected override void OnGameResumed()
+    {
+        base.OnGameResumed();
+        if (!m_bHUDInitialised)
+            InitialiseRacingHUD();
+        Show();
     }
 
     //Called when we init and/or when we resume a game from pause.
     public void InitialiseRacingHUD()
     {
+        if (Player.Instance.Vehicle == null)
+            return;
+
         if (!m_bHUDInitialised)
         {
             InitialiseRevCounter();
             FindPlayerAndAttachMiniMap();
-            InitialiseVehicleIcons();
+            //InitialiseVehicleIcons();
             InitialiseBoostGauge();
             //TODO : SHOW NITRO GAUGE.
 
             m_bHUDInitialised = true;
         }
 
-        if (!m_CanvasGroup.gameObject.activeSelf)
-        {
-            m_CanvasGroup.gameObject.SetActive(true);
-        }
+        Show();
     }
 
     private void InitialiseVehicleIcons()
     {
         vehicleIcons = new();
 
-        Racer[] racers = FindObjectsOfType<Racer>();
+        /*Racer[] racers = FindObjectsOfType<Racer>();
 
         if (racers.Length <= 0)
             return;
@@ -155,6 +183,7 @@ public class RacingHUD : MonoBehaviour
 
             vehicleIcons.Add(icon);
         }
+        */
     }
 
     private void InitialiseRevCounter()
@@ -169,11 +198,11 @@ public class RacingHUD : MonoBehaviour
 
     private void InitialiseBoostGauge()
     {
-        if (Player.instance == null)
+        if (Player.Instance == null)
             return;
 
         //Show boost gauge if vehicle has some forced induction (turbo/supercharger)
-        if (Player.instance.Vehicle.TryGetComponent<VehicleForcedInduction>(out var forcedInduction))
+        if (Player.Instance.Vehicle.TryGetComponent<VehicleForcedInduction>(out var forcedInduction))
         {
             m_ForcedInduction = forcedInduction;
             m_MaxBoost = m_ForcedInduction.GetMaxBoost();
@@ -191,7 +220,7 @@ public class RacingHUD : MonoBehaviour
     private void FindPlayerAndAttachMiniMap()
     {
         m_MiniMapCamera = Instantiate(m_MiniMapCameraPrefab, transform.position, Quaternion.identity).GetComponent<Camera>();
-        playerVehicle = Player.instance.Vehicle;
+        playerVehicle = Player.Instance.Vehicle;
         TrackPlayerWithMiniMapCamera();
     }
 
@@ -246,55 +275,18 @@ public class RacingHUD : MonoBehaviour
         }
     }
 
-    private bool ShouldBeVisible()
+
+    protected override void Update()
     {
-        if (CameraController.Instance != null)
-        {
-            if (CameraController.Instance.IsUsingIdleCamera)
-            {
-                if (m_CanvasGroup.alpha != 0)
-                {
-                    m_CanvasGroup.alpha = Mathf.SmoothDamp(m_CanvasGroup.alpha, 0, ref alphaOffVelocity, 2.0f);
+        if (IsHidden() || Player.Instance && Player.Instance.Vehicle == null)
+            return;
 
-                    if (m_CanvasGroup.alpha - 0.01F <= 0)
-                    {
-                        m_CanvasGroup.alpha = 0;
-                    }
-                }
+        HandleRevNeedle();
 
-                return false;
-            }
-            else
-            {
-                if (m_CanvasGroup.alpha < 1)
-                {
-                    m_CanvasGroup.alpha = Mathf.SmoothDamp(m_CanvasGroup.alpha, 1, ref alphaOnVelocity, 0.5f);
+        TrackPlayerWithMiniMapCamera();
 
-                    if (m_CanvasGroup.alpha + 0.01F >= 1)
-                    {
-                        m_CanvasGroup.alpha = 1;
-                    }
-                }
-            }
-        }
-
-        return true;
-    }
-
-    public void Update()
-    {
-        if (GameStateMachine.Instance.GetCurrentGameState() == GameStateEnum.IsRacing)
-        {
-            if (!ShouldBeVisible())
-                return;
-
-            HandleRevNeedle();
-            
-            TrackPlayerWithMiniMapCamera();
-
-            if (m_BoostGauge.activeSelf)
-                HandleBoostNeedle();
-        }
+        if (m_BoostGauge.activeSelf)
+            HandleBoostNeedle();
     }
 
     private void HandleBoostNeedle()
@@ -314,7 +306,7 @@ public class RacingHUD : MonoBehaviour
 
         float targetAngle = GetRevRotation();
 
-        float finalAngle = Mathf.LerpAngle(angle, targetAngle, Time.deltaTime * 6.0F);
+        float finalAngle = Mathf.LerpAngle(angle, targetAngle, Time.deltaTime * m_RevNeedleResponseSpeed);
 
         m_TachNeedle.eulerAngles = new Vector3(0, 0, finalAngle);
     }
@@ -330,6 +322,9 @@ public class RacingHUD : MonoBehaviour
     {
         float totalAngleSize = ZERO_REV_ANGLE - MAX_REV_ANGLE;
 
+        if (m_MaxRev <= 0)
+            m_MaxRev = 10000;
+
         float revNormalised = currentRev / m_MaxRev;
 
         return ZERO_REV_ANGLE - revNormalised * totalAngleSize;
@@ -338,6 +333,9 @@ public class RacingHUD : MonoBehaviour
     private float GetBoostRotation()
     {
         float totalAngleSize = ZERO_REV_ANGLE - 0;
+
+        if (m_ForcedInduction.GetMaxBoost() <= 0 || !m_ForcedInduction)
+            return 0;
 
         float boostNormalised = m_ForcedInduction.GetCurrentBoost() / m_ForcedInduction.GetMaxBoost();
 

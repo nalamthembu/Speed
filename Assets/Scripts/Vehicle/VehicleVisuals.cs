@@ -1,44 +1,47 @@
 using UnityEngine;
+using VehiclePhysics;
 
 public class VehicleVisuals : MonoBehaviour
 {
-    [SerializeField]
-    [Range(0, 1)]
-    private float minTailLightIntensity = 0.25F;
 
-    [SerializeField]
-    [Range(0, 1)]
-    private float tailLightResponseTime = 0.25F;
+    [Header("Light Settings")]
+    [SerializeField] float minTailIntensity;
+    [SerializeField] float maxTailIntensity;
+    [SerializeField] float headLightsDim, headLightsBright;
 
-    [SerializeField]
-    [Range(0, 25)]
-    private float actualTailLightMaxIntensity = 10;
-
-    [SerializeField]
-    [Range(0, 25)]
-    private float actualHeadLightMaxIntensity = 10;
-
-    private VehicleInput input;
-
-    float tailLightVelocity;
+    private VPStandardInput input;
+    private MeshRenderer meshRenderer;
 
     private void Awake()
     {
-        input = GetComponent<VehicleInput>();
+        input = GetComponent<VPStandardInput>();
+        meshRenderer = GetComponent<MeshRenderer>();
     }
 
-    private void FixedUpdate()
+    private void LateUpdate()
     {
-
+        if (input != null)
+        {
+            HandleHeadLights();
+            HandleTailLights();
+        }
+        else
+        {
+            Debug.LogError("Vehicle Input is NULL!");
+            enabled = false;
+        }
     }
 
     private void HandleTailLights()
     {
+        if (input != null && meshRenderer != null)
+        {
+            meshRenderer.material.SetFloat("_Braking", Mathf.Lerp(minTailIntensity, maxTailIntensity, input.externalBrake * 10));
+        }
     }
 
     private void HandleHeadLights()
     {
-
-        //TO-DO : MANIPULATE EMSSIVE MATERIALS
+        //TODO : HANDLE HEAD LIGHTS
     }
 }
