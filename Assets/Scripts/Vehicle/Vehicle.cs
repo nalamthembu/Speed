@@ -45,6 +45,10 @@ public class Vehicle : Entity
         PeakEngineRPM = Controller.engine.peakRpm;
     }
 
+    // TODO : I hate this so much
+    public void KillEngine() => GetComponent<CarAudio>().SetSimulated(false);
+    public void StartEngine() => GetComponent<CarAudio>().SetSimulated(true);
+
     protected override void FixedUpdate()
     {
         if (m_RigidBody != null)

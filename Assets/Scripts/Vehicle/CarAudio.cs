@@ -31,6 +31,8 @@ public class CarAudio : MonoBehaviour
         }
     }
 
+    public void SetSimulated(bool simulated) => this.simulated = simulated;
+
     private void OnEnable() => Vehicle.OnVehicleStarted += OnVehicleStarted;
 
     [ContextMenu("Test Start")]

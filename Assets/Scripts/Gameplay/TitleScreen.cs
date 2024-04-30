@@ -3,6 +3,13 @@ using UnityEngine;
 using ThirdPersonFramework.UserInterface;
 using ThirdPersonFramework;
 
+/*
+ * [PURPOSE]
+ * This script manages the behavior of the title screen,
+ * making the "Press Any Key" text oscillate in transparency
+ * and loading the first level of the game when any key is pressed.
+ */
+
 public class TitleScreen : BaseUI
 {
     [SerializeField] TMP_Text m_TitleScreenText; //'Press Any Key' Text

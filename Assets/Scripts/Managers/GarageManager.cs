@@ -36,6 +36,8 @@ public class GarageManager : MonoBehaviour
 
         displayVehicle.SetSimulatePhysics(false);
 
+        displayVehicle.KillEngine();
+
         displayVehicle.transform.parent = m_VehicleSpawnPoint;
     }
 
@@ -334,6 +336,8 @@ public class GarageManager : MonoBehaviour
         displayVehicle.SetSimulatePhysics(false);
         displayVehicle.transform.parent = m_VehicleSpawnPoint;
         displayVehicle.transform.localPosition = displayVehicle.transform.localEulerAngles *= 0;
+
+        displayVehicle.KillEngine();
 
     }
 
