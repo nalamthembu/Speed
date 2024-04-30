@@ -23,6 +23,7 @@ namespace ThirdPersonFramework
         bool m_IsAiming;
         bool m_IsFiring;
         bool m_OnPause;
+        bool m_OnAnyKeyPressed;
 
         public bool PickUpItemPressed { get { return m_PickUpItemPressed; } }
         public bool MovementInputPressed { get { return m_MovePressed; } }
@@ -36,6 +37,7 @@ namespace ThirdPersonFramework
         public bool IsAiming { get { return m_IsAiming; } }
         public bool IsFiring { get { return m_IsFiring; } }
         public bool OnPause { get { return m_OnPause; } }
+        public bool AnyKeyPressed { get { return m_OnAnyKeyPressed; } }
 
         public Vector2 CameraXY { get { return m_CameraXY; } }
         public Vector2 PlayerMovement { get { return m_PlayerMovement; } }
@@ -89,6 +91,18 @@ namespace ThirdPersonFramework
             {
                 m_OnPause = false;
                 OnPaused?.Invoke();
+            };
+
+            // Pressing any key
+
+            m_PlayerInput.GameControls.AnyKey.started += ctx =>
+            {
+                m_OnAnyKeyPressed = true;
+            };
+
+            m_PlayerInput.GameControls.AnyKey.canceled += ctx =>
+            {
+                m_OnAnyKeyPressed = false;
             };
         }
 
