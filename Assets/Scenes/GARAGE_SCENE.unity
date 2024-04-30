@@ -21005,21 +21005,6 @@ MonoBehaviour:
           m_StringArgument: ID_CustomiseVehicle
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &4943590829584705856
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7369273352094621517}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 678141a5207fc4045afb522165dec933, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_PlayerPrefab: {fileID: 0}
-  m_GameplayCameraPrefab: {fileID: 0}
-  bodies: []
 --- !u!222 &4965045353894048688
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -27785,7 +27770,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8230299503721599012}
-  - component: {fileID: 4943590829584705856}
   - component: {fileID: 8228855556387164886}
   m_Layer: 0
   m_Name: GameManager

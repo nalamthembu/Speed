@@ -134,7 +134,7 @@ namespace ThirdPersonFramework.UserInterface
             Cursor.visible = false;
         }
 
-        private void OnGamePaused()
+        protected override void OnGamePaused()
         {
             if (PromptScreen.Instance && PromptScreen.Instance.IsActive)
                 return;

@@ -12,6 +12,6 @@ EditorBuildSettings:
     path: Assets/Scenes/GARAGE_SCENE.unity
     guid: fd090dd51a1aa114a81fb22167c7defb
   - enabled: 1
-    path: Assets/Scenes/TEST_SCENE.unity
-    guid: 6bab8b2e7d01d0140a66862311a05e8e
+    path: Assets/Scenes/TESTING_SCENES/NewVehicleControllerTest.unity
+    guid: a0e3430e56a5eae429be25db508a0170
   m_configObjects: {}
