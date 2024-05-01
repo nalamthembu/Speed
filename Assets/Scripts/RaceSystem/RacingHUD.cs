@@ -36,9 +36,6 @@ public class RacingHUD : BaseUI
 
     private Camera m_MiniMapCamera;
 
-    float alphaOnVelocity = 0;
-    float alphaOffVelocity = 0;
-
     //Flags
     bool m_bHUDInitialised;
 
@@ -323,7 +320,7 @@ public class RacingHUD : BaseUI
         float totalAngleSize = ZERO_REV_ANGLE - MAX_REV_ANGLE;
 
         if (m_MaxRev <= 0)
-            m_MaxRev = 10000;
+            m_MaxRev = 8000;
 
         float revNormalised = currentRev / m_MaxRev;
 
