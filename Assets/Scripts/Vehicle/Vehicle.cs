@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -289,13 +290,18 @@ public struct Axis
     public bool isSteering;
     public float steerRadius;
 
-    public override bool Equals(object obj)
+    public override readonly bool Equals(object obj)
     {
         return obj is Axis axis &&
                EqualityComparer<Wheel[]>.Default.Equals(wheels, axis.wheels) &&
                isPowered == axis.isPowered &&
                isSteering == axis.isSteering &&
                steerRadius == axis.steerRadius;
+    }
+
+    public override readonly int GetHashCode()
+    {
+        return HashCode.Combine(wheels, isPowered, isSteering, steerRadius);
     }
 }
 
