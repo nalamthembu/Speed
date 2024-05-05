@@ -59,6 +59,16 @@ public class CheckpointRace : BaseRace
         }
     }
 
+    protected override void Start()
+    {
+        base.Start();
+
+        if (Player.Instance && !Player.Instance.Vehicle)
+            Player.Instance.InitialisePlayer();
+
+        InitialiseRace();
+    }
+
     public float GetRemainingTime() => m_TimeRemaining;
 
     protected override void OnDisable()

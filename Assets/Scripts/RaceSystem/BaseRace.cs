@@ -69,6 +69,7 @@ public class BaseRace : MonoBehaviour
         }
     }
 
+    protected virtual void Start() { }
     protected virtual void Awake() { }
     protected virtual void OnMetWinConditions() => OnPlayerWonRace?.Invoke();
     protected virtual void OnMetLossCondition() => OnPlayerLostRace?.Invoke();

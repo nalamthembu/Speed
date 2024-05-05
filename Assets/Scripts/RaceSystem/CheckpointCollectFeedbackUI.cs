@@ -26,6 +26,20 @@ public class CheckpointCollectFeedbackUI : BaseUI
             Instance = this;
     }
 
+    protected override void OnDisable()
+    {
+        base.OnDisable();
+        CheckpointObject.OnPlayerPastCheckpoint -= OnCheckpointCollected;
+    }
+
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        CheckpointObject.OnPlayerPastCheckpoint += OnCheckpointCollected;
+    }
+
+    private void OnCheckpointCollected(float addedTime) => StartCoroutine(GiveFeedbackToPlayer(addedTime));
+
     // TRIGGERED BY AN EVENT
     public IEnumerator GiveFeedbackToPlayer(float additional)
     {
@@ -41,13 +55,9 @@ public class CheckpointCollectFeedbackUI : BaseUI
 
             timer += Time.deltaTime;
 
-            if (timer <= m_VisibleTime - 1)
-            {
-                Hide();
-                break;
-            }
-
             yield return null;
         }
+
+        Hide();
     }
 }

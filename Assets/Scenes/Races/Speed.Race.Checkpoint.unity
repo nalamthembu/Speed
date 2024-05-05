@@ -1801,7 +1801,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_RemainingTimeText: {fileID: 1211177870}
-  m_AdditionalTimeText: {fileID: 832710399}
+  m_AdditionalTimeText: {fileID: 1894228911}
   m_VisibleTime: 5
 --- !u!225 &1905239620
 CanvasGroup:
