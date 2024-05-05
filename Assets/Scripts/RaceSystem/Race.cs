@@ -1,3 +1,5 @@
+using System;
+using ThirdPersonFramework.UserInterface;
 using UnityEngine;
 
 /*
@@ -21,6 +23,9 @@ public class Race : MonoBehaviour
     protected bool m_RaceFinished = false;
     protected float m_TimeElapsed = 0;
     protected bool m_StartCountdown;
+    protected bool m_GamePaused;
+
+    public float GetTimeElasped() => m_TimeElapsed;
 
     protected virtual void OnDrawGizmos()
     {
@@ -28,8 +33,20 @@ public class Race : MonoBehaviour
             m_StartingGrid.OnDrawGizmos();
     }
 
-    protected virtual void OnEnable() { }
-    protected virtual void OnDisable() { }
+    protected virtual void OnDisable()
+    {
+        PauseMenu.OnPauseMenuOpened -= OnGamePaused;
+        PauseMenu.OnPauseMenuClosed -= OnGameResumed;
+    }
+    protected virtual void OnEnable()
+    {
+        PauseMenu.OnPauseMenuOpened += OnGamePaused;
+        PauseMenu.OnPauseMenuClosed += OnGameResumed;
+    }
+
+    private void OnGameResumed() => m_GamePaused = false;
+    private void OnGamePaused() => m_GamePaused = true;
+
     public virtual void InitialiseRace() => m_CountdownTimer = m_CountdownTime;
     
 
@@ -44,6 +61,7 @@ public class Race : MonoBehaviour
         }
     }
 
+    protected virtual void Awake() { }
     protected virtual void OnMetWinConditions() { }
     protected virtual void OnMetLossCondition() { }
     protected virtual void RestartRace() { }

@@ -20,7 +20,7 @@ public class CheckpointObject : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (Player.Instance && other.gameObject == Player.Instance.Vehicle.gameObject)
+        if (Player.Instance && Player.Instance.Vehicle && other.gameObject == Player.Instance.Vehicle.gameObject)
         {
             OnPlayerPastCheckpoint?.Invoke(GetAdditionalTime());
             m_Collected = true;

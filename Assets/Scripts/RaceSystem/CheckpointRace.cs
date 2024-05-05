@@ -10,6 +10,9 @@ public class CheckpointRace : Race
     private int m_CollectedCheckpoints;
 
     public static event Action OnOutOfTime;
+    public static event Action<int, int> OnCheckpointUpdate;
+
+    public static CheckpointRace Instance;
 
     [ContextMenu("Debug/Initialise Race")]
     public override void InitialiseRace()
@@ -28,7 +31,33 @@ public class CheckpointRace : Race
 
         m_StartCountdown = true;
         m_RaceInitialised = true;
+
+        //Make sure all the checkpoints are triggers
+        foreach (var checkpoint in m_Checkpoints)
+        {
+            if (checkpoint.TryGetComponent<Collider>(out var collider) && !collider.isTrigger)
+            {
+                collider.isTrigger = true;
+            }
+        }
+
+        OnCheckpointUpdate?.Invoke(m_CollectedCheckpoints, m_Checkpoints.Length);
+
+        if (CheckpointRaceUI.Instance)
+            CheckpointRaceUI.Instance.Show();
     }
+
+    protected override void Awake()
+    {
+        base.Awake();
+
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+    }
+
+    public float GetRemainingTime() => m_TimeRemaining;
 
     protected override void OnDisable()
     {
@@ -46,6 +75,7 @@ public class CheckpointRace : Race
     {
         m_TimeRemaining += additionalTime;
         m_CollectedCheckpoints++;
+        OnCheckpointUpdate?.Invoke(m_CollectedCheckpoints, m_Checkpoints.Length);
     }
 
     protected override void OnMetLossCondition()
@@ -91,6 +121,9 @@ public class CheckpointRace : Race
 
     protected override void Update()
     {
+        if (m_GamePaused)
+            return;
+
         base.Update();
 
         if (m_RaceStarted && !m_RaceFinished)
