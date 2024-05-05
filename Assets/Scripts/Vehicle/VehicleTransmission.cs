@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 
 //TO-DO : WILL KEEP TRANSMISSION AUTO FOR NOW.
-public class VehicleTransmission : MonoBehaviour
+public class VehicleTransmission : Drivetrain
 {
     public VehicleTransmissionAndPowerData powerData;
 
@@ -54,8 +54,10 @@ public class VehicleTransmission : MonoBehaviour
             source.minDistance = 2;
     }
 
-    private void LateUpdate()
+    protected override void LateUpdate()
     {
+        if (m_GamePaused) return;
+
         CalculateDrivetrainRPM();
         CalculateAvgWheelSlip();
         DistributePowerAmongWheels();

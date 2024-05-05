@@ -20,7 +20,7 @@ public class GarageManager : MonoBehaviour
             Destroy(displayVehicle.gameObject);
 
         displayVehicle =
-        VehicleManager.instance.SpawnVehicle
+        VehicleManager.Instance.SpawnVehicle
         (
             vehicleName,
             new Vector3[]
@@ -267,7 +267,7 @@ public class GarageManager : MonoBehaviour
         if (SaveSystem.TryLoad(out PlayerData data))
         {
             displayVehicle =
-                VehicleManager.instance.SpawnVehicle
+                VehicleManager.Instance.SpawnVehicle
                 (
                     data.vehicleName,
                     new Vector3[]
@@ -303,12 +303,12 @@ public class GarageManager : MonoBehaviour
         {
             print("could not load game, loading random vehicle");
 
-            string randomVehicleName = VehicleManager.instance.vehicleLib.vehicles[Random.Range(0, VehicleManager.instance.vehicleLib.vehicles.Length)].name;
+            string randomVehicleName = VehicleManager.Instance.vehicleLib.vehicles[Random.Range(0, VehicleManager.Instance.vehicleLib.vehicles.Length)].name;
 
             vehicleName_SelectionScreen.text = randomVehicleName;
 
             displayVehicle =
-                VehicleManager.instance.SpawnVehicle
+                VehicleManager.Instance.SpawnVehicle
                 (
                     randomVehicleName,
                     new Vector3[]
@@ -340,15 +340,15 @@ public class GarageManager : MonoBehaviour
     //LEFT RIGHT OPTIONS IN VEHICLE SELECT IN GARAGE.
     public void SpawnNextVehicleInGarage_LEFT()
     {
-        VehicleManager.instance.SetSelectedVehicle(VehicleManager.instance.GetSelectedVehicle() - 1);
-        if (VehicleManager.instance.TryGetSelectedVehicleName(VehicleManager.instance.GetSelectedVehicle(), out string vehicleName))
+        VehicleManager.Instance.SetSelectedVehicle(VehicleManager.Instance.GetSelectedVehicle() - 1);
+        if (VehicleManager.Instance.TryGetSelectedVehicleName(VehicleManager.Instance.GetSelectedVehicle(), out string vehicleName))
             SetDisplayVehicle(vehicleName);
     }
 
     public void SpawnNextVehicleInGarage_RIGHT()
     {
-        VehicleManager.instance.SetSelectedVehicle(VehicleManager.instance.GetSelectedVehicle() + 1);
-        if (VehicleManager.instance.TryGetSelectedVehicleName(VehicleManager.instance.GetSelectedVehicle(), out string vehicleName))
+        VehicleManager.Instance.SetSelectedVehicle(VehicleManager.Instance.GetSelectedVehicle() + 1);
+        if (VehicleManager.Instance.TryGetSelectedVehicleName(VehicleManager.Instance.GetSelectedVehicle(), out string vehicleName))
             SetDisplayVehicle(vehicleName);
     }
 

@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class VehicleManager : MonoBehaviour
 {
-    public static VehicleManager instance = null;
+    public static VehicleManager Instance = null;
 
     public VehicleSpawnerScriptable vehicleLib;
 
@@ -14,13 +14,12 @@ public class VehicleManager : MonoBehaviour
 
     //r- realtime vehicles (spawned).
     List<Vehicle> rVehicles;
-    List<AIDriver> rAIDrivers;
 
     private void Awake()
     {
-        if (instance is null)
+        if (Instance == null)
         {
-            instance = this;
+            Instance = this;
             DontDestroyOnLoad(gameObject);
         }
         else
@@ -36,7 +35,6 @@ public class VehicleManager : MonoBehaviour
     {
         vehicleDictionary = new();
         rVehicles = new();
-        rAIDrivers = new();
 
         for (int i = 0; i < vehicleLib.vehicles.Length; i++)
         {
@@ -54,24 +52,6 @@ public class VehicleManager : MonoBehaviour
         SpawnVehicle(vName, pos, pos * 0);
     }
 
-    [ContextMenu("Spawn Random Vehicle with Driver Type (DEBUG)")]
-    public void SpawnRandomVehicleAndDriverType()
-    {
-        string vName = vehicleLib.vehicles[Random.Range(0, vehicleLib.vehicles.Length)].name;
-        int range = Random.Range(0, 4);
-        Vector3 pos = new(Random.Range(-500, 500), 0, Random.Range(-500, 500));
-
-        SpawnVehicleWithDriverType(vName, (DriverType)range, pos, pos * 0);
-    }
-
-    public void SpawnRandomRacer(Vector3 position, Vector3 rotation)
-    {
-        string vName = vehicleLib.vehicles[Random.Range(0, vehicleLib.vehicles.Length)].name;
-        
-        int range = Random.Range(0, 1); //0 and 1 are careful and reckless
-
-        SpawnVehicleWithDriverType(vName, (DriverType)range, position, rotation);
-    }
 
     public void SpawnVehicle(string name, Vector3 position, Vector3 rotation)
     {
@@ -134,23 +114,17 @@ public class VehicleManager : MonoBehaviour
         return false;
     }
 
-    public void SpawnVehicleWithDriverType(string name, DriverType driverType, Vector3 position, Vector3 rotation)
+    public void SpawnVehicleWithDriverType(string name, Vector3 position, Vector3 rotation)
     {
-        Vehicle v =
-            SpawnVehicle
-            (
-                name,
-                new Vector3[]
-                {
-                    position,
-                    rotation
-                }
-             );
+        SpawnVehicle
+        (
+            name,
+            new Vector3[]
+            {
+                position,
+                rotation
+            }
+         );
 
-        AIDriver ai = v.gameObject.AddComponent<AIDriver>();
-
-        ai.driver.driverType = driverType;
-
-        rAIDrivers.Add(ai);
     }
 }

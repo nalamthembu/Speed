@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerVehicleInput : MonoBehaviour
@@ -13,6 +14,7 @@ public class PlayerVehicleInput : MonoBehaviour
         input = GetComponent<VehicleInput>();
     }
 
+    [Obsolete]
     private void Update()
     {
         if (!playerControlEnabled)

@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Vehicle))]
-public class VehicleEngine : MonoBehaviour
+public class VehicleEngine : Drivetrain
 {
     private VehicleTransmission transmission;
 
@@ -15,6 +15,7 @@ public class VehicleEngine : MonoBehaviour
     private float engineRPM;
 
     private Vehicle attachedVehicle;
+
 
     [SerializeField][Range(0.001F, 2.0F)] float engineResponseTime;
 
@@ -35,8 +36,11 @@ public class VehicleEngine : MonoBehaviour
         attachedVehicle = GetComponent<Vehicle>();
     }
 
-    private void FixedUpdate()
+    protected override void FixedUpdate()
     {
+        if (m_GamePaused)
+            return;
+
         CalculateEnginePower();
     }
 

@@ -1,3 +1,4 @@
+using ThirdPersonFramework.UserInterface;
 using UnityEngine;
 
 [RequireComponent(typeof(WheelCollider))]
@@ -28,6 +29,8 @@ public class Wheel : MonoBehaviour
 
     public Quaternion WorldRot { get; private set; }
 
+    bool m_GamePaused;
+
     private void Awake()
     {
         SpawnWheelAndRim();
@@ -43,9 +46,26 @@ public class Wheel : MonoBehaviour
             return collider.isGrounded;
         }
     }
+    private void OnDisable()
+    {
+        PauseMenu.OnPauseMenuOpened -= OnGamePaused;
+        PauseMenu.OnPauseMenuClosed -= OnGameResumed;
+    }
+
+    private void OnEnable()
+    {
+        PauseMenu.OnPauseMenuOpened += OnGamePaused;
+        PauseMenu.OnPauseMenuClosed += OnGameResumed;
+    }
+
+    void OnGamePaused() => m_GamePaused = true;
+    void OnGameResumed() => m_GamePaused = false;
 
     public void FixedUpdate()
     {
+        if (m_GamePaused)
+            return;
+
         collider.GetGroundHit(out WheelHit hit);
         collider.GetWorldPose(out Vector3 pos, out Quaternion rot);
         WorldPos = pos;

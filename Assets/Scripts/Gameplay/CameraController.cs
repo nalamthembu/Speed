@@ -1,4 +1,5 @@
 ﻿using System;
+using ThirdPersonFramework.UserInterface;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -31,6 +32,8 @@ public class CameraController : MonoBehaviour
 
     new private Camera camera;
 
+    bool m_GamePaused;
+
     public bool IsUsingIdleCamera { get; private set; }
 
     //flag
@@ -62,10 +65,30 @@ public class CameraController : MonoBehaviour
         camera = GetComponentInChildren<Camera>();
     }
 
+    private void OnEnable()
+    {
+        PauseMenu.OnPauseMenuClosed += OnGameResume;
+        PauseMenu.OnPauseMenuOpened += OnGamePause;
+    }
+
+    private void OnDisable()
+    {
+        PauseMenu.OnPauseMenuClosed -= OnGameResume;
+        PauseMenu.OnPauseMenuOpened -= OnGamePause;
+    }
+
+    private void OnGamePause() => m_GamePaused = true;
+
+    void OnGameResume() => m_GamePaused = false;
+    
+
     Vector3 velocity;
 
     private void LateUpdate()
     {
+        if (m_GamePaused)
+            return;
+
         IsUsingIdleCamera = ShouldUseIdleCamera();
 
         if (IsUsingIdleCamera)
@@ -91,7 +114,7 @@ public class CameraController : MonoBehaviour
 
         Vector3 targetPos = target.position;
 
-        float t = Player.instance.Vehicle.SpeedKMH / camSettings[camIndex].maxFOVSpeed;
+        float t = Player.Instance.Vehicle.SpeedKMH / camSettings[camIndex].maxFOVSpeed;
 
         camera.fieldOfView = Mathf.Lerp(camSettings[camIndex].minFOV, camSettings[camIndex].maxFOV, t);
 
@@ -104,12 +127,12 @@ public class CameraController : MonoBehaviour
         transform.position = desiredCamPos;
 
         transform.forward = Vector3.SmoothDamp(transform.forward, target.forward, ref velocity, rotationTime);
-        DoHandHeldEffect(Player.instance.Vehicle.SpeedKMH / camSettings[camIndex].maxHandHeldSpeed, camSettings[camIndex].handHeldSmoothingTime);
+        DoHandHeldEffect(Player.Instance.Vehicle.SpeedKMH / camSettings[camIndex].maxHandHeldSpeed, camSettings[camIndex].handHeldSmoothingTime);
     }
 
     public bool ShouldUseIdleCamera()
     {
-        float flooredVehicleSpeed = Mathf.FloorToInt(Player.instance.Vehicle.SpeedKMH);
+        float flooredVehicleSpeed = Mathf.FloorToInt(Player.Instance.Vehicle.SpeedKMH);
 
         if (flooredVehicleSpeed <= 0)
         {

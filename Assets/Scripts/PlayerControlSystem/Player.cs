@@ -1,17 +1,26 @@
-﻿using RaceSystem;
+﻿using System;
 using UnityEngine;
+using VehiclePhysics;
 
-public class Player : Racer
+public class Player : MonoBehaviour
 {
     //I ONLY WANT ONE INSTANCE OF THE PLAYER IN ANY SCENE.
-    public static Player instance;
+    public static Player Instance;
 
     [SerializeField] GameObject m_PlayerCharacterPrefab;
 
-    protected override void Awake()
+    [SerializeField] GameObject m_CameraRigPrefab;
+
+    Vehicle m_Vehicle;
+
+    public Vehicle Vehicle { get { return m_Vehicle; } }
+
+    public static event Action OnPlayerInitialised;
+
+    protected void Awake()
     {
-        if (instance is null)
-            instance = this;
+        if (Instance == null)
+            Instance = this;
         else
         {
             Destroy(gameObject);
@@ -23,21 +32,22 @@ public class Player : Racer
     {
         Debug.Log("Player Was Destroyed!");
 
-        instance = null;
+        Instance = null;
     }
 
+    [ContextMenu("Debug/Initialise Player")]
     public void InitialisePlayer()
     {
         Vehicle vehicle;
 
         if (SaveSystem.TryLoad(out PlayerData data))
         {
-            if (data is null) //Could not Load Game
+            if (data == null) //Could not Load Game
             {
                 vehicle =
-                    VehicleManager.instance.SpawnVehicle
+                    VehicleManager.Instance.SpawnVehicle
                     (
-                        VehicleManager.instance.vehicleLib.vehicles[0].name,
+                        VehicleManager.Instance.vehicleLib.vehicles[0].name,
                         new Vector3[]
                         {
                             transform.localPosition,
@@ -50,7 +60,7 @@ public class Player : Racer
             else //Loading was successful.
             {
                 vehicle =
-                    VehicleManager.instance.SpawnVehicle
+                    VehicleManager.Instance.SpawnVehicle
                     (
                         data.vehicleName,
                         new Vector3[]
@@ -60,7 +70,7 @@ public class Player : Racer
                         }
                     );
 
-                if (vehicle is null)
+                if (vehicle == null)
                 {
                     Debug.LogError("**VEHICLE IS NULL**");
                     return;
@@ -85,15 +95,37 @@ public class Player : Racer
             }
         }
 
-        CameraController.Instance.SetCameraFocus(this.vehicle.GetComponent<PlayerVehicleInput>().camera_Focus);
-        GameManager.Instance.InitPlayer();
+        // DESTORY Temporary Camera
+        Destroy(Camera.main.gameObject);
+
+        // Spawn Camera
+        Instantiate(m_CameraRigPrefab, Vehicle.transform.position - Vehicle.transform.forward * 3, Quaternion.identity);
+
+        // Setup Race UI
+        RacingHUD.Instance.SetMaxRev(Vehicle.Engine.MaxRPM);
+
+        CameraController.Instance.SetCameraFocus(Vehicle.GetComponent<PlayerVehicleInput>().camera_Focus);
+
+        OnPlayerInitialised?.Invoke();
     }
 
     private void Initialise(Vehicle vehicle)
     {
-        this.vehicle = vehicle;
-        this.vehicle.transform.parent = transform;
-        this.vehicle.transform.SetLocalPositionAndRotation(transform.localPosition, transform.localRotation);
-        this.vehicle.GetComponent<PlayerVehicleInput>().playerControlEnabled = true;
+        m_Vehicle = vehicle;
+        m_Vehicle.transform.parent = transform;
+        m_Vehicle.transform.SetLocalPositionAndRotation(transform.localPosition, transform.localRotation);
+        m_Vehicle.GetComponent<PlayerVehicleInput>().playerControlEnabled = true;
+    }
+
+    private void Update()
+    {
+        if (m_Vehicle != null)
+        {
+            if (RacingHUD.Instance)
+            {
+                RacingHUD.Instance.SetRev(m_Vehicle.Engine.RPM);
+                RacingHUD.Instance.SetSpeedometer(m_Vehicle.SpeedKMH);
+            }
+        }
     }
 }

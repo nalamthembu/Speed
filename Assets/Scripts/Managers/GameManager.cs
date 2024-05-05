@@ -1,12 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.SceneManagement;
-
-[
-    RequireComponent
-    (
-        typeof(GameStateMachine)
-    )
-]
 
 public class GameManager : MonoBehaviour
 {
@@ -41,11 +35,6 @@ public class GameManager : MonoBehaviour
     {
         SKIDMARK_PARENTOBJ = new GameObject("SKID_MARK_VFX");
         DontDestroyOnLoad(SKIDMARK_PARENTOBJ);
-    }
-
-    public void InitPlayer()
-    {
-        RacingHUD.Instance.SetMaxRev(Player.instance.Vehicle.Transmission.powerData.maxRPM);
     }
 
     private void OnEnable() => SceneManager.sceneLoaded += CheckIfIsInMenuLevel;
@@ -85,16 +74,6 @@ public class GameManager : MonoBehaviour
     }
 
 
-    private void OnApplicationFocus(bool focus)
-    {
-        /*
-        if (!focus) //Clicks on another window or something.
-        {
-            IsPaused = true;
-        }
-        */
-    }
-
     private void Update()
     {
         if (Debug.isDebugBuild)
@@ -104,7 +83,7 @@ public class GameManager : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.Alpha0))
                 {
                     Debug.LogWarning("** DEBUG : ATTEMPTING TO SAVE **");
-                    if (SaveSystem.TrySave(Player.instance.Vehicle))
+                    if (SaveSystem.TrySave(Player.Instance.Vehicle))
                         Debug.Log("** DEBUG : SAVED SUCESSFULLY **");
                     else
                         Debug.LogError("** DEBUG : SAVE FAILED! **");
@@ -114,40 +93,6 @@ public class GameManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Insert))
             {
                 Debug.developerConsoleVisible = !Debug.developerConsoleVisible;
-            }
-        }
-
-        if (IsInRace)
-        {
-            if (Player.instance == null || RacingHUD.Instance == null || Player.instance.Vehicle is null)
-                return;
-            
-
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                IsPaused = !IsPaused;
-
-                FEManager.instance.IsReadingInput = IsPaused;
-            }
-
-            GetCursorMode(out CursorLockMode lockState, out bool isVisible);
-
-            if (lockState is not CursorLockMode.Confined && isVisible)
-            {
-                SetCursorMode(CursorLockMode.Confined, false);
-            }
-
-            RacingHUD.Instance.SetGearIndicator(Player.instance.Vehicle.Transmission.IsInReverse ? "R" : (Player.instance.Vehicle.Transmission.CurrentGear + 1).ToString());
-            RacingHUD.Instance.SetSpeedometer(Player.instance.Vehicle.SpeedKMH);
-            RacingHUD.Instance.SetRev(Player.instance.Vehicle.Engine.RPM);
-        }
-        else
-        {
-            GetCursorMode(out CursorLockMode lockState, out bool isVisible);
-
-            if (lockState is not CursorLockMode.Confined && !isVisible)
-            {
-                SetCursorMode(CursorLockMode.Confined, true);
             }
         }
     }
@@ -166,7 +111,7 @@ public class GameManager : MonoBehaviour
         Cursor.visible = visible;
     }
 
-    public void QuitGame()
+    public void OnPlayerQuitGame()
     {
 #if UNITY_EDITOR
         if (Application.isEditor)
@@ -175,5 +120,11 @@ public class GameManager : MonoBehaviour
         }
 #endif
         Application.Quit();
+    }
+
+    internal void OnCancelQuitGame()
+    {
+        // TODO : DO NOTHING REALLY BUT
+        // MAYBE SOMETHING SHOULD BE HERE
     }
 }

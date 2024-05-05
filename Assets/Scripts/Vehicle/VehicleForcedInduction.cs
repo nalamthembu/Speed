@@ -2,7 +2,7 @@ using UnityEngine;
 
 //Forced Induction : This is the base class for all forced induction parts (Turbos, Superchargers)
 [RequireComponent(typeof(AudioSource))]
-public class VehicleForcedInduction : MonoBehaviour
+public class VehicleForcedInduction : Drivetrain
 {
     [Tooltip("How long it takes for the forced induction to get to max boost. (Superchargers should be extremely short time but not 0, that's not possible.)")]
     [SerializeField] float m_SpoolTime;
@@ -28,7 +28,7 @@ public class VehicleForcedInduction : MonoBehaviour
     protected VehicleTransmission m_AttachedTransmission; //we want to know if the clutch is engaged.
     protected AudioSource m_AudioSource; //source of spool and waste gate noise.
 
-    protected virtual void Awake()
+    protected override void Awake()
     {
         m_VehicleInput = GetComponent<VehicleInput>();
 
@@ -167,8 +167,11 @@ public class VehicleForcedInduction : MonoBehaviour
         }
     }
 
-    protected virtual void Update()
+    protected override void Update()
     {
+        if (m_GamePaused)
+            return;
+
         ControlBoost();
     }
 }

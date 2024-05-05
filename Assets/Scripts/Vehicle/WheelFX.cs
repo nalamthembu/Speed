@@ -1,3 +1,4 @@
+using ThirdPersonFramework.UserInterface;
 using UnityEngine;
 using UnityEngine.Rendering;
 using static Unity.VisualScripting.Member;
@@ -54,6 +55,8 @@ public class WheelFX : MonoBehaviour
 
     #endregion
 
+    bool m_GamePaused;
+
     private void Awake()
     {
         m_SkidSource = gameObject.AddComponent<AudioSource>();
@@ -87,7 +90,10 @@ public class WheelFX : MonoBehaviour
 
     void Update()
     {
-        if (!m_WheelCollider.GetGroundHit(out m_WheelHit) || GameIsPaused() || GameManager.Instance.IsInMenu)
+        if (m_GamePaused)
+            return;
+
+        if (!m_WheelCollider.GetGroundHit(out m_WheelHit) || GameManager.Instance.IsInMenu)
         {
             if (m_SkidSource.isPlaying)
                 StopAllSounds();
@@ -182,8 +188,6 @@ public class WheelFX : MonoBehaviour
         }
     }
 
-    bool GameIsPaused() => Time.timeScale <= 0 || Mathf.Floor(m_WheelCollider.rpm) == 0;
-
     bool IsSkidding()
     {
         m_CurrentFrictionValue = Mathf.Abs((m_WheelHit.forwardSlip + m_WheelHit.sidewaysSlip) / 2);
@@ -276,5 +280,23 @@ public class WheelFX : MonoBehaviour
         Destroy(mark, GameManager.SKIDMARK_LIFETIME);
     }
 
+    private void OnDisable()
+    {
+        PauseMenu.OnPauseMenuOpened -= OnGamePaused;
+        PauseMenu.OnPauseMenuClosed -= OnGameResumed;
+    }
 
+    private void OnEnable()
+    {
+        PauseMenu.OnPauseMenuOpened += OnGamePaused;
+        PauseMenu.OnPauseMenuClosed += OnGameResumed;
+    }
+
+    void OnGamePaused()
+    {
+        m_GamePaused = true;
+        StopAllSounds();
+        m_SkidParticleSystem.Pause();
+    }
+    void OnGameResumed() => m_GamePaused = false;
 }

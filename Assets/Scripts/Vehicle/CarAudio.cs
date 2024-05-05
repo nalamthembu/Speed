@@ -20,15 +20,11 @@ public class CarAudio : MonoBehaviour
 
         transmission = engine.GetComponent<VehicleTransmission>();
 
+        simulated = true;
     }
 
     private void Update()
     {
-        if (GameManager.Instance.IsInMenu)
-            simulated = false;
-        else
-            simulated = true;
-
         res.transform.gameObject.SetActive(simulated);
 
         if (!simulated)

@@ -21,3 +21,5 @@ MonoBehaviour:
     snapshot: {fileID: 2701686950480812253, guid: b1428a4646c72b54fa3a04d915d11afa, type: 2}
   - name: Garage
     snapshot: {fileID: 8031881012026412869, guid: b1428a4646c72b54fa3a04d915d11afa, type: 2}
+  - name: Frontend Only
+    snapshot: {fileID: 5747835922967097474, guid: b1428a4646c72b54fa3a04d915d11afa, type: 2}

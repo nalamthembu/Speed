@@ -48,13 +48,13 @@ public class PlayerSounds : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (Player.instance == null || Player.instance.Vehicle == null)
+        if (Player.Instance == null || Player.Instance.Vehicle == null)
             return;
 
         if (other.bounds.extents.sqrMagnitude <= minObjectSize * minObjectSize)
             return;
 
-        if (Player.instance.Vehicle.SpeedKMH >= minWhooshSpeed)
+        if (Player.Instance.Vehicle.SpeedKMH >= minWhooshSpeed)
         {
             if (other.bounds.extents.sqrMagnitude < maxObjectSizeBeforeBigWhoosh * maxObjectSizeBeforeBigWhoosh)
             {

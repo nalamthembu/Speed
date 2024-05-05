@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using ThirdPersonFramework.UserInterface;
 using UnityEngine;
 
 public class GameAudioController : MonoBehaviour
@@ -29,6 +30,8 @@ public class GameAudioController : MonoBehaviour
         CameraController.OnOutIdleCamera += OnOutOfIdleCamera;
         LevelManager.OnStartLoadingLevel += OnSceneTransition;
         LevelManager.OnLevelLoadingFinished += OnSceneTransitionComplete;
+        PauseMenu.OnPauseMenuOpened += OnGamePaused;
+        PauseMenu.OnPauseMenuClosed += OnGameResumed;
     }
 
     private void OnSceneTransitionComplete()
@@ -41,6 +44,8 @@ public class GameAudioController : MonoBehaviour
         }
     }
 
+    private void OnGamePaused() => SetAudioState("Frontend Only", 2);
+    private void OnGameResumed() => SetAudioState("Default", 1);
     private void OnSceneTransition() => SetAudioState("Scene Transition", 2);
     private void OnOutOfIdleCamera() => SetAudioState("Default", 2);
     private void OnCameraIdling() => SetAudioState("Idle Camera", 2);
@@ -51,6 +56,8 @@ public class GameAudioController : MonoBehaviour
         CameraController.OnOutIdleCamera -= OnOutOfIdleCamera;
         LevelManager.OnStartLoadingLevel -= OnSceneTransition;
         LevelManager.OnLevelLoadingFinished -= OnSceneTransitionComplete;
+        PauseMenu.OnPauseMenuOpened -= OnGamePaused;
+        PauseMenu.OnPauseMenuClosed -= OnGameResumed;
     }
 
     public void SetAudioState(string stateName, float timeToReach)

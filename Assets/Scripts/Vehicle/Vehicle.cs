@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using ThirdPersonFramework;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -20,7 +21,7 @@ using Object = UnityEngine.Object;
     )
 ]
 
-public class Vehicle : MonoBehaviour
+public class Vehicle : Entity
 {
     //TO-DO : ABS ON WHEELS.
 
@@ -54,6 +55,9 @@ public class Vehicle : MonoBehaviour
     public VehicleEngine Engine { get { return engine; } }
     public VehicleTransmission Transmission { get { return transmission; } }
 
+    Vector3 m_VelocityBeforePause;
+    Vector3 m_AngularVelocityBeforePause;
+
     public bool IsControlledByPlayer()
     {
         if (!TryGetComponent<PlayerVehicleInput>(out var input))
@@ -68,8 +72,10 @@ public class Vehicle : MonoBehaviour
 
     public void SetSimulatePhysics(bool value) => rigidBody.isKinematic = !value; //this is flipped because IsKinematic false means that it isKinematic (respects physics).
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         input = GetComponent<VehicleInput>();
 
         engine = GetComponent<VehicleEngine>();
@@ -107,8 +113,6 @@ public class Vehicle : MonoBehaviour
         }
 
         SetMaxSteerAngle();
-
-        IsAIRacer = GetComponent<AIDriver>();
     }
 
 
@@ -144,7 +148,7 @@ public class Vehicle : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
+    protected override void FixedUpdate()
     {
         ControlVariableDrag();
         ControlVariableWheelStiffness();
@@ -166,6 +170,20 @@ public class Vehicle : MonoBehaviour
         }
     }
 
+    protected override void OnGamePaused()
+    {
+        m_VelocityBeforePause = rigidBody.velocity;
+        m_AngularVelocityBeforePause = rigidBody.angularVelocity;
+        SetSimulatePhysics(false);
+    }
+
+    protected override void OnGameResume()
+    {
+        SetSimulatePhysics(true);
+        rigidBody.velocity = m_VelocityBeforePause;
+        rigidBody.angularVelocity = m_AngularVelocityBeforePause;
+    }
+    
     public bool IsFlippedOver() => Vector3.Dot(transform.up, Vector3.up) <= -0.50F;
 
     private void ControlVariableDrag()
@@ -314,9 +332,9 @@ public struct Seat
 
     [SerializeField] Transform m_SeatTransform;
 
-    public SeatType GetSeatType() => m_SeatType;
+    public readonly SeatType GetSeatType() => m_SeatType;
 
-    public void InitialiseSeat(GameObject characterPrefab = null)
+    public readonly void InitialiseSeat(GameObject characterPrefab = null)
     {
         if (characterPrefab == null)
         Object.Instantiate(m_CharacterPrefab, m_SeatTransform.position, m_SeatTransform.rotation, m_SeatTransform);

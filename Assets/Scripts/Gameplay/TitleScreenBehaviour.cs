@@ -1,7 +1,9 @@
+using ThirdPersonFramework;
+using ThirdPersonFramework.UserInterface;
 using TMPro;
 using UnityEngine;
 
-public class TitleScreenBehaviour : MonoBehaviour
+public class TitleScreenBehaviour : BaseUI
 {
     [SerializeField] TMP_Text m_TitleScreenText; //'Press Any Key' Text
 
@@ -9,37 +11,28 @@ public class TitleScreenBehaviour : MonoBehaviour
     [SerializeField][Range(1, 10)] float m_AlphaOccsillationSpeed = 1;
     [SerializeField][Range(0, 1)] float m_MinAlpha, m_Intensity = 1;
 
-    private void Start()
+    protected override void Start()
     {
-        if (FEManager.instance is null)
-        {
-            Debug.LogError("There is no Frontend Manager in this scene!");
-            return;
-        }
+        base.Start();
+
+        Show();
     }
 
-    private void Update()
+    protected override void Update()
     {
         if (!m_GameStarted)
         {
             m_TitleScreenText.alpha = Mathf.Clamp(m_Intensity * Mathf.Sin(Time.time * m_AlphaOccsillationSpeed), m_MinAlpha, 1);
 
-            if (FEManager.instance != null)
+            if (LevelManager.Instance != null && PlayerController.Instance && PlayerController.Instance.OnAnyKey)
             {
-                if (FEManager.instance.GetFrontEndInput().IsPressingAnyKey)
-                {
-                    if (LevelManager.Instance != null)
-                    {
-                        LevelManager.Instance.LoadLevel(1);
+                LevelManager.Instance.LoadLevel(1);
 
-                        m_GameStarted = true;
+                m_GameStarted = true;
 
-                        //Disable whole title Screen.
-                        gameObject.SetActive(false);
+                Hide(true);
 
-                        return;
-                    }
-                }
+                return;
             }
         }
     }
