@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [System.Serializable]
-public struct Sound
+public class Sound
 {
     public string name;
 

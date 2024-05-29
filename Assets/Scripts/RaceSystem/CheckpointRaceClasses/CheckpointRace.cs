@@ -93,6 +93,10 @@ public class CheckpointRace : BaseRace
         m_TimeRemaining += additionalTime;
         m_CollectedCheckpoints++;
         OnCheckpointUpdate?.Invoke(m_CollectedCheckpoints, m_Checkpoints.Length);
+
+        // Play Sound 
+        if (SoundManager.Instance)
+            SoundManager.Instance.PlaySound("FRNT_PROMPT");
     }
 
     protected override void OnMetLossCondition()
@@ -164,4 +168,7 @@ public class CheckpointRace : BaseRace
             HandleTimers();
         }
     }
+
+    public CheckpointObject[] GetAllCheckpoints() => m_Checkpoints;
+    public CheckpointObject GetCheckpointObject(int index) => m_Checkpoints[index];
 }

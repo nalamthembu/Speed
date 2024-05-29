@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using static Unity.VisualScripting.Member;
 
 public class SoundManager : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class SoundManager : MonoBehaviour
     public SoundLibrary library;
 
     public static SoundManager Instance;
+
+    private AudioSource m_FrontendSource;
 
     private void Awake()
     {
@@ -33,6 +36,24 @@ public class SoundManager : MonoBehaviour
         {
             soundDictionary.Add(s.name, s);
         }
+
+        m_FrontendSource = gameObject.AddComponent<AudioSource>();
+        m_FrontendSource.loop = false;
+        m_FrontendSource.spatialBlend = 0;
+        m_FrontendSource.outputAudioMixerGroup = library.GetMixer(SoundType.Frontend).group;
+        m_FrontendSource.playOnAwake = false;
+    }
+
+    public void PlaySound(string soundName)
+    {
+        if (soundDictionary.TryGetValue(soundName, out Sound sound))
+        {
+            m_FrontendSource.clip = sound.GetRandomClip();
+
+            if (MixerExists(sound.soundType, out Mixer mixerFE))
+                m_FrontendSource.outputAudioMixerGroup = mixerFE.group;
+        }
+        m_FrontendSource.Play();
     }
 
     public void PlaySound(string soundName, AudioSource source, bool loop = false, RandomPitch? randomPitch = default, float minDist = 5)
@@ -45,9 +66,9 @@ public class SoundManager : MonoBehaviour
 
                     source.clip = sound.GetRandomClip();
 
-                    if (MixerExists(sound.soundType, out Mixer? mixerFE))
+                    if (MixerExists(sound.soundType, out Mixer mixerFE))
                     {
-                        source.outputAudioMixerGroup = mixerFE.Value.group;
+                        source.outputAudioMixerGroup = mixerFE.group;
                     }
 
                     source.spatialBlend = 0;
@@ -60,9 +81,9 @@ public class SoundManager : MonoBehaviour
 
                     source.clip = sound.GetRandomClip();
 
-                    if (MixerExists(sound.soundType, out Mixer? mixerSFX))
+                    if (MixerExists(sound.soundType, out Mixer mixerSFX))
                     {
-                        source.outputAudioMixerGroup = mixerSFX.Value.group;
+                        source.outputAudioMixerGroup = mixerSFX.group;
                     }
 
                     source.spatialBlend = 1;
@@ -105,9 +126,9 @@ public class SoundManager : MonoBehaviour
 
                     source.clip = sound.GetRandomClip();
 
-                    if (MixerExists(sound.soundType, out Mixer? mixer))
+                    if (MixerExists(sound.soundType, out Mixer mixer))
                     {
-                        source.outputAudioMixerGroup = mixer.Value.group;
+                        source.outputAudioMixerGroup = mixer.group;
                     }
 
                     source.minDistance = minDist;
@@ -129,7 +150,7 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    public Sound? GetSound(string soundName)
+    public Sound GetSound(string soundName)
     {
         if (soundDictionary.TryGetValue(soundName, out Sound sound))
         {
@@ -141,15 +162,15 @@ public class SoundManager : MonoBehaviour
         return null;
     }
 
-    public Mixer? GetMixer(SoundType mixerType)
+    public Mixer GetMixer(SoundType mixerType)
     {
         /*Does*/
-        MixerExists(mixerType, out Mixer? mixerToReturn);//?
+        MixerExists(mixerType, out Mixer mixerToReturn);//?
 
         return mixerToReturn;
     }
 
-    private bool MixerExists(SoundType mixerType, out Mixer? mixer)
+    private bool MixerExists(SoundType mixerType, out Mixer mixer)
     {
         for (int i = 0; i < library.mixers.Length; i++)
         {

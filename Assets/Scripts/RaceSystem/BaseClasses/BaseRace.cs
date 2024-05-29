@@ -28,8 +28,12 @@ public class BaseRace : MonoBehaviour
     public bool RaceStarted => m_RaceStarted;
     public bool RaceEnded => m_RaceFinished;
 
+    // EITHER ARE CALLED WHEN THE RACE IS OVER.
     public static event Action OnPlayerWonRace;
     public static event Action OnPlayerLostRace;
+
+    public static event Action OnRaceStarted;
+    public static event Action OnRaceInitialised;
 
     public float GetTimeElasped() => m_TimeElapsed;
 
@@ -55,8 +59,12 @@ public class BaseRace : MonoBehaviour
     private void OnGameResumed() => m_GamePaused = false;
     private void OnGamePaused() => m_GamePaused = true;
 
-    public virtual void InitialiseRace() => m_CountdownTimer = m_CountdownTime;
-    
+    public virtual void InitialiseRace()
+    {
+        m_CountdownTimer = m_CountdownTime;
+        OnRaceInitialised?.Invoke();
+    }
+
 
     protected virtual void Update()
     {
@@ -64,8 +72,16 @@ public class BaseRace : MonoBehaviour
         {
             m_CountdownTimer -= Time.deltaTime;
 
+            m_RaceStarted = m_CountdownTimer <= 0;
+
+            // Update Countdown UI
+            if (RaceCountdownUI.Instance)
+                RaceCountdownUI.Instance.SetCountdownNumber(Mathf.RoundToInt(m_CountdownTimer));
+
             if (m_CountdownTimer <= 0)
-                m_RaceStarted = true;
+            {
+                OnRaceStarted?.Invoke();
+            }
         }
     }
 

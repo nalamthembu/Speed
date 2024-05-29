@@ -24,9 +24,7 @@ public class Wheel : MonoBehaviour
     public WheelSlip WheelSlip { get { return slip; } }
     public WheelPosition Position { get { return wheelPosition; } }
     public Vector3 WorldPos { get; private set; }
-
     public float MaxSteeringAngle { get; private set; }
-
     public Quaternion WorldRot { get; private set; }
 
     bool m_GamePaused;
@@ -85,6 +83,28 @@ public class Wheel : MonoBehaviour
         fwdFric.stiffness = fwdStiffness;
 
         collider.sidewaysFriction = sidewaysFric;
+        collider.forwardFriction = fwdFric;
+    }
+
+    public void SetWheelSideWaysExtremumValue(float value)
+    {
+        if (value <= 0.0001F)
+            value = 0.0001F;
+        WheelFrictionCurve fwdFric = collider.sidewaysFriction;
+
+        fwdFric.extremumValue = value;
+
+        collider.forwardFriction = fwdFric;
+    }
+
+    public void SetWheelFwdExtremumValue(float value)
+    {
+        if (value <= 0.0001F)
+            value = 0.0001F;
+        WheelFrictionCurve fwdFric = collider.forwardFriction;
+
+        fwdFric.extremumValue = value;
+
         collider.forwardFriction = fwdFric;
     }
 

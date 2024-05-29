@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 
@@ -11,6 +12,8 @@ public class CheckpointRaceUI : BaseRaceUI
 {
     [SerializeField] TMP_Text m_CheckpointCountText;
     [SerializeField] TMP_Text m_RemainingTimeText;
+    [SerializeField] TMP_Text m_AdditionalTimeText;
+    [SerializeField] float m_AdditionalTextDuration = 3;
 
     public static CheckpointRaceUI Instance;
 
@@ -22,24 +25,20 @@ public class CheckpointRaceUI : BaseRaceUI
         {
             Instance = this;
         }
-    }
 
-    float m_AdditionalTime;
+        m_AdditionalTimeText.gameObject.SetActive(false);
+    }
 
     public void SetCheckpointCount(int collected, int total)
     {
         m_CheckpointCountText.text = $"{collected}/{total}";
-
-        // Check if theres any change
-        if (collected > 0)
-            StartCoroutine(CheckpointCollectFeedbackUI.Instance.GiveFeedbackToPlayer(m_AdditionalTime));
     }
 
     protected override void OnEnable()
     {
         base.OnEnable();
         CheckpointRace.OnCheckpointUpdate += SetCheckpointCount;
-        CheckpointObject.OnPlayerPastCheckpoint += SetAdditionalTime;
+        CheckpointObject.OnPlayerPastCheckpoint += OnCheckpointCollected;
     }
 
     protected override void OnGamePaused()
@@ -54,19 +53,38 @@ public class CheckpointRaceUI : BaseRaceUI
         Show(true);
     }
 
-    
+
 
     protected override void OnDisable()
     {
         base.OnDisable();
         CheckpointRace.OnCheckpointUpdate -= SetCheckpointCount;
-        CheckpointObject.OnPlayerPastCheckpoint -= SetAdditionalTime;
+        CheckpointObject.OnPlayerPastCheckpoint -= OnCheckpointCollected;
     }
-    private void SetAdditionalTime(float additionalTime) => m_AdditionalTime = additionalTime;
+
+    void OnCheckpointCollected(float addedTime) => StartCoroutine(CheckpointCollectedCoroutine(addedTime));
+
+    IEnumerator CheckpointCollectedCoroutine(float addedTime)
+    {
+        m_AdditionalTimeText.gameObject.SetActive(true);
+
+        m_AdditionalTimeText.text = $"+{addedTime.GetFloatStopWatchFormat()}";
+
+        yield return new WaitForSeconds(m_AdditionalTextDuration);
+
+        m_AdditionalTimeText.gameObject.SetActive(false);
+    }
 
     protected override void Update()
     {
         base.Update();
+
+        if (CheckpointRace.Instance.RaceEnded)
+        {
+            if (!IsHidden())
+                Hide(true);
+            return;
+        }
 
         if (m_GamePaused)
             return;
@@ -75,10 +93,17 @@ public class CheckpointRaceUI : BaseRaceUI
         {
             float remainingTime = CheckpointRace.Instance.GetRemainingTime();
 
-            if (remainingTime <= 10 && remainingTime > 5)
-                m_RemainingTimeText.color = Color.yellow;
-            else if (remainingTime <= 5)
-                m_RemainingTimeText.color = Color.red;
+            if (remainingTime < 10)
+            {
+                if (remainingTime < 5)
+                    m_RemainingTimeText.color = Color.red;
+                else
+                {
+                    m_RemainingTimeText.color = Color.yellow;
+                }
+            }
+            else
+                m_RemainingTimeText.color = Color.white;
 
             m_RemainingTimeText.text = remainingTime.GetFloatStopWatchFormat();
         }

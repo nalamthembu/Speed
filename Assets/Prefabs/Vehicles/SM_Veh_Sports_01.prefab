@@ -941,7 +941,7 @@ Rigidbody:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_ImplicitCom: 1
+  m_ImplicitCom: 0
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
@@ -974,6 +974,90 @@ MonoBehaviour:
     isSteering: 0
     steerRadius: 0
   seats: []
+  m_WheelSlipFwd:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 2
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.100524776
+      value: 5.399974
+      inSlope: 1.0777599
+      outSlope: 1.0777599
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.115527965
+    - serializedVersion: 3
+      time: 0.3022803
+      value: 5.127948
+      inSlope: -0.7658377
+      outSlope: -0.7658377
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 5
+      inSlope: -0.18337996
+      outSlope: -0.18337996
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  m_WheelSlipSide:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.11014193
+      value: 1.4783944
+      inSlope: -0.38526103
+      outSlope: -0.38526103
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.060894415
+    - serializedVersion: 3
+      time: 0.34002763
+      value: 1.071629
+      inSlope: -0.44369403
+      outSlope: -0.44369403
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.04921021
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: -0.108533405
+      outSlope: -0.108533405
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!114 &6366393755188677108
 MonoBehaviour:
   m_ObjectHideFlags: 0

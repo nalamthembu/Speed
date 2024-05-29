@@ -125,6 +125,7 @@ public class Player : MonoBehaviour
             {
                 RacingHUD.Instance.SetRev(m_Vehicle.Engine.RPM);
                 RacingHUD.Instance.SetSpeedometer(m_Vehicle.SpeedKMH);
+                RacingHUD.Instance.SetGearIndicator((m_Vehicle.Transmission.CurrentGear + 1).ToString());
             }
         }
     }

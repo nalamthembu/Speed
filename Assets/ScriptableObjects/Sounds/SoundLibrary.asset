@@ -62,6 +62,10 @@ MonoBehaviour:
     sounds:
     - {fileID: 8300000, guid: 543236f242f9431428466e9591d325cc, type: 3}
     soundType: 2
+  - name: FRNT_PROMPT
+    sounds:
+    - {fileID: 8300000, guid: 9c339dcadb3d2f84297857669266898b, type: 3}
+    soundType: 2
   - name: VehicleFX_TurboWastegate
     sounds:
     - {fileID: 8300000, guid: 8dd7e7f0205dc6147b1b8e9bcb73b7e9, type: 3}

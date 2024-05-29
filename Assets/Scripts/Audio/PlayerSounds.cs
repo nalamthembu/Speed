@@ -48,7 +48,7 @@ public class PlayerSounds : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (Player.Instance == null || Player.Instance.Vehicle == null)
+        if (Player.Instance == null || Player.Instance.Vehicle == null || Random.Range(0,100) <= 30)
             return;
 
         if (other.bounds.extents.sqrMagnitude <= minObjectSize * minObjectSize)
@@ -58,11 +58,11 @@ public class PlayerSounds : MonoBehaviour
         {
             if (other.bounds.extents.sqrMagnitude < maxObjectSizeBeforeBigWhoosh * maxObjectSizeBeforeBigWhoosh)
             {
-                SoundManager.Instance.PlaySound(soundIDs.regularWhoosh, other.transform.position, false, new RandomPitch(1, 1.5f));
+                SoundManager.Instance.PlaySound(soundIDs.regularWhoosh, other.transform.position, false, new RandomPitch(1, 1.5f), 5);
             }
             else
             {
-                SoundManager.Instance.PlaySound(soundIDs.bigWhoosh, other.transform.position, false, new RandomPitch(1, 1.5f));
+                SoundManager.Instance.PlaySound(soundIDs.bigWhoosh, other.transform.position, false, new RandomPitch(1, 1.5f), 5);
             }
         }
     }

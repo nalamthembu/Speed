@@ -168,6 +168,8 @@ public class VehicleTransmission : Drivetrain
             {
                 currentGear++;
 
+                source.volume = 0.5F;
+
                 SoundManager.Instance.PlaySound("VehicleFX_Shifting", source);
 
                 gearChangeTimer = 0;
@@ -194,6 +196,8 @@ public class VehicleTransmission : Drivetrain
 
             if (gearChangeTimer >= powerData.timeToChangeGears)
             {
+                source.volume = 0.5F;
+
                 SoundManager.Instance.PlaySound("VehicleFX_Shifting", source);
 
                 currentGear--;

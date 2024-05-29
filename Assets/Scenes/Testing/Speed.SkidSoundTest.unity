@@ -273,12 +273,13 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 3aa0fff50c0f84643b6cd22d81c0efd9, type: 3}
   - {fileID: 8300000, guid: 7817dc4ae97be7e4dbc12ce004cb8157, type: 3}
   - {fileID: 8300000, guid: 48b1b83848fa4cd42b548122c54cd613, type: 3}
+  m_Load: 0
   m_VolumeAmplitude: 0.25
   m_VolumeFrequency: 65
-  m_SmoothTimeVolumeOsc: 0.05
+  m_SmoothTimeVolumeOsc: 0.01
   m_PitchAmplitude: 0.15
-  m_PitchFrequency: 10
-  m_SmoothTimePitchOsc: 0.05
+  m_PitchFrequency: 1
+  m_SmoothTimePitchOsc: 0.1
   m_MinVolume: 0.5
   m_MaxVolume: 1
   m_MaxPitch: 1.5

@@ -39,5 +39,11 @@ namespace ThirdPersonFramework
         protected virtual void Initialise() { }
         protected virtual void OnDrawGizmosSelected() { }
         protected virtual void OnDrawGizmos() { }
+        protected virtual void OnCollisionEnter(Collision collision) { }
+        protected virtual void OnCollisionExit(Collision collision) { }
+        protected virtual void OnCollisionStay(Collision collision) { }
+        protected virtual void OnTriggerEnter(Collider other) { }
+        protected virtual void OnTriggerExit(Collider other) { }
+        protected virtual void OnTriggerStay(Collider other) { }
     }
 }

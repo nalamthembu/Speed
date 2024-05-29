@@ -48,9 +48,6 @@ public class Vehicle : Entity
     public List<Wheel> AllWheels { get { return allWheels; } }
     public List<Wheel> SteeringWheels { get { return steeringWheels; } }
     public bool ABSActive { get; private set; }
-
-    public bool IsAIRacer { get; private set; }
-
     public float SpeedKMH { get { return rigidBody.velocity.magnitude * 3.5F; } }
     public VehicleEngine Engine { get { return engine; } }
     public VehicleTransmission Transmission { get { return transmission; } }
@@ -189,12 +186,13 @@ public class Vehicle : Entity
     private void ControlVariableDrag()
     {
         rigidBody.drag = (Mathf.Floor(input.Throttle) == 0 || transmission.IsChangingGear) ?
-            Mathf.Lerp(rigidBody.drag, 0.2F, Time.deltaTime) :
+            Mathf.Lerp(rigidBody.drag, 0.25F, Time.deltaTime) :
             Mathf.Lerp(rigidBody.drag, 0.005F, Time.deltaTime);
     }
 
     private void ControlVariableWheelStiffness()
     {
+        /*
         float speedT = SpeedKMH / 170.0F;
 
         float sF_Powered, fF_Powered;
@@ -204,14 +202,9 @@ public class Vehicle : Entity
             sF_Powered = Mathf.Lerp(0.05F, 3.0F, speedT);
             fF_Powered = Mathf.Lerp(0.1f, 3.0F, speedT);
 
-            if (IsAIRacer)
-            {
-                sF_Powered = Mathf.Lerp(0.05f, 3.0f, speedT + 0.25F);
-                fF_Powered = Mathf.Lerp(0.1f, 3.0f, speedT + 0.25F);
-            }
-
             poweredWheels[i].SetWheelStiffness(sF_Powered, fF_Powered);
         }
+        */
     }
 
     public float GetPoweredWheelSlip()

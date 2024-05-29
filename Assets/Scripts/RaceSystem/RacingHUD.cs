@@ -69,6 +69,9 @@ public class RacingHUD : BaseUI
         Player.OnPlayerInitialised -= OnPlayerInitialised;
         CameraController.OnIdleCamera -= OnIdleCamera;
         CameraController.OnOutIdleCamera -= OnOutOfIdleCamera;
+        EndRaceResultUI.OnResultScreenShown -= OnEndOfRaceResultsShown;
+        EndRaceResultUI.OnResultScreenCleared -= OnEndOfRaceResultsCleared;
+
     }
 
     protected override void OnEnable()
@@ -79,11 +82,14 @@ public class RacingHUD : BaseUI
         PauseMenu.OnPauseMenuClosed += OnGameResumed;
         CameraController.OnIdleCamera += OnIdleCamera;
         CameraController.OnOutIdleCamera += OnOutOfIdleCamera;
+        EndRaceResultUI.OnResultScreenShown += OnEndOfRaceResultsShown;
+        EndRaceResultUI.OnResultScreenCleared += OnEndOfRaceResultsCleared;
     }
 
+    private void OnEndOfRaceResultsCleared() => Show();
+    private void OnEndOfRaceResultsShown() => Hide();
     private void OnOutOfIdleCamera() => Show();
     private void OnIdleCamera() => Hide();
-
     private void OnPlayerInitialised() => InitialiseRacingHUD();
     
     //Called when this game is paused.

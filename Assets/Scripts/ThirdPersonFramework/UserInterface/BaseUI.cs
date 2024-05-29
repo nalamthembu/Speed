@@ -66,6 +66,14 @@ namespace ThirdPersonFramework.UserInterface
         protected virtual void OnGamePaused() { }
         protected virtual void OnGameResumed() { }
 
+
+        protected IEnumerator HideAfterDelay(float delay)
+        {
+            yield return new WaitForSeconds(delay);
+
+            Hide();
+        }
+
         protected virtual IEnumerator FadeAlpha(CanvasGroup canvasGroup, bool fadeIn)
         {
             float incrementValue = Time.deltaTime * 3f;

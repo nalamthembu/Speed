@@ -63,4 +63,19 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: c45dd4b6a56911846ac2f754cc91c454, type: 3}
     startTimeDuringRace: 0
     type: 1
+  - title: LAX
+    artist: Xzibit
+    clip: {fileID: 8300000, guid: 4095ae1380aacd240b8b3309907fffad, type: 3}
+    startTimeDuringRace: 0
+    type: 0
+  - title: Rollin' in In The Rearview (ft. Jabu)
+    artist: 'Headbone '
+    clip: {fileID: 8300000, guid: bbf94458252a81b4c99a487d7d36b712, type: 3}
+    startTimeDuringRace: 1
+    type: 1
+  - title: PWR (ft. Bleu Clair)
+    artist: Matroda
+    clip: {fileID: 8300000, guid: 11c06e9d84dda3a4da1f4b78254f46d1, type: 3}
+    startTimeDuringRace: 31
+    type: 1
   musicMixerGroup: {fileID: -3861914693824272410, guid: b1428a4646c72b54fa3a04d915d11afa, type: 2}

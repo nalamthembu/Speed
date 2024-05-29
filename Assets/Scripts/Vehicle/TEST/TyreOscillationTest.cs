@@ -3,11 +3,12 @@ using UnityEngine;
 public class TyreOscillationTest : MonoBehaviour
 {
     [Header("Test Params")]
-    [SerializeField] [Range(0, 10)] float m_CurrentSkid;
+    [SerializeField][Range(0, 10)] float m_CurrentSkid;
     [SerializeField] float m_SkidThreshold;
-    [SerializeField] [Min(0.1F)] float m_MaxSkidThreshold = 2;
-    [SerializeField] [Min(0.1F)] float m_OscillationThreshold = 3;
+    [SerializeField][Min(0.1F)] float m_MaxSkidThreshold = 2;
+    [SerializeField][Min(0.1F)] float m_OscillationThreshold = 3;
     [SerializeField] AudioClip[] m_SkidSounds;
+    [SerializeField] float m_Load; //Slow Car means Higher Load.
 
     [Header("Sin Wave - Volume")]
     [SerializeField] float m_VolumeAmplitude;
@@ -34,7 +35,7 @@ public class TyreOscillationTest : MonoBehaviour
         m_Source.loop = true;
         m_Source.playOnAwake = false;
         if (SoundManager.Instance != null)
-            m_Source.outputAudioMixerGroup = SoundManager.Instance.GetMixer(SoundType.SFX).Value.group;
+            m_Source.outputAudioMixerGroup = SoundManager.Instance.GetMixer(SoundType.SFX).group;
         else
             Debug.LogError("There is no sound manager in the scene!");
         m_Source.volume = 1.0f;
@@ -62,12 +63,12 @@ public class TyreOscillationTest : MonoBehaviour
                     m_Source.pitch = Mathf.SmoothDamp(m_Source.pitch, targetPitch, ref m_SinPitchVelocity, 1);
                     m_Source.volume = Mathf.SmoothDamp(m_Source.volume, targetVolume, ref m_SinVolumeVelocity, 0.25F);
                 }
-                else
+                else if (m_CurrentSkid >= m_OscillationThreshold && m_Load >= 0.65F)
                 {
                     float targetOscPitch = 1 + Mathf.Sin(Time.time * m_PitchFrequency) * m_PitchAmplitude;
                     float targetOscVol = m_MinVolume + Mathf.Sin(Time.time * m_VolumeFrequency) * m_VolumeAmplitude;
                     m_Source.pitch = Mathf.SmoothDamp(m_Source.pitch, targetOscPitch, ref m_SinPitchVelocity, m_SmoothTimePitchOsc);
-                    m_Source.volume = Mathf.SmoothDamp(m_Source.volume, targetOscVol, ref m_SinVolumeVelocity, m_SmoothTimeVolumeOsc);
+                    m_Source.volume = Mathf.SmoothDamp(m_Source.volume, targetOscVol * m_Load, ref m_SinVolumeVelocity, m_SmoothTimeVolumeOsc);
                 }
             }
         }
